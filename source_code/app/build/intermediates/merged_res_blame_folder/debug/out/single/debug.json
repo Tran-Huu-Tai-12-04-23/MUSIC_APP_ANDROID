@@ -1,0 +1,138 @@
+[
+    {
+        "merged": "com.example.musicplayer.app-merged_res-28:/layout_activity_upload_song.xml.flat",
+        "source": "com.example.musicplayer.app-main-30:/layout/activity_upload_song.xml"
+    },
+    {
+        "merged": "C:\\Users\\huuta\\.gradle\\daemon\\8.0\\com.example.musicplayer.app-merged_res-28:\\mipmap-mdpi_ic_launcher.webp.flat",
+        "source": "C:\\Users\\huuta\\.gradle\\daemon\\8.0\\com.example.musicplayer.app-main-30:\\mipmap-mdpi\\ic_launcher.webp"
+    },
+    {
+        "merged": "C:\\Users\\huuta\\.gradle\\daemon\\8.0\\com.example.musicplayer.app-merged_res-28:\\layout_activity_player_music.xml.flat",
+        "source": "C:\\Users\\huuta\\.gradle\\daemon\\8.0\\com.example.musicplayer.app-main-30:\\layout\\activity_player_music.xml"
+    },
+    {
+        "merged": "C:\\Users\\huuta\\.gradle\\daemon\\8.0\\com.example.musicplayer.app-merged_res-28:\\drawable-v24_ic_launcher_foreground.xml.flat",
+        "source": "C:\\Users\\huuta\\.gradle\\daemon\\8.0\\com.example.musicplayer.app-main-30:\\drawable-v24\\ic_launcher_foreground.xml"
+    },
+    {
+        "merged": "C:\\Users\\huuta\\.gradle\\daemon\\8.0\\com.example.musicplayer.app-merged_res-28:\\drawable_ic_launcher_background.xml.flat",
+        "source": "C:\\Users\\huuta\\.gradle\\daemon\\8.0\\com.example.musicplayer.app-main-30:\\drawable\\ic_launcher_background.xml"
+    },
+    {
+        "merged": "C:\\Users\\huuta\\.gradle\\daemon\\8.0\\com.example.musicplayer.app-merged_res-28:\\layout_activity_search.xml.flat",
+        "source": "C:\\Users\\huuta\\.gradle\\daemon\\8.0\\com.example.musicplayer.app-main-30:\\layout\\activity_search.xml"
+    },
+    {
+        "merged": "com.example.musicplayer.app-merged_res-28:/layout_activity_setting.xml.flat",
+        "source": "com.example.musicplayer.app-main-30:/layout/activity_setting.xml"
+    },
+    {
+        "merged": "C:\\Users\\huuta\\.gradle\\daemon\\8.0\\com.example.musicplayer.app-merged_res-28:\\mipmap-hdpi_ic_launcher_round.webp.flat",
+        "source": "C:\\Users\\huuta\\.gradle\\daemon\\8.0\\com.example.musicplayer.app-main-30:\\mipmap-hdpi\\ic_launcher_round.webp"
+    },
+    {
+        "merged": "C:\\Users\\huuta\\.gradle\\daemon\\8.0\\com.example.musicplayer.app-merged_res-28:\\mipmap-mdpi_ic_launcher_round.webp.flat",
+        "source": "C:\\Users\\huuta\\.gradle\\daemon\\8.0\\com.example.musicplayer.app-main-30:\\mipmap-mdpi\\ic_launcher_round.webp"
+    },
+    {
+        "merged": "C:\\Users\\huuta\\.gradle\\daemon\\8.0\\com.example.musicplayer.app-merged_res-28:\\layout_activity_home.xml.flat",
+        "source": "C:\\Users\\huuta\\.gradle\\daemon\\8.0\\com.example.musicplayer.app-main-30:\\layout\\activity_home.xml"
+    },
+    {
+        "merged": "C:\\Users\\huuta\\.gradle\\daemon\\8.0\\com.example.musicplayer.app-merged_res-28:\\xml_backup_rules.xml.flat",
+        "source": "C:\\Users\\huuta\\.gradle\\daemon\\8.0\\com.example.musicplayer.app-main-30:\\xml\\backup_rules.xml"
+    },
+    {
+        "merged": "com.example.musicplayer.app-merged_res-28:/layout_activity_profile_user.xml.flat",
+        "source": "com.example.musicplayer.app-main-30:/layout/activity_profile_user.xml"
+    },
+    {
+        "merged": "com.example.musicplayer.app-merged_res-28:/layout_activity_intro.xml.flat",
+        "source": "com.example.musicplayer.app-main-30:/layout/activity_intro.xml"
+    },
+    {
+        "merged": "C:\\Users\\huuta\\.gradle\\daemon\\8.0\\com.example.musicplayer.app-merged_res-28:\\layout_activity_upload_song.xml.flat",
+        "source": "C:\\Users\\huuta\\.gradle\\daemon\\8.0\\com.example.musicplayer.app-main-30:\\layout\\activity_upload_song.xml"
+    },
+    {
+        "merged": "com.example.musicplayer.app-merged_res-28:/layout_activity_search.xml.flat",
+        "source": "com.example.musicplayer.app-main-30:/layout/activity_search.xml"
+    },
+    {
+        "merged": "C:\\Users\\huuta\\.gradle\\daemon\\8.0\\com.example.musicplayer.app-merged_res-28:\\layout_activity_profile_user.xml.flat",
+        "source": "C:\\Users\\huuta\\.gradle\\daemon\\8.0\\com.example.musicplayer.app-main-30:\\layout\\activity_profile_user.xml"
+    },
+    {
+        "merged": "C:\\Users\\huuta\\.gradle\\daemon\\8.0\\com.example.musicplayer.app-merged_res-28:\\layout_activity_intro.xml.flat",
+        "source": "C:\\Users\\huuta\\.gradle\\daemon\\8.0\\com.example.musicplayer.app-main-30:\\layout\\activity_intro.xml"
+    },
+    {
+        "merged": "C:\\Users\\huuta\\.gradle\\daemon\\8.0\\com.example.musicplayer.app-merged_res-28:\\mipmap-xxhdpi_ic_launcher.webp.flat",
+        "source": "C:\\Users\\huuta\\.gradle\\daemon\\8.0\\com.example.musicplayer.app-main-30:\\mipmap-xxhdpi\\ic_launcher.webp"
+    },
+    {
+        "merged": "C:\\Users\\huuta\\.gradle\\daemon\\8.0\\com.example.musicplayer.app-merged_res-28:\\layout_activity_setting.xml.flat",
+        "source": "C:\\Users\\huuta\\.gradle\\daemon\\8.0\\com.example.musicplayer.app-main-30:\\layout\\activity_setting.xml"
+    },
+    {
+        "merged": "C:\\Users\\huuta\\.gradle\\daemon\\8.0\\com.example.musicplayer.app-merged_res-28:\\mipmap-xxhdpi_ic_launcher_round.webp.flat",
+        "source": "C:\\Users\\huuta\\.gradle\\daemon\\8.0\\com.example.musicplayer.app-main-30:\\mipmap-xxhdpi\\ic_launcher_round.webp"
+    },
+    {
+        "merged": "C:\\Users\\huuta\\.gradle\\daemon\\8.0\\com.example.musicplayer.app-merged_res-28:\\mipmap-hdpi_ic_launcher.webp.flat",
+        "source": "C:\\Users\\huuta\\.gradle\\daemon\\8.0\\com.example.musicplayer.app-main-30:\\mipmap-hdpi\\ic_launcher.webp"
+    },
+    {
+        "merged": "com.example.musicplayer.app-merged_res-28:/layout_activity_history.xml.flat",
+        "source": "com.example.musicplayer.app-main-30:/layout/activity_history.xml"
+    },
+    {
+        "merged": "com.example.musicplayer.app-merged_res-28:/layout_activity_player_music.xml.flat",
+        "source": "com.example.musicplayer.app-main-30:/layout/activity_player_music.xml"
+    },
+    {
+        "merged": "C:\\Users\\huuta\\.gradle\\daemon\\8.0\\com.example.musicplayer.app-merged_res-28:\\layout_activity_library.xml.flat",
+        "source": "C:\\Users\\huuta\\.gradle\\daemon\\8.0\\com.example.musicplayer.app-main-30:\\layout\\activity_library.xml"
+    },
+    {
+        "merged": "C:\\Users\\huuta\\.gradle\\daemon\\8.0\\com.example.musicplayer.app-merged_res-28:\\mipmap-xxxhdpi_ic_launcher_round.webp.flat",
+        "source": "C:\\Users\\huuta\\.gradle\\daemon\\8.0\\com.example.musicplayer.app-main-30:\\mipmap-xxxhdpi\\ic_launcher_round.webp"
+    },
+    {
+        "merged": "C:\\Users\\huuta\\.gradle\\daemon\\8.0\\com.example.musicplayer.app-merged_res-28:\\mipmap-xxxhdpi_ic_launcher.webp.flat",
+        "source": "C:\\Users\\huuta\\.gradle\\daemon\\8.0\\com.example.musicplayer.app-main-30:\\mipmap-xxxhdpi\\ic_launcher.webp"
+    },
+    {
+        "merged": "C:\\Users\\huuta\\.gradle\\daemon\\8.0\\com.example.musicplayer.app-merged_res-28:\\mipmap-anydpi-v26_ic_launcher_round.xml.flat",
+        "source": "C:\\Users\\huuta\\.gradle\\daemon\\8.0\\com.example.musicplayer.app-main-30:\\mipmap-anydpi-v26\\ic_launcher_round.xml"
+    },
+    {
+        "merged": "C:\\Users\\huuta\\.gradle\\daemon\\8.0\\com.example.musicplayer.app-merged_res-28:\\mipmap-anydpi-v26_ic_launcher.xml.flat",
+        "source": "C:\\Users\\huuta\\.gradle\\daemon\\8.0\\com.example.musicplayer.app-main-30:\\mipmap-anydpi-v26\\ic_launcher.xml"
+    },
+    {
+        "merged": "com.example.musicplayer.app-merged_res-28:/layout_activity_library.xml.flat",
+        "source": "com.example.musicplayer.app-main-30:/layout/activity_library.xml"
+    },
+    {
+        "merged": "C:\\Users\\huuta\\.gradle\\daemon\\8.0\\com.example.musicplayer.app-merged_res-28:\\layout_activity_history.xml.flat",
+        "source": "C:\\Users\\huuta\\.gradle\\daemon\\8.0\\com.example.musicplayer.app-main-30:\\layout\\activity_history.xml"
+    },
+    {
+        "merged": "C:\\Users\\huuta\\.gradle\\daemon\\8.0\\com.example.musicplayer.app-merged_res-28:\\mipmap-xhdpi_ic_launcher.webp.flat",
+        "source": "C:\\Users\\huuta\\.gradle\\daemon\\8.0\\com.example.musicplayer.app-main-30:\\mipmap-xhdpi\\ic_launcher.webp"
+    },
+    {
+        "merged": "com.example.musicplayer.app-merged_res-28:/layout_activity_home.xml.flat",
+        "source": "com.example.musicplayer.app-main-30:/layout/activity_home.xml"
+    },
+    {
+        "merged": "C:\\Users\\huuta\\.gradle\\daemon\\8.0\\com.example.musicplayer.app-merged_res-28:\\mipmap-xhdpi_ic_launcher_round.webp.flat",
+        "source": "C:\\Users\\huuta\\.gradle\\daemon\\8.0\\com.example.musicplayer.app-main-30:\\mipmap-xhdpi\\ic_launcher_round.webp"
+    },
+    {
+        "merged": "C:\\Users\\huuta\\.gradle\\daemon\\8.0\\com.example.musicplayer.app-merged_res-28:\\xml_data_extraction_rules.xml.flat",
+        "source": "C:\\Users\\huuta\\.gradle\\daemon\\8.0\\com.example.musicplayer.app-main-30:\\xml\\data_extraction_rules.xml"
+    }
+]

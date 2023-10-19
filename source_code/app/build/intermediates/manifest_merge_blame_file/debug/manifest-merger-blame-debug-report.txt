@@ -1,0 +1,136 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="com.example.musicplayer"
+4    android:versionCode="1"
+5    android:versionName="1.0" >
+6
+7    <uses-sdk
+8        android:minSdkVersion="26"
+8-->D:\work\androi-app\final\app\src\main\AndroidManifest.xml
+9        android:targetSdkVersion="33" />
+9-->D:\work\androi-app\final\app\src\main\AndroidManifest.xml
+10
+11    <permission
+11-->[androidx.core:core:1.9.0] C:\Users\huuta\.gradle\caches\transforms-3\55dedc70b95a473650eda30d4efd0f99\transformed\core-1.9.0\AndroidManifest.xml:22:5-24:47
+12        android:name="com.example.musicplayer.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
+12-->[androidx.core:core:1.9.0] C:\Users\huuta\.gradle\caches\transforms-3\55dedc70b95a473650eda30d4efd0f99\transformed\core-1.9.0\AndroidManifest.xml:23:9-81
+13        android:protectionLevel="signature" />
+13-->[androidx.core:core:1.9.0] C:\Users\huuta\.gradle\caches\transforms-3\55dedc70b95a473650eda30d4efd0f99\transformed\core-1.9.0\AndroidManifest.xml:24:9-44
+14
+15    <uses-permission android:name="com.example.musicplayer.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION" />
+15-->[androidx.core:core:1.9.0] C:\Users\huuta\.gradle\caches\transforms-3\55dedc70b95a473650eda30d4efd0f99\transformed\core-1.9.0\AndroidManifest.xml:26:5-97
+15-->[androidx.core:core:1.9.0] C:\Users\huuta\.gradle\caches\transforms-3\55dedc70b95a473650eda30d4efd0f99\transformed\core-1.9.0\AndroidManifest.xml:26:22-94
+16
+17    <application
+17-->D:\work\androi-app\final\app\src\main\AndroidManifest.xml:5:5-47:19
+18        android:allowBackup="true"
+18-->D:\work\androi-app\final\app\src\main\AndroidManifest.xml:6:9-35
+19        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+19-->[androidx.core:core:1.9.0] C:\Users\huuta\.gradle\caches\transforms-3\55dedc70b95a473650eda30d4efd0f99\transformed\core-1.9.0\AndroidManifest.xml:28:18-86
+20        android:dataExtractionRules="@xml/data_extraction_rules"
+20-->D:\work\androi-app\final\app\src\main\AndroidManifest.xml:7:9-65
+21        android:debuggable="true"
+22        android:extractNativeLibs="false"
+23        android:fullBackupContent="@xml/backup_rules"
+23-->D:\work\androi-app\final\app\src\main\AndroidManifest.xml:8:9-54
+24        android:icon="@mipmap/ic_launcher"
+24-->D:\work\androi-app\final\app\src\main\AndroidManifest.xml:9:9-43
+25        android:label="@string/app_name"
+25-->D:\work\androi-app\final\app\src\main\AndroidManifest.xml:10:9-41
+26        android:roundIcon="@mipmap/ic_launcher_round"
+26-->D:\work\androi-app\final\app\src\main\AndroidManifest.xml:11:9-54
+27        android:supportsRtl="true"
+27-->D:\work\androi-app\final\app\src\main\AndroidManifest.xml:12:9-35
+28        android:testOnly="true"
+29        android:theme="@style/Theme.MusicPlayer" >
+29-->D:\work\androi-app\final\app\src\main\AndroidManifest.xml:13:9-49
+30        <activity
+30-->D:\work\androi-app\final\app\src\main\AndroidManifest.xml:15:9-17:40
+31            android:name="com.example.musicplayer.activity.UploadSongActivity"
+31-->D:\work\androi-app\final\app\src\main\AndroidManifest.xml:16:13-56
+32            android:exported="false" />
+32-->D:\work\androi-app\final\app\src\main\AndroidManifest.xml:17:13-37
+33        <activity
+33-->D:\work\androi-app\final\app\src\main\AndroidManifest.xml:18:9-20:40
+34            android:name="com.example.musicplayer.activity.HistoryActivity"
+34-->D:\work\androi-app\final\app\src\main\AndroidManifest.xml:19:13-53
+35            android:exported="false" />
+35-->D:\work\androi-app\final\app\src\main\AndroidManifest.xml:20:13-37
+36        <activity
+36-->D:\work\androi-app\final\app\src\main\AndroidManifest.xml:21:9-23:40
+37            android:name="com.example.musicplayer.activity.SettingActivity"
+37-->D:\work\androi-app\final\app\src\main\AndroidManifest.xml:22:13-53
+38            android:exported="false" />
+38-->D:\work\androi-app\final\app\src\main\AndroidManifest.xml:23:13-37
+39        <activity
+39-->D:\work\androi-app\final\app\src\main\AndroidManifest.xml:24:9-26:40
+40            android:name="com.example.musicplayer.activity.PlayerMusicActivity"
+40-->D:\work\androi-app\final\app\src\main\AndroidManifest.xml:25:13-57
+41            android:exported="false" />
+41-->D:\work\androi-app\final\app\src\main\AndroidManifest.xml:26:13-37
+42        <activity
+42-->D:\work\androi-app\final\app\src\main\AndroidManifest.xml:27:9-29:40
+43            android:name="com.example.musicplayer.activity.ProfileUserActivity"
+43-->D:\work\androi-app\final\app\src\main\AndroidManifest.xml:28:13-57
+44            android:exported="false" />
+44-->D:\work\androi-app\final\app\src\main\AndroidManifest.xml:29:13-37
+45        <activity
+45-->D:\work\androi-app\final\app\src\main\AndroidManifest.xml:30:9-32:40
+46            android:name="com.example.musicplayer.activity.LibraryActivity"
+46-->D:\work\androi-app\final\app\src\main\AndroidManifest.xml:31:13-53
+47            android:exported="false" />
+47-->D:\work\androi-app\final\app\src\main\AndroidManifest.xml:32:13-37
+48        <activity
+48-->D:\work\androi-app\final\app\src\main\AndroidManifest.xml:33:9-35:40
+49            android:name="com.example.musicplayer.activity.SearchActivity"
+49-->D:\work\androi-app\final\app\src\main\AndroidManifest.xml:34:13-52
+50            android:exported="false" />
+50-->D:\work\androi-app\final\app\src\main\AndroidManifest.xml:35:13-37
+51        <activity
+51-->D:\work\androi-app\final\app\src\main\AndroidManifest.xml:36:9-38:40
+52            android:name="com.example.musicplayer.activity.HomeActivity"
+52-->D:\work\androi-app\final\app\src\main\AndroidManifest.xml:37:13-50
+53            android:exported="false" />
+53-->D:\work\androi-app\final\app\src\main\AndroidManifest.xml:38:13-37
+54        <activity
+54-->D:\work\androi-app\final\app\src\main\AndroidManifest.xml:39:9-46:20
+55            android:name="com.example.musicplayer.activity.IntroActivity"
+55-->D:\work\androi-app\final\app\src\main\AndroidManifest.xml:40:13-51
+56            android:exported="true" >
+56-->D:\work\androi-app\final\app\src\main\AndroidManifest.xml:41:13-36
+57            <intent-filter>
+57-->D:\work\androi-app\final\app\src\main\AndroidManifest.xml:42:13-45:29
+58                <action android:name="android.intent.action.MAIN" />
+58-->D:\work\androi-app\final\app\src\main\AndroidManifest.xml:43:17-69
+58-->D:\work\androi-app\final\app\src\main\AndroidManifest.xml:43:25-66
+59
+60                <category android:name="android.intent.category.LAUNCHER" />
+60-->D:\work\androi-app\final\app\src\main\AndroidManifest.xml:44:17-77
+60-->D:\work\androi-app\final\app\src\main\AndroidManifest.xml:44:27-74
+61            </intent-filter>
+62        </activity>
+63
+64        <provider
+64-->[androidx.emoji2:emoji2:1.2.0] C:\Users\huuta\.gradle\caches\transforms-3\58734ab3db9d01442ffac75a0ea2bc68\transformed\emoji2-1.2.0\AndroidManifest.xml:24:9-32:20
+65            android:name="androidx.startup.InitializationProvider"
+65-->[androidx.emoji2:emoji2:1.2.0] C:\Users\huuta\.gradle\caches\transforms-3\58734ab3db9d01442ffac75a0ea2bc68\transformed\emoji2-1.2.0\AndroidManifest.xml:25:13-67
+66            android:authorities="com.example.musicplayer.androidx-startup"
+66-->[androidx.emoji2:emoji2:1.2.0] C:\Users\huuta\.gradle\caches\transforms-3\58734ab3db9d01442ffac75a0ea2bc68\transformed\emoji2-1.2.0\AndroidManifest.xml:26:13-68
+67            android:exported="false" >
+67-->[androidx.emoji2:emoji2:1.2.0] C:\Users\huuta\.gradle\caches\transforms-3\58734ab3db9d01442ffac75a0ea2bc68\transformed\emoji2-1.2.0\AndroidManifest.xml:27:13-37
+68            <meta-data
+68-->[androidx.emoji2:emoji2:1.2.0] C:\Users\huuta\.gradle\caches\transforms-3\58734ab3db9d01442ffac75a0ea2bc68\transformed\emoji2-1.2.0\AndroidManifest.xml:29:13-31:52
+69                android:name="androidx.emoji2.text.EmojiCompatInitializer"
+69-->[androidx.emoji2:emoji2:1.2.0] C:\Users\huuta\.gradle\caches\transforms-3\58734ab3db9d01442ffac75a0ea2bc68\transformed\emoji2-1.2.0\AndroidManifest.xml:30:17-75
+70                android:value="androidx.startup" />
+70-->[androidx.emoji2:emoji2:1.2.0] C:\Users\huuta\.gradle\caches\transforms-3\58734ab3db9d01442ffac75a0ea2bc68\transformed\emoji2-1.2.0\AndroidManifest.xml:31:17-49
+71            <meta-data
+71-->[androidx.lifecycle:lifecycle-process:2.4.1] C:\Users\huuta\.gradle\caches\transforms-3\75d35fda4271de3dc184847093d1a2b0\transformed\lifecycle-process-2.4.1\AndroidManifest.xml:31:13-33:52
+72                android:name="androidx.lifecycle.ProcessLifecycleInitializer"
+72-->[androidx.lifecycle:lifecycle-process:2.4.1] C:\Users\huuta\.gradle\caches\transforms-3\75d35fda4271de3dc184847093d1a2b0\transformed\lifecycle-process-2.4.1\AndroidManifest.xml:32:17-78
+73                android:value="androidx.startup" />
+73-->[androidx.lifecycle:lifecycle-process:2.4.1] C:\Users\huuta\.gradle\caches\transforms-3\75d35fda4271de3dc184847093d1a2b0\transformed\lifecycle-process-2.4.1\AndroidManifest.xml:33:17-49
+74        </provider>
+75    </application>
+76
+77</manifest>
