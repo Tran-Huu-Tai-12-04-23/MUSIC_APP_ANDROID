@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -11,36 +13,24 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MusicPlayer"
-        tools:targetApi="31">
-        <activity
-            android:name=".activity.UploadSongActivity"
-            android:exported="false" />
-        <activity
-            android:name=".activity.HistoryActivity"
-            android:exported="false" />
-        <activity
-            android:name=".activity.SettingActivity"
-            android:exported="false" />
-        <activity
-            android:name=".activity.PlayerMusicActivity"
-            android:exported="false" />
-        <activity
-            android:name=".activity.ProfileUserActivity"
-            android:exported="false" />
-        <activity
-            android:name=".activity.LibraryActivity"
-            android:exported="false" />
-        <activity
-            android:name=".activity.SearchActivity"
-            android:exported="false" />
+        tools:targetApi="31"
+        android:networkSecurityConfig="@xml/network_security_config"
+        >
         <activity
             android:name=".activity.HomeActivity"
             android:exported="false" />
         <activity
+            android:name=".activity.forGotPassword.ChangePassword"
+            android:exported="false" />
+        <activity
+            android:name=".activity.forGotPassword.ForgotPasswordActivity"
+            android:exported="false" />
+        <activity
             android:name=".activity.IntroActivity"
-            android:exported="true" >
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

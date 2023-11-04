@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">MusicPlayer</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="navigation_active">active navigation</string>
+    <string name="navigation_de_active">de active navigation</string>
 </resources>
