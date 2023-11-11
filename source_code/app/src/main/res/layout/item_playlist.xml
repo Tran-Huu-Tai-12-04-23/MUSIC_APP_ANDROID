@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto">
@@ -9,7 +10,7 @@
         android:layout_height="wrap_content"
         android:outlineSpotShadowColor="@color/bg_primary"
         android:layout_marginEnd="30dp"
-        app:cardBackgroundColor="@color/bg_success"
+        app:cardBackgroundColor="@color/bg_third"
         app:cardCornerRadius="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -21,7 +22,7 @@
         android:translationX="10dp"
         app:shapeAppearance="@style/ShapeAppearance.Material3.Corner.Medium"
         android:clickable="true"
-        >
+        tools:ignore="UnusedAttribute">
 
         <LinearLayout
             android:layout_width="match_parent"

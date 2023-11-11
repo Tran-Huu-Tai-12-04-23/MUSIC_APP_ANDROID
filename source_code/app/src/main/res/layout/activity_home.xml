@@ -36,7 +36,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/container_home"
-        >
+        tools:ignore="RedundantNamespace">
 
         <LinearLayout
             android:id="@+id/linearLayout"
@@ -47,22 +47,28 @@
             >
 
 
+            <androidx.fragment.app.FragmentContainerView
+                android:id="@+id/content_home"
+                android:name="fragment.mainApp.MainToolbar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
 
+
+            </androidx.fragment.app.FragmentContainerView>
 <!--            header-->
+
             <androidx.appcompat.widget.Toolbar
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/toolbar"
                 >
-                <androidx.fragment.app.FragmentContainerView
-                    android:id="@+id/main_toolbar_frag"
-                    android:name="fragment.mainApp.MainToolbar"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                                <androidx.fragment.app.FragmentContainerView
+                                    android:id="@+id/main_toolbar_frag"
+                                    android:name="fragment.mainApp.MainToolbar"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content" />
 
             </androidx.appcompat.widget.Toolbar>
-
-
 <!--            main app-->
             <!-- Note: A RecyclerView can also be used -->
             <androidx.core.widget.NestedScrollView
@@ -90,7 +96,7 @@
                 android:orientation="horizontal"
                 android:gravity="center"
                 android:padding="10dp"
-                android:background="@color/bg_second"
+                android:background="@color/bg_third"
                 android:id="@+id/floating_player"
                 android:clickable="true"
                 >
@@ -142,14 +148,13 @@
             </LinearLayout>
 <!--            bottom Bar-->
 
-                <com.google.android.material.bottomnavigation.BottomNavigationView
-                    android:id="@+id/bottom_navigation"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:menu="@menu/bottom_menu"
-                    app:compatShadowEnabled="true"
-                    app:itemBackground="@color/bg_navigate"
-                    ></com.google.android.material.bottomnavigation.BottomNavigationView>
+            <com.google.android.material.bottomnavigation.BottomNavigationView
+                android:id="@+id/bottom_navigation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:menu="@menu/bottom_menu"
+                app:compatShadowEnabled="true"
+                app:itemBackground="@color/bg_navigate" />
 
         </LinearLayout>
 
@@ -177,7 +182,8 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="UnusedAttribute" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.drawerlayout.widget.DrawerLayout>

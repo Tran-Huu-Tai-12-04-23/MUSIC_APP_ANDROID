@@ -32,12 +32,19 @@
     </style>
 
 
+    <style name="text_header">
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textSize">22sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+
     <style name="bg_primary">
         <item name="android:background">@color/bg_primary_light</item>
     </style>
 
     <style name="bg_second">
-        <item name="android:background">@color/bg_navigate_light</item>
+        <item name="android:background">@color/bg_second</item>
     </style>
 
 
@@ -64,9 +71,12 @@
 
     <color name="bg_navigate">#e5eefa</color>
     <color name="bg_primary">#fff</color>
+    <color name="bg_third">#eef3fa</color>
 
     <color name="text_primary">#000</color>
     <color name="bg_second">#e5eefa</color>
-    <color name="input_color">@color/tiny_black</color>
+    <color name="input_color">@color/bg_second</color>
+    <color name="icon_primary">#073D5B</color>
+
 
 </resources>

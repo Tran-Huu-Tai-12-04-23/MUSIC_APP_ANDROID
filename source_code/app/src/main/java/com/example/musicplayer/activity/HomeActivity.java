@@ -129,12 +129,20 @@ public class HomeActivity extends AppCompatActivity {
                     FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
                     MainToolbar mainToolbar = new MainToolbar();
                     ContentHomePage contentHomePage = new ContentHomePage();
+                    toolbar.setVisibility(View.VISIBLE);
                     fragmentTransaction.replace(R.id.main_toolbar_frag, mainToolbar);
                     fragmentTransaction.replace(R.id.content_home_page, contentHomePage);
                     fragmentTransaction.commit();
-                }else if( idItem == R.id.nav_playlist) {
-
+                }else if( idItem == R.id.nav_library) {
+                    FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                    SearchToolbar searchToolbar = new SearchToolbar();
+                    LibraryScreen libraryScreen = new LibraryScreen();
+                    fragmentTransaction.replace(R.id.main_toolbar_frag, searchToolbar);
+                    toolbar.setVisibility(View.GONE);
+                    fragmentTransaction.replace(R.id.content_home_page, libraryScreen);
+                    fragmentTransaction.commit();
                 }else if( idItem == R.id.nav_search){
+                    toolbar.setVisibility(View.VISIBLE);
                     FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
                     SearchToolbar searchToolbar = new SearchToolbar();
                     Search mainScreenSearch = new Search();

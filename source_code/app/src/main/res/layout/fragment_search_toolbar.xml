@@ -21,7 +21,7 @@
            android:clickable="true"
            android:hint=""
            android:outlineSpotShadowColor="@color/transparent"
-           app:boxBackgroundColor="@color/tiny_black"
+           app:boxBackgroundColor="@color/input_color"
            app:boxStrokeColor="@color/transparent"
            app:endIconMode="clear_text"
            app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.ExtraLarge"

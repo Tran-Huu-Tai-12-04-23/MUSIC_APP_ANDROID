@@ -22,7 +22,7 @@
 
 
     <color name="main_bottom_app_bar">#1a1d3a</color>
-    <color name="tiny_black">#2A000000</color>
+    <color name="tiny_black">#6A000000</color>
     <color name="tiny_white">#2Affffff</color>
     <color name="error">#f44336</color>
     <color name="warn">#ff9800</color>
