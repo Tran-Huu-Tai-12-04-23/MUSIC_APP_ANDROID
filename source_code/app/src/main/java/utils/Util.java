@@ -1,13 +1,21 @@
 package utils;
 
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
+
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.example.musicplayer.R;
+import com.example.musicplayer.activity.HomeActivity;
 
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import constanst.Constanst;
 
 public class Util  {
 
@@ -39,5 +47,25 @@ public class Util  {
         return matcher.matches();
 
 
+        }
+
+
+    public static void switchTheme(Context context) {
+        SharedPreferences preferences = context.getSharedPreferences("Theme", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+
+        int currentThemeMode = preferences.getInt("mode", AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
+
+        if (currentThemeMode == AppCompatDelegate.MODE_NIGHT_YES) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+            editor.putInt("mode", AppCompatDelegate.MODE_NIGHT_NO);
+        } else {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+            editor.putInt("mode", AppCompatDelegate.MODE_NIGHT_YES);
+        }
+
+        editor.apply();
+
     }
-    }
+
+}

@@ -1,7 +1,7 @@
 package com.example.musicplayer.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
@@ -24,6 +24,16 @@ public class IntroActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+//        handle theme
+
+        // Get the user's theme choice from SharedPreferences
+        int systemDefaultTheme = AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM;
+        SharedPreferences preferences = getSharedPreferences("Theme", MODE_PRIVATE);
+        int selectedTheme = preferences.getInt("mode", systemDefaultTheme);
+
+        AppCompatDelegate.setDefaultNightMode(selectedTheme);
+
+
         requestWindowFeature(Window.FEATURE_NO_TITLE);
 
         setContentView(R.layout.activity_intro);
@@ -44,6 +54,7 @@ public class IntroActivity extends AppCompatActivity {
                 if (isLoggedIn) {
                     Intent intent = new Intent(IntroActivity.this, HomeActivity.class);
                     startActivity(intent);
+                    finish();
                 }else {
                     FragmentTransaction fragmentTransaction = fm.beginTransaction();
                     fragmentTransaction.replace(R.id.mainLayoutStartScreen, introFragment, Constanst.TAG_FRAGMENT_INTRO);

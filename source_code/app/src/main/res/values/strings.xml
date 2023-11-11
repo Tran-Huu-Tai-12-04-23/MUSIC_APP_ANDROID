@@ -5,4 +5,17 @@
 
     <string name="navigation_active">active navigation</string>
     <string name="navigation_de_active">de active navigation</string>
+
+
+<!--    define string for detail_song-->
+    <string name="name_song_title">Song name : </string>
+    <string name="launch_date_song_title">Launch date : </string>
+    <string name="artist_song_title">Single : </string>
+    <string name="description_title">Description</string>
+
+<!--    define string for comment dialog-->
+    <string name="comment_title">Comments</string>
+    <string name="hint_comment_suggest">Enter your comment ...</string>
+
+
 </resources>

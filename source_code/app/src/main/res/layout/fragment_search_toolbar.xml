@@ -1,0 +1,51 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:context="fragment.mainApp.MainToolbar"
+    android:layout_gravity="center"
+    android:paddingRight="10dp"
+    android:paddingLeft="10dp"
+    android:id="@+id/search_tool_bar"
+    >
+
+   <LinearLayout
+       android:orientation="horizontal"
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content">
+       <com.google.android.material.textfield.TextInputLayout
+           android:id="@+id/input_search"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:clickable="true"
+           android:hint=""
+           android:outlineSpotShadowColor="@color/transparent"
+           app:boxBackgroundColor="@color/tiny_black"
+           app:boxStrokeColor="@color/transparent"
+           app:endIconMode="clear_text"
+           app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.ExtraLarge"
+           app:startIconDrawable="@drawable/baseline_search_24"
+           tools:targetApi="p"
+           app:boxStrokeWidth="0dp"
+
+           >
+
+           <com.google.android.material.textfield.TextInputEditText
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:paddingLeft="20dp"
+               android:paddingRight="20dp"
+               app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.ExtraLarge" />
+       </com.google.android.material.textfield.TextInputLayout>
+
+       <ImageView
+           android:id="@+id/imageView8"
+           android:layout_width="40dp"
+           android:layout_height="40dp"
+           android:layout_marginEnd="16dp"
+           android:background="@drawable/avatar_rounded"
+           android:src="@drawable/app_icon"
+           android:importantForAccessibility="no" />
+   </LinearLayout>
+</FrameLayout>

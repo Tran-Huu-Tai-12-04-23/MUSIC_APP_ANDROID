@@ -63,8 +63,27 @@
         <item name="cornerSizeBottomLeft">50%</item>
     </style>
 
+    <style name="text_title">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:paddingTop">20dp</item>
+    </style>
+
 
 <!--    light theme -->
+    <style name="SearchView" parent="android:Widget">
+        <item name="enforceMaterialTheme">true</item>
+        <item name="android:elevation">@dimen/m3_searchview_elevation</item>
+        <item name="android:textAppearance">@style/TextAppearance.Material3.SearchView</item>
+        <item name="shapeAppearanceOverlay">@style/ShapeAppearanceOverlay.Material3.SearchView</item>
+        <item name="materialThemeOverlay">@style/ThemeOverlay.Material3.Search</item>
+        <item name="android:background">@color/bg_primary</item>
 
+    </style>
+
+    <style name="DialogAnimation">
+        <item name="android:windowEnterAnimation">@anim/from_top</item>
+        <item name="android:windowExitAnimation">@anim/from_bottom</item>
+    </style>
 
 </resources>

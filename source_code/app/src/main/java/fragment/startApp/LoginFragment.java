@@ -198,32 +198,42 @@ public class LoginFragment extends Fragment implements LoaderManager.LoaderCallb
         if(loadingLayout != null ) {
             loadingLayout.setVisibility(View.GONE);
         }
-
         if( data == null) {
             StyleableToast.makeText(getContext(), "Login failed!", Toast.LENGTH_LONG, R.style.toast_error).show();
             return;
         }
 
-        Gson gson = new Gson();
-        UserResponse userResponse = gson.fromJson(data, UserResponse.class);
+        try {
+            Gson gson = new Gson();
+            UserResponse userResponse = gson.fromJson(data, UserResponse.class);
 
-        if( userResponse.getData() == null ) return;
+            if( userResponse.getData() == null ) return;
 
-        SharedPreferences preferences = getContext().getSharedPreferences("LoginData", MODE_PRIVATE);
-        SharedPreferences.Editor editor = preferences.edit();
-        editor.putBoolean("loggedIn", true);
-        editor.putString("userName", userResponse.getData().getUsername());
-        editor.apply();
-        StyleableToast.makeText(getContext(), "Login successfully!", Toast.LENGTH_LONG, R.style.toast_success).show();
+            SharedPreferences preferences = getContext().getSharedPreferences("LoginData", MODE_PRIVATE);
+            SharedPreferences.Editor editor = preferences.edit();
+            editor.putBoolean("loggedIn", true);
+            editor.putString("userName", userResponse.getData().getUsername());
+            editor.apply();
+            StyleableToast.makeText(getContext(), "Login successfully!", Toast.LENGTH_LONG, R.style.toast_success).show();
 
-        loadingLayout.setVisibility(View.VISIBLE);
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                Intent intent = new Intent(getContext(), HomeActivity.class);
-                startActivity(intent);
-            }
-        }, 1000);
+            loadingLayout.setVisibility(View.VISIBLE);
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    Intent intent = new Intent(getContext(), HomeActivity.class);
+                    startActivity(intent);
+
+                    if (getActivity() != null) {
+                        getActivity().finish();
+                    }
+                }
+            }, 1000);
+        } catch (Exception e) {
+            StyleableToast.makeText(getContext(), data, Toast.LENGTH_LONG, R.style.toast_error).show();
+            e.printStackTrace();
+        }
+
+
 
     }
 

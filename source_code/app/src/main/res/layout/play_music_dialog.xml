@@ -1,0 +1,435 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="fragment.playMusic.PlayMusic"
+    >
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/bg_primary"
+        android:orientation="vertical"
+        android:padding="10dp"
+        tools:ignore="UselessParent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_close_play_music"
+                style="@style/Widget.Material3.Button.OutlinedButton.Icon"
+                android:layout_width="70dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                app:icon="@drawable/baseline_keyboard_arrow_down_30"
+                app:iconSize="40dp"
+                app:strokeColor="@color/bg_primary"
+                app:strokeWidth="0dp"
+                app:iconTint="@color/text_primary"
+            />
+
+            <TextView
+
+                style="@style/text_primary_bold"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Now playing"
+                android:textAlignment="center"
+                app:iconTint="?attr/colorOnSurface">
+
+            </TextView>
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_open_menu_music"
+                style="@style/Widget.Material3.Button.OutlinedButton.Icon"
+                android:layout_width="70dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                app:icon="@drawable/baseline_more_vert_24"
+                app:iconSize="40dp"
+                app:strokeColor="@color/bg_primary"
+                app:strokeWidth="0dp"
+                app:iconTint="@color/text_primary"
+                />
+
+        </LinearLayout>
+
+
+        <androidx.coordinatorlayout.widget.CoordinatorLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+            <androidx.core.widget.NestedScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"  >
+                    <com.google.android.material.card.MaterialCardView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:clickable="true"
+                        android:outlineSpotShadowColor="@color/bg_primary"
+                        app:cardBackgroundColor="@color/bg_primary"
+                        app:cardCornerRadius="20dp"
+                        app:shapeAppearanceOverlay="@color/bg_primary"
+                        app:strokeColor="@color/bg_primary"
+                        app:strokeWidth="0dp"
+                        android:padding="20dp"
+
+                        >
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@color/transparent"
+                            android:gravity="center"
+                            android:orientation="vertical"
+                            android:padding="20dp"
+                            >
+
+                            <com.google.android.material.imageview.ShapeableImageView
+                                android:id="@+id/img_view_thumbnails"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:minWidth="250dp"
+                                android:minHeight="250dp"
+                                android:outlineSpotShadowColor="@color/text_primary"
+                                android:scaleType="centerCrop"
+                                android:src="@drawable/test_music_play"
+                                app:shapeAppearance="@style/ShapeAppearance.Material3.Corner.Medium" />
+
+                            <TextView
+                                android:id="@+id/tv_name_song"
+                                style="@style/text_primary_bold"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="30dp"
+                                android:text="Chúng ta của hiện tại..."
+                                android:textAlignment="center"
+                                android:textAppearance="?attr/textAppearanceTitleMedium" />
+
+                            <TextView
+                                android:id="@+id/tv_name_artist"
+                                style="@style/text_second"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="8dp"
+                                android:text="Son tung MTP"
+                                android:textAppearance="?attr/textAppearanceBodyMedium"
+                                android:textColor="?android:attr/textColorSecondary" />
+                        </LinearLayout>
+
+                    </com.google.android.material.card.MaterialCardView>
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:gravity="center"
+                        android:orientation="horizontal"
+                        android:paddingLeft="20dp"
+                        android:paddingRight="20dp">
+
+                        <TextView
+                            android:id="@+id/tv_duration_start"
+                            style="@style/text_second"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="00:30"
+                            android:textAppearance="?attr/textAppearanceBodyMedium"
+                            android:textColor="?android:attr/textColorSecondary" />
+
+                        <com.google.android.material.slider.Slider
+                            android:id="@+id/slider_duration_music"
+                            android:layout_width="0dp"
+                            android:layout_height="10dp"
+                            android:layout_weight="1"
+                            android:value="20"
+                            android:valueFrom="0.0"
+                            android:valueTo="100.0"
+                            app:haloColor="#073d5b"
+                            app:thumbColor="#073d5b"
+                            app:trackColorActive="#073d5b"
+
+                            app:trackColorInactive="#c8e9fc" />
+
+                        <TextView
+                            android:id="@+id/tv_duration_end"
+                            style="@style/text_second"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="05:30"
+                            android:textAppearance="?attr/textAppearanceBodyMedium"
+                            android:textColor="?android:attr/textColorSecondary" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+                        <com.google.android.material.imageview.ShapeableImageView
+                            android:id="@+id/btn_prev_music"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:minWidth="80dp"
+                            android:minHeight="80dp"
+                            android:outlineSpotShadowColor="@color/text_primary"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/baseline_skip_previous_24"
+                            android:tint="@color/text_primary"
+                            app:shapeAppearance="@style/ShapeAppearance.Material3.Corner.Medium"
+                            tools:ignore="UnusedAttribute"
+                            android:clickable="true"
+                            />
+
+                        <com.google.android.material.imageview.ShapeableImageView
+                            android:id="@+id/btn_pause_music"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginRight="10dp"
+                            android:minWidth="80dp"
+                            android:minHeight="80dp"
+                            android:outlineSpotShadowColor="@color/text_primary"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/baseline_pause_circle_24"
+                            android:tint="#073D5B"
+                            android:visibility="gone"
+                            app:shapeAppearance="@style/ShapeAppearance.Material3.Corner.Medium"
+                            tools:ignore="UnusedAttribute"
+                            android:foregroundTint="@color/text_primary"
+                            />
+
+                        <com.google.android.material.imageview.ShapeableImageView
+                            android:id="@+id/btn_start_music"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginRight="10dp"
+                            android:minWidth="80dp"
+                            android:minHeight="80dp"
+                            android:outlineSpotShadowColor="@color/text_primary"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/baseline_play_circle_24"
+                            android:tint="#073D5B"
+                            app:shapeAppearance="@style/ShapeAppearance.Material3.Corner.Medium" />
+
+
+                        <com.google.android.material.imageview.ShapeableImageView
+                            android:id="@+id/btn_next_music"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:minWidth="80dp"
+                            android:minHeight="80dp"
+                            android:outlineSpotShadowColor="@color/text_primary"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/baseline_skip_next_24"
+                            android:tint="@color/text_primary"
+                            app:shapeAppearance="@style/ShapeAppearance.Material3.Corner.Medium" />
+                    </LinearLayout>
+
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginBottom="20dp"
+                        android:layout_weight="1"
+                        app:cardBackgroundColor="@color/bg_navigate"
+                        app:cardCornerRadius="20dp"
+                        app:strokeColor="@color/bg_primary"
+                        app:strokeWidth="0dp"
+                        >
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:padding="10dp"
+
+                            >
+
+                            <TextView
+                                style="@style/text_primary_bold"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:padding="10dp"
+                                android:text="Description about this song " />
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+                                android:orientation="horizontal">
+
+                                <com.google.android.material.imageview.ShapeableImageView
+                                    android:id="@+id/img_view_thumbnails_des_Song"
+                                    android:layout_width="50dp"
+                                    android:layout_height="50dp"
+                                    android:padding="10dp"
+                                    android:src="@drawable/test_music_play"
+                                    app:shapeAppearance="@style/ShapeAppearance.Material3.Corner.Medium" />
+
+                                <TextView
+                                    style="@style/text_second"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:padding="10dp"
+                                    android:text="Description about this song " />
+
+                                <com.google.android.material.button.MaterialButton
+                                    android:id="@+id/btn_detail_song"
+                                    style="@style/Widget.Material3.Button.OutlinedButton"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:clickable="true"
+                                    android:text="Detail"
+                                    app:strokeColor="@color/bg_primary"
+                                    app:strokeWidth="0dp"
+                                    />
+                            </LinearLayout>
+                        </LinearLayout>
+
+                    </com.google.android.material.card.MaterialCardView>
+
+
+                </LinearLayout>
+
+
+            </androidx.core.widget.NestedScrollView>
+        </androidx.coordinatorlayout.widget.CoordinatorLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:baselineAligned="false">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center">
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_repeat_play_music"
+                    style="@style/Widget.Material3.Button.OutlinedButton.Icon"
+                    android:layout_width="60dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    app:icon="@drawable/baseline_repeat_24"
+                    app:iconSize="30dp"
+                    app:strokeColor="@color/bg_primary"
+                    app:strokeWidth="0dp"
+                    app:iconTint="@color/text_primary"
+                        />
+            </LinearLayout>
+
+
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center">
+
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_add_favourite_music"
+                    style="@style/Widget.Material3.Button.OutlinedButton.Icon"
+                    android:layout_width="60dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    app:icon="@drawable/baseline_favorite_24"
+                    app:iconSize="30dp"
+                    app:strokeColor="@color/bg_primary"
+                    app:strokeWidth="0dp"
+                    app:iconTint="@color/text_primary"
+                    />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center">
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_open_comment_music"
+                    style="@style/Widget.Material3.Button.OutlinedButton.Icon"
+                    android:layout_width="60dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    app:icon="@drawable/baseline_mode_comment_24"
+                    app:iconSize="30dp"
+                    app:strokeColor="@color/bg_primary"
+                    app:strokeWidth="0dp"
+                    app:iconTint="@color/text_primary"
+                    />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center">
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_shuffle_music"
+                    style="@style/Widget.Material3.Button.OutlinedButton.Icon"
+                    android:layout_width="60dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    app:icon="@drawable/baseline_shuffle_24"
+                    app:iconSize="30dp"
+                    app:strokeColor="@color/bg_primary"
+                    app:strokeWidth="0dp"
+                    app:iconTint="@color/text_primary"
+                    />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center">
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_open_playlist_music"
+                    style="@style/Widget.Material3.Button.OutlinedButton.Icon"
+                    android:layout_width="60dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    app:icon="@drawable/baseline_playlist_play_24"
+                    app:iconSize="30dp"
+                    app:strokeColor="@color/bg_primary"
+                    app:strokeWidth="0dp"
+                    app:iconTint="@color/text_primary"
+                    />
+            </LinearLayout>
+        </LinearLayout>
+
+    </LinearLayout>
+</FrameLayout>

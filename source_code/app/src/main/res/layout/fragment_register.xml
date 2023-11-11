@@ -33,7 +33,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
             android:text="Create An Account"
-            style="@style/text_primary"
+            style="@style/text_primary_bold"
             android:textSize="32sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
@@ -162,6 +162,7 @@ from people you follow"
             app:layout_constraintStart_toEndOf="@+id/textView5"
             app:layout_constraintTop_toTopOf="@+id/textView5"
             app:layout_constraintVertical_bias="0.551"
+            android:clickable="true"
             >
 
         </androidx.appcompat.widget.AppCompatButton>
@@ -174,6 +175,9 @@ from people you follow"
         android:gravity="center"
         android:background="@color/tiny_black"
         android:id="@+id/loading_sign_up"
+        android:clickable="true"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
         >
 
         <com.google.android.material.progressindicator.CircularProgressIndicator

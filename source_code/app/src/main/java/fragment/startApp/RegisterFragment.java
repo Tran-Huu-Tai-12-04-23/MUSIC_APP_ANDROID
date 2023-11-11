@@ -1,6 +1,5 @@
 package fragment.startApp;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -21,7 +20,6 @@ import androidx.loader.app.LoaderManager;
 import androidx.loader.content.Loader;
 
 import com.example.musicplayer.R;
-import com.example.musicplayer.activity.HomeActivity;
 import com.google.gson.Gson;
 
 import Service.FetchDataAsync;

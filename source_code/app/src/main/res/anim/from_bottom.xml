@@ -1,0 +1,10 @@
+<!-- res/anim/slide_up.xml -->
+<set xmlns:android="http://schemas.android.com/apk/res/android"
+    android:duration="250"
+    android:interpolator="@android:anim/accelerate_decelerate_interpolator">
+
+    <translate
+        android:fromYDelta="0%"
+        android:toYDelta="100%" />
+
+</set>

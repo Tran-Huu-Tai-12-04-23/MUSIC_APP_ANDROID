@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:padding="10dp"
+    >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="end">
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_close_dialog_song_detail"
+            style="@style/Widget.Material3.Button.OutlinedButton.Icon"
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            app:icon="@drawable/baseline_close_24"
+            app:iconSize="30dp"
+            app:strokeColor="@color/bg_primary"
+            app:strokeWidth="0dp"
+            app:iconTint="@color/text_primary"
+            />
+    </LinearLayout>
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/thumbnails"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/test_music_play"
+        app:shapeAppearance="@style/ShapeAppearance.Material3.Corner.Medium" />
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+        <TextView
+            style="@style/text_primary_bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:text="@string/name_song_title"
+            android:textAlignment="center"
+            android:textAppearance="?attr/textAppearanceTitleMedium" />
+
+        <TextView
+            style="@style/text_second"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:text="Chúng ta của hiện tại"
+            android:textAlignment="textEnd"
+            android:textAppearance="?attr/textAppearanceTitleMedium" />
+
+    </LinearLayout>
+    <View
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/bg_primary"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="10dp"
+        >
+        <TextView
+            style="@style/text_primary_bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/artist_song_title"
+            android:textAlignment="center"
+            android:textAppearance="?attr/textAppearanceTitleMedium" />
+
+        <TextView
+            style="@style/text_second"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="Sontung MTP"
+            android:textAlignment="textEnd"
+            android:textAppearance="?attr/textAppearanceTitleMedium" />
+
+    </LinearLayout>
+
+    <View
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/bg_success"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="10dp"
+        >
+        <TextView
+            style="@style/text_primary_bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/launch_date_song_title"
+            android:textAlignment="center"
+            android:textAppearance="?attr/textAppearanceTitleMedium" />
+
+        <TextView
+            style="@style/text_second"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="12/10/2023"
+            android:textAlignment="textEnd"
+            android:textAppearance="?attr/textAppearanceTitleMedium" />
+
+    </LinearLayout>
+    <View
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/bg_primary"/>
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:clickable="true"
+        app:cardBackgroundColor="@color/bg_primary"
+        app:cardCornerRadius="10dp"
+        app:shapeAppearanceOverlay="@color/bg_primary"
+        app:strokeColor="@color/bg_primary"
+        app:strokeWidth="0dp"
+        android:padding="20dp"
+        >
+       <LinearLayout
+           android:layout_width="match_parent"
+           android:layout_height="match_parent"
+           android:gravity="center"
+           android:orientation="vertical"
+           android:padding="20dp"
+           >
+           <TextView
+               style="@style/text_primary_bold"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:text="@string/description_title"
+               android:textAlignment="center"
+               android:textAppearance="?attr/textAppearanceTitleMedium" />
+
+           <TextView
+               style="@style/text_second"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:layout_marginTop="10dp"
+               android:text="asdasdasdasdasdasdasdasdasasdasd"
+               android:textAlignment="center"
+               android:textAppearance="?attr/textAppearanceTitleMedium" />
+       </LinearLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+</LinearLayout>

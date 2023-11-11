@@ -1,6 +1,7 @@
 package adapter;
 
 import android.content.Context;
+import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,7 +19,7 @@ import java.util.ArrayList;
 public class ItemCarouselAdapter extends RecyclerView.Adapter<ItemCarouselAdapter.ItemCarouselHolder> {
 
     Context context;
-    OnItemClickListener onItemClickListener;
+    HandleListeningItemClicked handleListeningItemClicked;
 
     ArrayList<String> arrayList ;
 
@@ -44,7 +45,7 @@ public class ItemCarouselAdapter extends RecyclerView.Adapter<ItemCarouselAdapte
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onItemClickListener.onClick(holder.imgView, arrayList.get(holder.getAdapterPosition()));
+                handleListeningItemClicked.onClick(holder.imgView, arrayList.get(holder.getAdapterPosition()));
             }
         });
 
@@ -65,8 +66,8 @@ public class ItemCarouselAdapter extends RecyclerView.Adapter<ItemCarouselAdapte
     }
 
 
-    public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
-        this.onItemClickListener = onItemClickListener;
+    public void setOnItemClickListener(HandleListeningItemClicked  handleListeningItemClicked) {
+        this.handleListeningItemClicked = handleListeningItemClicked;
     }
 
     public interface OnItemClickListener{

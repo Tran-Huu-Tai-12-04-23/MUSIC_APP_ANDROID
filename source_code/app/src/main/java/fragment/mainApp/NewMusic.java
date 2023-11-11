@@ -3,12 +3,19 @@ package fragment.mainApp;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import com.example.musicplayer.R;
+
+import adapter.HandleListeningItemClicked;
+import adapter.MusicItemAdapter;
+import data.FakeData;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -61,6 +68,27 @@ public class NewMusic extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_new_music, container, false);
+        // Inflate the layout for this fragment
+        View view = inflater.inflate(R.layout.fragment_new_music, container, false);
+
+//        render data
+        RecyclerView musicSlide = view.findViewById(R.id.new_music_home);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
+        MusicItemAdapter itemRecentMusicAdapter = new MusicItemAdapter(getContext(), FakeData.getListImg());
+
+        itemRecentMusicAdapter.setOnItemClickListener(new HandleListeningItemClicked() {
+            @Override
+            public void onClick(ImageView imageView, String url) {
+
+            }
+        });
+
+        musicSlide.setLayoutManager(layoutManager);
+        musicSlide.setAdapter(itemRecentMusicAdapter);
+
+
+
+
+        return view;
     }
 }

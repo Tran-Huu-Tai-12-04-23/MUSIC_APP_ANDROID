@@ -4,7 +4,6 @@ package com.example.api_music_player.controller;
 import com.example.api_music_player.dto.Response;
 import com.example.api_music_player.model.User;
 import com.example.api_music_player.service.IUserService;
-import com.example.api_music_player.service.impl.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -73,11 +72,14 @@ public class AuthenticationController {
                 Response<User> response = new Response<>();
                 response.setMessage(message);
                 return ResponseEntity.badRequest().body(response);
-            }else {
-                User userRes = userService.login(user);
-                Response<User> response = new Response<>(userRes, "Login successfully!");
-                return ResponseEntity.badRequest().body(response);
             }
+            User userRes = userService.login(user);
+
+            if( userRes == null ) {
+                return ResponseEntity.badRequest().body("User not found!");
+            }
+            Response<User> response = new Response<>(userRes, "Login successfully!");
+            return ResponseEntity.ok(response);
 
         } catch (ResponseStatusException e) {
             return ResponseEntity.badRequest().body(e.getMessage());

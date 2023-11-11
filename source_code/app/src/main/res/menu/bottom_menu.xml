@@ -4,19 +4,19 @@
     >
     <item android:tooltipText="Home"
         android:enabled="true"
-        android:title="Home" android:id="@+id/navigate_home"
+        android:title="Home" android:id="@+id/nav_home"
         android:icon="@drawable/baseline_home_24"
         >
     </item>
     <item
         android:tooltipText="Search"   android:title="Search"
-        android:id="@+id/navigate_search"
+        android:id="@+id/nav_search"
         android:icon="@drawable/baseline_search_24"
         >
     </item>
     <item
         android:tooltipText="Library"  android:title="Library"
-        android:id="@+id/navigate_library"
+        android:id="@+id/nav_library"
         android:icon="@drawable/baseline_library_music_24"
         >
     </item>

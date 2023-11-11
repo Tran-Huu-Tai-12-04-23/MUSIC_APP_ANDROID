@@ -8,6 +8,7 @@
     android:translationX="20dp"
     android:layout_marginEnd="30sp"
     app:shapeAppearance="@style/ShapeAppearance.Material3.Corner.Medium"
+    android:clickable="true"
     >
 
     <com.google.android.material.imageview.ShapeableImageView
@@ -16,6 +17,8 @@
         android:layout_height="wrap_content"
         android:background="@drawable/view_rounded"
         android:scaleType="centerCrop"
-        app:shapeAppearance="@style/ShapeAppearance.Material3.Corner.Medium" />
+        app:shapeAppearance="@style/ShapeAppearance.Material3.Corner.Medium"
+
+        />
 
 </com.google.android.material.carousel.MaskableFrameLayout>

@@ -21,7 +21,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="92dp"
             android:text="Sign In"
-            style="@style/text_primary"
+            style="@style/text_primary_bold"
             android:textSize="40sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
@@ -119,7 +119,9 @@
             app:layout_constraintEnd_toEndOf="@+id/inputPassword"
             app:layout_constraintHorizontal_bias="0.496"
             app:layout_constraintStart_toStartOf="@+id/inputPassword"
-            app:layout_constraintTop_toBottomOf="@+id/inputPassword" />
+            app:layout_constraintTop_toBottomOf="@+id/inputPassword"
+            android:clickable="true"
+            />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/imageView2"
@@ -182,6 +184,9 @@
         android:gravity="center"
         android:background="@color/tiny_black"
         android:id="@+id/loading_sign_in"
+        android:clickable="true"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
         >
 
         <com.google.android.material.progressindicator.CircularProgressIndicator

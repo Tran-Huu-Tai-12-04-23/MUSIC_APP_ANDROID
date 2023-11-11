@@ -13,8 +13,6 @@ import java.util.List;
 @RequiredArgsConstructor
 public class UserService implements IUserService {
     private final UserRepository userRepository;
-
-
     @Override
     public User login(User user) {
         User userLogin = userRepository.findByUsername(user.getUsername().trim());

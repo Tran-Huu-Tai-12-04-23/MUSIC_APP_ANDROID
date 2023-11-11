@@ -23,15 +23,12 @@ import okhttp3.Response;
 public class FetchDataAsync extends AsyncTaskLoader<String> {
     private String json = "";
     private String linkAPI = "";
-
     public FetchDataAsync(@NonNull Context context) {
         super(context);
     }
-
     public void setJson(String json) {
         this.json = json;
     }
-
     public void setLinkAPI(String linkAPI) {
         this.linkAPI = linkAPI;
     }
@@ -57,7 +54,7 @@ public class FetchDataAsync extends AsyncTaskLoader<String> {
         try {
             response = call.execute();
             String serverRes = response.body().string();
-
+            Log.i("error", serverRes);
             if (response != null) {
                 return serverRes;
             } else {

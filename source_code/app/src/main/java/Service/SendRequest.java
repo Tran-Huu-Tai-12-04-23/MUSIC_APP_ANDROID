@@ -11,7 +11,6 @@ public class SendRequest {
     String url;
     Request request;
 
-
     public SendRequest(String url) {
         this.url = url;
         client = new OkHttpClient();

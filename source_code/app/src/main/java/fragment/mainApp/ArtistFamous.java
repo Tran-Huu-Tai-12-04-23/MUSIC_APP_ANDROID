@@ -3,12 +3,19 @@ package fragment.mainApp;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import com.example.musicplayer.R;
+
+import adapter.ArtistAdapter;
+import adapter.HandleListeningItemClicked;
+import data.FakeData;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -61,6 +68,22 @@ public class ArtistFamous extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_artist_famous, container, false);
+        // Inflate the layout for this fragment
+        View view = inflater.inflate(R.layout.fragment_artist_famous, container, false);
+//        render data
+        RecyclerView artistFamousSlide = view.findViewById(R.id.artist_famous_home);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
+        ArtistAdapter artistAdapter = new ArtistAdapter(getContext(), FakeData.getListImg());
+        artistAdapter.setOnItemClickListener(new HandleListeningItemClicked() {
+            @Override
+            public void onClick(ImageView imageView, String url) {
+
+            }
+        });
+
+        artistFamousSlide.setLayoutManager(layoutManager);
+        artistFamousSlide.setAdapter(artistAdapter);
+
+        return view;
     }
 }
