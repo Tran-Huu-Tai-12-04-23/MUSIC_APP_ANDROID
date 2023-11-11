@@ -1,14 +1,21 @@
-package fragment.mainApp;
+package fragment.library;
 
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import com.example.musicplayer.R;
+
+import adapter.HandleListeningItemClicked;
+import adapter.SearchListAdapter;
+import data.FakeData;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -61,6 +68,24 @@ public class LibraryScreen extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_library_screen, container, false);
+        View view = inflater.inflate(R.layout.fragment_library_screen, container, false);
+
+        RecyclerView containerRecentPlay = view.findViewById(R.id.container_recent_playing);
+
+
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
+        SearchListAdapter searchListAdapter = new SearchListAdapter(getContext(),  FakeData.getListImg());
+
+        searchListAdapter.setOnItemClickListener(new HandleListeningItemClicked() {
+            @Override
+            public void onClick(ImageView imageView, String url) {
+
+            }
+        });
+
+        containerRecentPlay.setLayoutManager(layoutManager);
+        containerRecentPlay.setAdapter(searchListAdapter);
+
+        return view;
     }
 }

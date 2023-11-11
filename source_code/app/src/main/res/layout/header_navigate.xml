@@ -8,7 +8,7 @@
     android:orientation="horizontal"
     android:paddingStart="22dp"
     android:paddingBottom="20dp"
-    android:paddingTop="100dp"
+    android:paddingTop="50dp"
     android:layout_gravity="center"
     android:gravity="center_vertical"
     tools:ignore="RtlSymmetry">

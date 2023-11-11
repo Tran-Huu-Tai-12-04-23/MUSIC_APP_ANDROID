@@ -30,7 +30,6 @@ import android.widget.Toast;
 
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -44,14 +43,13 @@ import com.google.android.material.navigation.NavigationView;
 
 import adapter.CommentListAdapter;
 import adapter.HandleListeningItemClicked;
-import adapter.MusicItemAdapter;
 import data.FakeData;
+import fragment.library.LibraryScreen;
 import fragment.mainApp.*;
 import fragment.mainApp.ContentHomePage;
 //import fragment.mainApp.searchPage.Search;
 //import fragment.mainApp.searchPage.SearchToolbar;
 import fragment.searchPage.Search;
-import fragment.searchPage.SearchToolbar;
 import utils.Util;
 
 public class HomeActivity extends AppCompatActivity {
@@ -67,27 +65,21 @@ public class HomeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        supportRequestWindowFeature(Window.FEATURE_NO_TITLE);
 
         setContentView(R.layout.activity_home);
 
         drawerLayout = findViewById(R.id.drawer_page);
-        sidebar = findViewById(R.id.navigate_main);
-        toolbar = findViewById(R.id.toolbar);
+        sidebar = findViewById(R.id.sidebar_home);
+//        toolbar = findViewById(R.id.toolbar);
         loadingHome = findViewById(R.id.loading_home);
         bottomNavigate = findViewById(R.id.bottom_navigation);
         floatingPayer = findViewById(R.id.floating_player);
 
 //        var playmusic dialog
 
-        loadingHome.setVisibility(View.GONE);
-
 //        tool bar handle/*/
-        setSupportActionBar(toolbar);
         sidebar.bringToFront();
-//        navigation drawer menu
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.navigation_active, R.string.navigation_de_active);
-        drawerLayout.addDrawerListener(toggle);
 
 //      handle click item
         sidebar.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
@@ -118,7 +110,7 @@ public class HomeActivity extends AppCompatActivity {
 //        end handle click item
 
 
-        toggle.syncState();
+//        toggle.syncState();
 
 
         bottomNavigate.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
@@ -127,35 +119,26 @@ public class HomeActivity extends AppCompatActivity {
                 int idItem = item.getItemId();
                 if( idItem == R.id.nav_home) {
                     FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                    MainToolbar mainToolbar = new MainToolbar();
                     ContentHomePage contentHomePage = new ContentHomePage();
-                    toolbar.setVisibility(View.VISIBLE);
-                    fragmentTransaction.replace(R.id.main_toolbar_frag, mainToolbar);
                     fragmentTransaction.replace(R.id.content_home_page, contentHomePage);
                     fragmentTransaction.commit();
                 }else if( idItem == R.id.nav_library) {
                     FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                    SearchToolbar searchToolbar = new SearchToolbar();
                     LibraryScreen libraryScreen = new LibraryScreen();
-                    fragmentTransaction.replace(R.id.main_toolbar_frag, searchToolbar);
-                    toolbar.setVisibility(View.GONE);
                     fragmentTransaction.replace(R.id.content_home_page, libraryScreen);
                     fragmentTransaction.commit();
                 }else if( idItem == R.id.nav_search){
-                    toolbar.setVisibility(View.VISIBLE);
                     FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                    SearchToolbar searchToolbar = new SearchToolbar();
                     Search mainScreenSearch = new Search();
-                    fragmentTransaction.replace(R.id.main_toolbar_frag, searchToolbar);
                     fragmentTransaction.replace(R.id.content_home_page, mainScreenSearch);
                     fragmentTransaction.commit();
                 }
                 return true;
             }
         });
-
+//
         View rootView = getWindow().getDecorView().getRootView();
-
+//
         rootView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
             public void onGlobalLayout() {
@@ -370,12 +353,6 @@ public class HomeActivity extends AppCompatActivity {
     }
 
 
-    public void onInputFocusChanged(boolean hasFocus) {
-
-        Intent intent = new Intent("IS_FOCUS");
-        intent.putExtra("FOCUS_SEARCH", hasFocus);
-        LocalBroadcastManager.getInstance(this).sendBroadcast(intent);
-    }
 
     private void applyClickAnimation(View view) {
         // ScaleAnimation to create a zoom-in effect
@@ -391,5 +368,12 @@ public class HomeActivity extends AppCompatActivity {
         // Start the animation
         view.startAnimation(scaleAnimation);
     }
+
+    public void openSidebar() {
+        if( drawerLayout != null) {
+            drawerLayout.open();
+        }
+    }
+
 
 }

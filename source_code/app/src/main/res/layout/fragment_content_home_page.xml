@@ -2,63 +2,151 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="fragment.mainApp.ContentHomePage">
-    <ScrollView
+
+
+    <LinearLayout
+        style="@style/bg_primary"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent"
+        android:id="@+id/drawer_page"
+        android:orientation="vertical"
+       >
 
+        <!--            header-->
 
-        <LinearLayout
+        <androidx.coordinatorlayout.widget.CoordinatorLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical" >
+            android:layout_height="match_parent">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" android:orientation="vertical">
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:gravity="center_vertical"
+                    >
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btn_open_sidebar"
+                        style="@style/Widget.Material3.Button.OutlinedButton.Icon"
+                        android:layout_width="60dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        app:icon="@drawable/menu"
+                        app:iconSize="30dp"
+                        app:strokeColor="@color/bg_primary"
+                        app:strokeWidth="0dp"
+                        app:iconTint="@color/text_primary"
+                        />
+                    <TextView
+                        android:id="@+id/textView10"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="9dp"
+                        android:layout_marginEnd="16dp"
+                        android:layout_marginBottom="9dp"
+                        android:text="Good morning"
+                        android:textAlignment="center"
+                        android:textColor="@color/text_primary"
+                        android:textSize="18sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/imageView8"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+                    <ImageView
+                        android:id="@+id/imageView8"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_marginEnd="16dp"
+                        android:background="@drawable/avatar_rounded"
+                        android:src="@drawable/app_icon"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:ignore="ContentDescription" />
+                </LinearLayout>
+                <!--            end topo bar-->
 
-            <androidx.recyclerview.widget.RecyclerView
-                xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:app="http://schemas.android.com/apk/res-auto"
-                xmlns:tools="http://schemas.android.com/tools"
-                android:id="@+id/carousel_music_container"
-                android:layout_width="match_parent"
-                android:layout_height="180dp"
-                android:paddingTop="10dp"
-                android:paddingBottom="10dp"
-                android:foreground="?attr/selectableItemBackground"
-                app:shapeAppearance="?attr/shapeAppearanceCornerExtraLarge"
-                app:layoutManager="com.google.android.material.carousel.CarouselLayoutManager"
-                >
+                <androidx.core.widget.NestedScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    style="@style/bg_primary"
+                    app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-            </androidx.recyclerview.widget.RecyclerView>
-            <androidx.fragment.app.FragmentContainerView
-                android:id="@+id/fragmentContainerView1"
-                android:name="fragment.mainApp.PlaylistSuggest"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                />
-            <androidx.fragment.app.FragmentContainerView
-                android:id="@+id/fragmentContainerView2"
-                android:name="fragment.mainApp.RecentMusic"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                />
-            <androidx.fragment.app.FragmentContainerView
-                android:id="@+id/fragmentContainerView3"
-                android:name="fragment.mainApp.NewMusic"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                />
+                    <ScrollView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
 
-            <androidx.fragment.app.FragmentContainerView
-                android:id="@+id/fragmentContainerView4"
-                android:name="fragment.mainApp.ArtistFamous"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
-                />
-        </LinearLayout>
-    </ScrollView>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical" >
+
+                            <androidx.recyclerview.widget.RecyclerView
+                                xmlns:android="http://schemas.android.com/apk/res/android"
+                                xmlns:app="http://schemas.android.com/apk/res-auto"
+                                xmlns:tools="http://schemas.android.com/tools"
+                                android:id="@+id/carousel_music_container"
+                                android:layout_width="match_parent"
+                                android:layout_height="180dp"
+                                android:paddingTop="10dp"
+                                android:paddingBottom="10dp"
+                                android:foreground="?attr/selectableItemBackground"
+                                app:shapeAppearance="?attr/shapeAppearanceCornerExtraLarge"
+                                app:layoutManager="com.google.android.material.carousel.CarouselLayoutManager"
+                                >
+
+                            </androidx.recyclerview.widget.RecyclerView>
+                            <androidx.fragment.app.FragmentContainerView
+                                android:id="@+id/fragmentContainerView1"
+                                android:name="fragment.mainApp.PlaylistSuggest"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="10dp"
+                                />
+                            <androidx.fragment.app.FragmentContainerView
+                                android:id="@+id/fragmentContainerView2"
+                                android:name="fragment.mainApp.RecentMusic"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="10dp"
+                                />
+                            <androidx.fragment.app.FragmentContainerView
+                                android:id="@+id/fragmentContainerView3"
+                                android:name="fragment.mainApp.NewMusic"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="10dp"
+                                />
+
+                            <androidx.fragment.app.FragmentContainerView
+                                android:id="@+id/fragmentContainerView4"
+                                android:name="fragment.mainApp.ArtistFamous"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="10dp"
+                                android:layout_marginBottom="10dp"
+                                />
+                        </LinearLayout>
+                    </ScrollView>
+
+
+
+                </androidx.core.widget.NestedScrollView>
+
+
+            </LinearLayout>
+
+        </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+    </LinearLayout>
+
+
 
 </FrameLayout>

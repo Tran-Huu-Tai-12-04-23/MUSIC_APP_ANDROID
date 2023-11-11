@@ -11,15 +11,19 @@ import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.musicplayer.R;
 import com.google.android.material.button.MaterialButton;
+import com.google.android.material.textfield.TextInputLayout;
 
 import adapter.HandleListeningItemClicked;
 import adapter.PlaylistAdapter;
@@ -36,15 +40,6 @@ public class Search extends Fragment {
     private RecyclerView contentSearchRecyclerview;
     private TextView recentTitleSearchHistory;
 
-    private BroadcastReceiver myReceiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            // Handle the broadcast data here
-            boolean data = intent.getBooleanExtra("FOCUS_SEARCH", false);
-            onInputFocusChanged(data);
-            // Do something with the data
-        }
-    };
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -95,8 +90,42 @@ public class Search extends Fragment {
         contentSearchRecyclerview = view.findViewById(R.id.content_search);
         recentTitleSearchHistory = view.findViewById(R.id.title_search_history);
         MaterialButton btnClearHistory = view.findViewById(R.id.btn_clear_history);
+        TextInputLayout inputSearchContainer= view.findViewById(R.id.input_search);
+        EditText inputSearch = inputSearchContainer.getEditText();
+
         //hadnle hide when start app
         contentSearchRecyclerview.setVisibility(View.GONE);
+
+//       Handle search
+
+        inputSearch.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+            }
+        });
+
+        inputSearch.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if( inputSearch.getText().toString().trim().equals("")) {
+                    contentSearchRecyclerview.setVisibility(View.GONE);
+                    recentTitleSearchHistory.setVisibility(View.VISIBLE);
+                }else {
+                    contentSearchRecyclerview.setVisibility(View.VISIBLE);
+                    recentTitleSearchHistory.setVisibility(View.GONE);
+                }
+
+            }
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
 
         recentTitleSearchHistory.setText("No recent search history....");
         btnClearHistory.setVisibility(View.GONE);
@@ -115,27 +144,8 @@ public class Search extends Fragment {
         contentSearchRecyclerview.setLayoutManager(layoutManager);
         contentSearchRecyclerview.setAdapter(searchListAdapter);
 //
-        LocalBroadcastManager.getInstance(requireContext()).registerReceiver(myReceiver, new IntentFilter("IS_FOCUS"));
 
         return view;
-    }
-
-    public void onInputFocusChanged(boolean hasFocus) {
-        Toast.makeText(getContext(), "Focusing", Toast.LENGTH_SHORT).show();
-
-        if( hasFocus ) {
-            contentSearchRecyclerview.setVisibility(View.VISIBLE);
-            recentTitleSearchHistory.setVisibility(View.GONE);
-        }else {
-            contentSearchRecyclerview.setVisibility(View.GONE);
-            recentTitleSearchHistory.setVisibility(View.VISIBLE);
-        }
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        LocalBroadcastManager.getInstance(requireContext()).unregisterReceiver(myReceiver);
     }
 
 }

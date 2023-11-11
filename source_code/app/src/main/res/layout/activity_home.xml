@@ -9,24 +9,23 @@
     android:fitsSystemWindows="true"
     tools:openDrawer="start"
     android:id="@+id/drawer_page"
-   >
-
-        <com.google.android.material.navigation.NavigationView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:id="@+id/navigate_main"
-            app:headerLayout="@layout/header_navigate"
-            app:menu="@menu/navigate_menu"
-            app:itemRippleColor="@color/white"
-            app:subheaderColor="@color/text_primary"
-            android:layout_gravity="start"
-            app:itemIconSize="30sp"
-            style="@style/bg_second"
-            app:itemIconPadding="10dp"
-            app:itemVerticalPadding="10dp"
     >
 
-        </com.google.android.material.navigation.NavigationView>
+    <com.google.android.material.navigation.NavigationView
+        android:id="@+id/sidebar_home"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        app:headerLayout="@layout/header_navigate"
+        app:menu="@menu/navigate_menu"
+        app:itemRippleColor="@color/white"
+        app:subheaderColor="@color/text_primary"
+        android:layout_gravity="start"
+        app:itemIconSize="30sp"
+        style="@style/bg_second"
+        app:itemIconPadding="10dp"
+        app:itemVerticalPadding="10dp"
+        >
+    </com.google.android.material.navigation.NavigationView>
 
 <!--    main-->
     <androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -37,7 +36,6 @@
         android:layout_height="match_parent"
         android:id="@+id/container_home"
         tools:ignore="RedundantNamespace">
-
         <LinearLayout
             android:id="@+id/linearLayout"
             android:layout_width="match_parent"
@@ -45,51 +43,17 @@
             android:orientation="vertical"
             style="@style/bg_primary"
             >
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/content_home_page"
+            android:name="fragment.mainApp.ContentHomePage"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            >
+        </androidx.fragment.app.FragmentContainerView>
 
 
-            <androidx.fragment.app.FragmentContainerView
-                android:id="@+id/content_home"
-                android:name="fragment.mainApp.MainToolbar"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" >
-
-
-            </androidx.fragment.app.FragmentContainerView>
-<!--            header-->
-
-            <androidx.appcompat.widget.Toolbar
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/toolbar"
-                >
-                                <androidx.fragment.app.FragmentContainerView
-                                    android:id="@+id/main_toolbar_frag"
-                                    android:name="fragment.mainApp.MainToolbar"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content" />
-
-            </androidx.appcompat.widget.Toolbar>
-<!--            main app-->
-            <!-- Note: A RecyclerView can also be used -->
-            <androidx.core.widget.NestedScrollView
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                style="@style/bg_primary"
-                app:layout_behavior="@string/appbar_scrolling_view_behavior">
-
-                <androidx.fragment.app.FragmentContainerView
-                    android:id="@+id/content_home_page"
-                    android:name="fragment.mainApp.ContentHomePage"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                </androidx.fragment.app.FragmentContainerView>
-
-
-            </androidx.core.widget.NestedScrollView>
-
-<!--            floating player/-->
+            <!--            floating player/-->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -146,18 +110,17 @@
 
                     />
             </LinearLayout>
-<!--            bottom Bar-->
+            <!--            bottom Bar-->
+
 
             <com.google.android.material.bottomnavigation.BottomNavigationView
-                android:id="@+id/bottom_navigation"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:menu="@menu/bottom_menu"
-                app:compatShadowEnabled="true"
-                app:itemBackground="@color/bg_navigate" />
-
+            android:id="@+id/bottom_navigation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:menu="@menu/bottom_menu"
+            app:compatShadowEnabled="true"
+            app:itemBackground="@color/bg_navigate" />
         </LinearLayout>
-
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
@@ -170,6 +133,7 @@
         android:clickable="true"
         android:focusable="true"
         android:focusableInTouchMode="true"
+         android:visibility="gone"
         >
 
         <com.google.android.material.progressindicator.CircularProgressIndicator
@@ -182,8 +146,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:ignore="UnusedAttribute" />
+            app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.drawerlayout.widget.DrawerLayout>
