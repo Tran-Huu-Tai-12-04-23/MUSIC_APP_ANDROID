@@ -28,6 +28,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.imageview.ShapeableImageView;
 import com.google.android.material.slider.Slider;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -38,24 +39,32 @@ import Firebase.FirebaseService;
 import Interface.BottomSheetPlayMusicInteractionListener;
 import LocalData.Entity.StatePlayMusic;
 import Model.CurrentPlaylist;
+import Model.Liked;
 import Model.Song;
+import Model.User;
+import Service.ApiService;
 import Service.PlayMusicService;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import utils.Util;
 
 public class BottomSheetPlayMusic extends BottomSheetDialogFragment implements BottomSheetPlayMusicInteractionListener {
     private BottomSheetBehavior<View> bBehavior;
     private Song currentSong;
+    private User user;
     private MediaPlayer mediaPlayer;
     private boolean isPlaying = false;
     private boolean isShuffle = false;
     private boolean isRepeat = false;
     private boolean isPause = false;
     private boolean isCompleteSong = false;
+    private boolean isLiked ;
     private int seekToValue = 0;
     private int valueSeekToPress = -1;
 
     ShapeableImageView btnPrev, btnPlay, btnNext, btnShuffle, btnRepeat ;
-    MaterialButton btnClosePlayMusic, btnOpenPlayingList, btnOpenMusicComment, btnOpenMenu;
+    MaterialButton btnClosePlayMusic, btnOpenPlayingList, btnOpenMusicComment, btnOpenMenu, btnLike;
     ImageView thumbnails;
     TextView tvNameSong, tvNameArtist, tvDurationStart, tvDurationEnd;
     Slider sliderDurationMusic;
@@ -147,6 +156,17 @@ public class BottomSheetPlayMusic extends BottomSheetDialogFragment implements B
 //        }
 //        rotateAnimator.cancel();
     }
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        if( requireActivity() instanceof  HomeActivity ) {
+            HomeActivity homeActivity = (HomeActivity) requireActivity();
+            this.user = homeActivity.getUser();
+        }
+
+        super.onAttach(context);
+    }
+
     @SuppressLint({"SetTextI18n"})
     @NonNull
     @Override
@@ -182,6 +202,7 @@ public class BottomSheetPlayMusic extends BottomSheetDialogFragment implements B
         tvDurationStart = view.findViewById(R.id.tv_duration_start);
         tvNameSongDetailTitle = view.findViewById(R.id.tv_name_song_detail_title);
         tvNameArtistDetailTitle = view.findViewById(R.id.tv_name_artist_detail_title);
+        btnLike = view.findViewById(R.id.btn_add_favourite_music);
 
         btnOpenMusicComment.setOnClickListener(v -> {
             BottomSheetComment bottomSheetComment = new BottomSheetComment();
@@ -245,6 +266,16 @@ public class BottomSheetPlayMusic extends BottomSheetDialogFragment implements B
             bottomSheetActionSong.show(getChildFragmentManager(), "Open action song");
         });
 
+        btnLike.setOnClickListener(v -> {
+            if( isLiked ) {
+                unLike();
+            }else {
+                like();
+            }
+        });
+
+        initCheckLiked();
+
         if( currentSong != null ) {
             handleUpdateUi();
         }
@@ -254,6 +285,87 @@ public class BottomSheetPlayMusic extends BottomSheetDialogFragment implements B
         if( statePlayMusic != null ) initState(statePlayMusic);
 
         return dialog;
+    }
+    private void like() {
+        if(user == null || currentSong == null ) return;
+        Liked liked = new Liked();
+        liked.setSong(currentSong);
+        liked.setUser(user);
+        ApiService.ApiService.like(liked).enqueue(new Callback<Liked>() {
+            @Override
+            public void onResponse(Call<Liked> call, Response<Liked> response) {
+                if( response.isSuccessful() ) {
+                    isLiked = true;
+                    handleUpdateUiLikeBtn();
+                }
+            }
+            @Override
+            public void onFailure(Call<Liked> call, Throwable t) {
+
+            }
+        });
+    }
+    private void unLike() {
+        if( user == null ) return;
+
+        Liked like = new Liked();
+        like.setUser(user);
+        like.setSong(currentSong);
+        ApiService.ApiService.unLike(like).enqueue(new Callback<Boolean>() {
+            @Override
+            public void onResponse(Call<Boolean> call, Response<Boolean> response) {
+                if( response.isSuccessful()) {
+                    if( response.body() == null) return;
+                    isLiked = false;
+                    handleUpdateUiLikeBtn();
+                    Snackbar.make(getDialog().getWindow().getDecorView() , "Bạn đã bỏ thích bài hát " + currentSong.getTitle(), Snackbar.LENGTH_LONG).setAction("Hoàn tác", new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            undoUnlike();
+                        }
+                    }).show();
+
+                }
+            }
+            @Override
+            public void onFailure(Call<Boolean> call, Throwable t) {
+
+            }
+        });
+    }
+
+    private void undoUnlike() {
+        like();
+    }
+
+    private void initCheckLiked() {
+        if( user == null ) return;
+
+        Liked like = new Liked();
+        like.setUser(user);
+        like.setSong(currentSong);
+        ApiService.ApiService.isCheckUserLikedSong(like).enqueue(new Callback<Boolean>() {
+            @Override
+            public void onResponse(Call<Boolean> call, Response<Boolean> response) {
+                if( response.isSuccessful()) {
+                    if( response.body() == null) return;
+                    isLiked = response.body();
+                    handleUpdateUiLikeBtn();
+                }
+            }
+            @Override
+            public void onFailure(Call<Boolean> call, Throwable t) {
+
+            }
+        });
+    }
+
+    private void handleUpdateUiLikeBtn() {
+        if( isLiked ) {
+            btnLike.setIconTint(Util.getIconActiveColor(requireContext()));
+        }else {
+            btnLike.setIconTint(Util.getIconDeactiveColor(requireContext()));
+        }
     }
 
     private void handleNextSong() {
@@ -321,8 +433,6 @@ public class BottomSheetPlayMusic extends BottomSheetDialogFragment implements B
             btnRepeat.setColorFilter(color); // Hoặc btnRepeat.setImageResource(R.drawable.your_icon);
         }
     }
-
-
     private void updateBtnShuffle() {
         if (isShuffle) {
             int color = ContextCompat.getColor(requireContext(), R.color.icon_primary);
@@ -332,12 +442,10 @@ public class BottomSheetPlayMusic extends BottomSheetDialogFragment implements B
             btnShuffle.setColorFilter(color); // Hoặc btnRepeat.setImageResource(R.drawable.your_icon);
         }
     }
-
-
     //end handle update UI
     @SuppressLint("SetTextI18n")
     private void handleUpdateUi() {
-//        if (!isAdded() || getContext() == null) return;
+//      if (!isAdded() || getContext() == null) return;
         if ( getContext() == null || currentSong == null ) return;
         tvDurationEnd.setText(Util.convertDurationToString((long)currentSong.getDuration()));
         tvDurationStart.setText(Util.convertDurationToString(seekToValue));
@@ -388,13 +496,10 @@ public class BottomSheetPlayMusic extends BottomSheetDialogFragment implements B
         LocalBroadcastManager.getInstance(requireActivity()).registerReceiver(broadcastReceiver, PlayMusicService.getIntentFilter());
         super.onCreate(savedInstanceState);
     }
-
     @Override
     public void onStart() {
         super.onStart();
     }
-
-
     @Override
     public void onDestroy() {
         // Release the media player when the fragment is destroyed

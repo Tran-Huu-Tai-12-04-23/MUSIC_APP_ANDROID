@@ -33,13 +33,7 @@ public class LoadingDialog {
 
     public void stopLoading() {
         if(alertDialog != null && alertDialog.isShowing()){
-            handler.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    alertDialog.dismiss();
-                }
-            }, 500);
-
+            alertDialog.dismiss();
         }
     }
 

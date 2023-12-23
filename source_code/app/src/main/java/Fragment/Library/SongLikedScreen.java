@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
@@ -16,16 +15,20 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.musicplayer.R;
 import com.example.musicplayer.activity.HomeActivity;
 import com.example.musicplayer.databinding.FragmentSongLikedScreenBinding;
-import com.google.android.material.button.MaterialButton;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import Adapter.SongLikedAdapter;
+import BottomSheet.BottomSheetActionSong;
 import DTO.ResponseData;
+import Model.Liked;
 import Model.Song;
 import Model.User;
 import Service.ApiService;
+import Service.PlayMusicService;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -79,11 +82,17 @@ public class SongLikedScreen extends Fragment {
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         this.songLikedAdapter = new SongLikedAdapter(getContext(),  songs);
 
-        this.songLikedAdapter.setOnItemClickListener(new SongLikedAdapter.OnListeningItemClicked() {
-            @Override
-            public void onClick(ImageView imageView, MaterialButton btnActionLike, String url) {
-                Toast.makeText(getContext(), "Hello", Toast.LENGTH_SHORT).show();
-            }
+        this.songLikedAdapter.setOnItemLikeClickListener(data -> {
+            unlike(data);
+        });
+        this.songLikedAdapter.setOnItemClickListener(data -> {
+            PlayMusicService.playMusic(requireContext(), data);
+        });
+
+        this.songLikedAdapter.setOnItemLongClickListener(data -> {
+            BottomSheetActionSong bottomSheetActionSong = new BottomSheetActionSong();
+            bottomSheetActionSong.setSong(data);
+            bottomSheetActionSong.show(getChildFragmentManager(), "Action song");
         });
 
         binding.containerSongLiked.setLayoutManager(layoutManager);
@@ -95,6 +104,59 @@ public class SongLikedScreen extends Fragment {
         });
 
         return  binding.getRoot();
+    }
+
+    private void unlike(Song data) {
+        if( data == null || user == null ) return;
+        Liked liked = new Liked();
+        liked.setUser(user);
+        liked.setSong(data);
+
+        ApiService.ApiService.unLike(liked).enqueue(new Callback<Boolean>() {
+            @SuppressLint("NotifyDataSetChanged")
+            @Override
+            public void onResponse(Call<Boolean> call, Response<Boolean> response) {
+                if( response.isSuccessful()) {
+                    ArrayList<Song> undoListSong = new ArrayList<>(songs);
+                    ArrayList<Song>  newSongs = songs.stream()
+                            .filter(s -> s.getId() != data.getId())
+                            .collect(Collectors.toCollection(ArrayList::new));
+                    songs.clear();
+                    songs.addAll(newSongs);
+                    songLikedAdapter.notifyDataSetChanged();
+                    Snackbar.make(requireView() , "Bạn đã bỏ thích bài hát " + data.getTitle(), Snackbar.LENGTH_LONG).setAction("Hoàn tác", new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            undoUnlike(undoListSong, liked);
+                        }
+                    }).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Boolean> call, Throwable t) {
+
+            }
+        });
+    }
+
+    private void undoUnlike(ArrayList<Song> undoListSong, Liked liked) {
+        ApiService.ApiService.like(liked).enqueue(new Callback<Liked>() {
+            @SuppressLint("NotifyDataSetChanged")
+            @Override
+            public void onResponse(Call<Liked> call, Response<Liked> response) {
+                if( response.isSuccessful()) {
+                    songs.clear();
+                    songs.addAll(undoListSong);
+                    songLikedAdapter.notifyDataSetChanged();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Liked> call, Throwable t) {
+
+            }
+        });
     }
 
     private void initUser() {

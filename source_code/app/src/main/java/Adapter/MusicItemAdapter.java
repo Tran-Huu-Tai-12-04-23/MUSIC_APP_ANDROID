@@ -26,17 +26,25 @@ public class MusicItemAdapter extends RecyclerView.Adapter<MusicItemAdapter.Item
     HandleListeningItemClicked<Song> handleListeningItemClicked;
     HandleListeningItemLongClicked<Song> handleListeningItemLongClicked;
     ArrayList<Song> arrayList ;
+    private Boolean isHome;
 
-    public MusicItemAdapter(Context context, ArrayList<Song> data) {
+    public MusicItemAdapter(Context context, ArrayList<Song> data, Boolean isHome) {
         this.arrayList = data;
         this.context = context;
+        this.isHome = isHome;
     }
 
     @NonNull
     @Override
     public ItemRecentMusicHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.music_item, parent, false);
-        return new MusicItemAdapter.ItemRecentMusicHolder(view);
+        if( isHome ) {
+            View view = LayoutInflater.from(context).inflate(R.layout.music_item, parent, false);
+            return new MusicItemAdapter.ItemRecentMusicHolder(view);
+        }else {
+            View view = LayoutInflater.from(context).inflate(R.layout.music_item_artist_detail, parent, false);
+            return new MusicItemAdapter.ItemRecentMusicHolder(view);
+        }
+
     }
 
     @Override

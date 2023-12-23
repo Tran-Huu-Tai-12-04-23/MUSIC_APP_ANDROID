@@ -3,6 +3,7 @@ package com.example.api_music_player.controller;
 
 import com.example.api_music_player.dto.HomeResponse;
 import com.example.api_music_player.dto.Response;
+import com.example.api_music_player.model.Liked;
 import com.example.api_music_player.model.Playlist;
 import com.example.api_music_player.model.Song;
 import com.example.api_music_player.model.User;
@@ -89,9 +90,79 @@ public class SongController {
             response.setMessage(e.getMessage());
             return ResponseEntity.badRequest().body(response);
         }
-
-
     }
 
+
+    @GetMapping("public/{userId}")
+    public ResponseEntity<?> getAllSongPublicByUser(
+            @PathVariable int userId,
+            @RequestParam(name = "page", required = false, defaultValue = "0") Integer page,
+            @RequestParam(name = "size", required = false, defaultValue = "20") Integer size
+    ) {
+        try{
+            Response<List<Song>> response = new Response<>();
+            List<Song> data = iSongService.getAllSongByUserPublic(userId, page, size);
+            response.setData(data);
+            response.setMessage("Get all song public successfully!");
+            return ResponseEntity.ok(response);
+        }catch (Exception e ) {
+            Response<Song> response = new Response<>();
+            response.setMessage(e.getMessage());
+            return ResponseEntity.badRequest().body(response);
+        }
+    }
+    @GetMapping("private/{userId}")
+    public ResponseEntity<?> getAllSongPrivateByUser(
+            @PathVariable int userId,
+            @RequestParam(name = "page", required = false, defaultValue = "0") Integer page,
+            @RequestParam(name = "size", required = false, defaultValue = "20") Integer size
+    ) {
+        try{
+            Response<List<Song>> response = new Response<>();
+            List<Song> data = iSongService.getAllSongByUserPrivate(userId, page, size);
+            response.setData(data);
+            response.setMessage("Get all song private successfully!");
+            return ResponseEntity.ok(response);
+        }catch (Exception e ) {
+            Response<Song> response = new Response<>();
+            response.setMessage(e.getMessage());
+            return ResponseEntity.badRequest().body(response);
+        }
+    }
+
+    @GetMapping("all/{userId}")
+    public ResponseEntity<?> getAllSongByUser(
+            @PathVariable int userId,
+            @RequestParam(name = "page", required = false, defaultValue = "0") Integer page,
+            @RequestParam(name = "size", required = false, defaultValue = "20") Integer size
+    ) {
+        try{
+            Response<List<Song>> response = new Response<>();
+            List<Song> data = iSongService.getAllSongByUser(userId, page, size);
+            response.setData(data);
+            response.setMessage("Get all song successfully!");
+            return ResponseEntity.ok(response);
+        }catch (Exception e ) {
+            Response<Song> response = new Response<>();
+            response.setMessage(e.getMessage());
+            return ResponseEntity.badRequest().body(response);
+        }
+    }
+
+    // like
+    @PostMapping("/like")
+    public ResponseEntity<?> like(@RequestBody Liked liked) {
+        return ResponseEntity.ok(iSongService.likeSong(liked));
+    }
+
+    @PostMapping("/un-like")
+    public ResponseEntity<?> unLike(@RequestBody Liked liked) {
+        return ResponseEntity.ok(iSongService.unLikeSong(liked));
+    }
+
+    @PostMapping("/is-check-user-like")
+    public ResponseEntity<?> isCheckUserLikeSong(@RequestBody Liked liked) {
+        return ResponseEntity.ok(iSongService.isCheckUserLikeSong(liked));
+    }
 
 }

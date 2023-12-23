@@ -52,6 +52,40 @@ public class PlaylistController {
             return ResponseEntity.ok(response);
         }
     }
+    @GetMapping("/all/private/{userId}")
+    public ResponseEntity<?> getAllPrivatePlaylistByUser(
+            @PathVariable int userId,
+            @RequestParam(name = "page", required = false, defaultValue = "0") Integer page,
+            @RequestParam(name = "size", required = false, defaultValue = "20") Integer size
+    ) {
+        Response<List<Playlist>> response = new Response<>();
+        try{
+            List<Playlist> playlistNew = iPlaylistService.getAllPlaylistPrivateByUserId(page, size, userId);
+            response.setData(playlistNew);
+            return ResponseEntity.ok(response);
+        }catch (RuntimeException e ) {
+            response.setMessage(e.getMessage());
+            return ResponseEntity.ok(response);
+        }
+    }
+
+    @GetMapping("/all/public/{userId}")
+    public ResponseEntity<?> getAllPublicPlaylistByUser(
+            @PathVariable int userId,
+            @RequestParam(name = "page", required = false, defaultValue = "0") Integer page,
+            @RequestParam(name = "size", required = false, defaultValue = "20") Integer size
+    ) {
+        Response<List<Playlist>> response = new Response<>();
+        try{
+            List<Playlist> playlistNew = iPlaylistService.getAllPlaylistPublicByUserId(page, size, userId);
+            response.setData(playlistNew);
+            return ResponseEntity.ok(response);
+        }catch (RuntimeException e ) {
+            response.setMessage(e.getMessage());
+            return ResponseEntity.ok(response);
+        }
+    }
+
     @GetMapping("/detail/{playlistId}")
     public ResponseEntity<?> getAllPlaylistByUser(
             @PathVariable Long playlistId

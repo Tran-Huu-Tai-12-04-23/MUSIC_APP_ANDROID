@@ -1,5 +1,6 @@
 package com.example.api_music_player.service.impl;
 
+import com.example.api_music_player.model.Liked;
 import com.example.api_music_player.model.Playlist;
 import com.example.api_music_player.model.Song;
 import com.example.api_music_player.repository.LikeRepository;
@@ -24,6 +25,26 @@ public class SongService implements ISongService {
     @Override
     public Song create(Song song) {
         return songRepository.save(song);
+    }
+
+    @Override
+    public Liked likeSong(Liked liked) {
+        Liked lExist = likeRepository.findByUserIdAndSongId(liked.getUser().getId(), liked.getSong().getId());
+        if( lExist != null) throw  new RuntimeException("User liked!");
+        return likeRepository.save(liked);
+    }
+
+    @Override
+    public Boolean unLikeSong(Liked liked) {
+        Liked likeO = likeRepository.findByUserIdAndSongId(liked.getUser().getId(), liked.getSong().getId());
+        if( likeO == null ) throw new RuntimeException("Like not found");
+        return likeRepository.deleteLiked((long) likeO.getId()) > 0;
+    }
+
+    @Override
+    public Boolean isCheckUserLikeSong(Liked liked) {
+        Liked lExist = likeRepository.findByUserIdAndSongId(liked.getUser().getId(), liked.getSong().getId());
+        return lExist != null;
     }
 
     @Override
@@ -97,5 +118,23 @@ public class SongService implements ISongService {
     public List<Song> getSongLikesByUserid(Long userId, Integer page, Integer size) {
         Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "likeDate"));
         return likeRepository.findAllSongsByUserId(userId, pageable).toList();
+    }
+
+    @Override
+    public List<Song> getAllSongByUser(int userId, Integer page, Integer size) {
+        Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.ASC, "uploadDate"));
+        return songRepository.findAllByUserUploadId(userId, pageable);
+    }
+
+    @Override
+    public List<Song> getAllSongByUserPrivate(int userId, Integer page, Integer size) {
+        Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.ASC, "uploadDate"));
+        return songRepository.findAllByUserUploadIdAndIsPrivateTrue(userId, pageable);
+    }
+
+    @Override
+    public List<Song> getAllSongByUserPublic(int userId, Integer page, Integer size) {
+        Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.ASC, "uploadDate"));
+        return songRepository.findAllByUserUploadIdAndIsPrivateFalse(userId, pageable);
     }
 }

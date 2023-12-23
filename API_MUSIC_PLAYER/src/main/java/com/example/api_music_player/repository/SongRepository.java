@@ -7,6 +7,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import java.util.List;
+
 public interface SongRepository extends JpaRepository<Song, Long> {
 
 
@@ -18,6 +20,10 @@ public interface SongRepository extends JpaRepository<Song, Long> {
             "LOWER(s.title) LIKE LOWER(CONCAT('%', :searchTerm, '%')) OR " +
             "LOWER(s.userUpload.username) LIKE LOWER(CONCAT('%', :searchTerm, '%'))")
     Page<Song> searchSongs(@Param("searchTerm") String searchTerm, Pageable pageable);
+
+    List<Song> findAllByUserUploadIdAndIsPrivateFalse(int userUploadId, Pageable pageable);
+    List<Song> findAllByUserUploadId(int userUploadId, Pageable pageable);
+    List<Song> findAllByUserUploadIdAndIsPrivateTrue(int userUploadId, Pageable pageable);
 
 
 }

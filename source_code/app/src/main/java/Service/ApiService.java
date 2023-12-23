@@ -10,6 +10,7 @@ import DTO.DetailPlaylistRequest;
 import Model.Comment;
 import Model.DetailPlaylist;
 import Model.Follow;
+import Model.Liked;
 import Model.Playlist;
 import Model.Song;
 import Model.User;
@@ -120,6 +121,33 @@ public interface ApiService {
 
     @POST(ConstantUrlAPI.URL_CHECK_FOLLOW_EXIST)
     Call<Boolean>  isExistFollow(@Body Follow follow);
+
+    // song user
+
+    @GET(ConstantUrlAPI.URL_GET_SONG_BY_USER + "{userId}")
+    Call<ResponseData<List<Song>>>  getAllSongByUser(@Path("userId") Long userId);
+    @GET(ConstantUrlAPI.URL_GET_PRIVATE_SONG_BY_USER + "{userId}")
+    Call<ResponseData<List<Song>>>  getAllPrivateSongByUser(@Path("userId") Long userId);
+
+    @GET(ConstantUrlAPI.URL_GET_PUBLIC_SONG_BY_USER + "{userId}")
+    Call<ResponseData<List<Song>>>  getAllPublicSongByUser(@Path("userId") Long userId);
+
+    // playlist user
+    @GET(ConstantUrlAPI.URL_GET_PRIVATE_PLAYLIST_BY_USER + "{userId}")
+    Call<ResponseData<List<Playlist>>>  getAllPrivatePlaylistByUser(@Path("userId") Long userId);
+
+    @GET(ConstantUrlAPI.URL_GET_PUBLIC_PLAYLIST_BY_USER + "{userId}")
+    Call<ResponseData<List<Playlist>>>  getAllPublicPlaylistByUser(@Path("userId") Long userId);
+
+    // like song
+
+    @POST(ConstantUrlAPI.URL_LIKE)
+    Call<Liked>  like(@Body Liked liked);
+    @POST(ConstantUrlAPI.URL_UN_LIKE)
+    Call<Boolean>  unLike(@Body Liked liked);
+    @POST(ConstantUrlAPI.URL_IS_CHECK_USERLIKE_SONG)
+    Call<Boolean>  isCheckUserLikedSong(@Body Liked liked);
+
 }
 
 

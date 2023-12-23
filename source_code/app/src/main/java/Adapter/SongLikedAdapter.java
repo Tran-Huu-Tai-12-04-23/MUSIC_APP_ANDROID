@@ -1,9 +1,7 @@
 package Adapter;
 
 import android.annotation.SuppressLint;
-import android.app.Dialog;
 import android.content.Context;
-import android.graphics.drawable.GradientDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,7 +9,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -20,15 +17,19 @@ import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
 import com.example.musicplayer.R;
 import com.google.android.material.button.MaterialButton;
-import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import java.util.ArrayList;
 
+import Interface.HandleListeningItemClicked;
+import Interface.HandleListeningItemLikedClicked;
+import Interface.HandleListeningItemLongClicked;
 import Model.Song;
 
 public class SongLikedAdapter extends RecyclerView.Adapter<SongLikedAdapter.ItemRecentMusicHolder>  {
     Context context;
-    OnListeningItemClicked onListeningItemClicked;
+    HandleListeningItemClicked<Song> handleListeningItemClicked;
+    HandleListeningItemLikedClicked<Song> handleListeningItemLikedClicked;
+    HandleListeningItemLongClicked<Song> handleListeningItemLongClicked;
     ArrayList<Song> arrayList ;
 
     public SongLikedAdapter(Context context, ArrayList<Song> data) {
@@ -66,10 +67,22 @@ public class SongLikedAdapter extends RecyclerView.Adapter<SongLikedAdapter.Item
         holder.tvNameArtist.setText(song.getUserUpload().getUsername());
         holder.tvNameSong.setText(song.getTitle().substring(0,1).toUpperCase() + song.getTitle().substring(1).toLowerCase());
 
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-//                handleListeningItemClicked.onClick(holder.imgView, arrayList.get(holder.getAdapterPosition()));
+        holder.itemView.setOnClickListener( v -> {
+            if(handleListeningItemClicked != null ) {
+                handleListeningItemClicked.onClick(song);
+            }
+        });
+
+        holder.itemView.setOnLongClickListener(v -> {
+            if(handleListeningItemLongClicked != null ) {
+                handleListeningItemLongClicked.onLongClick(song);
+            }
+            return false;
+        });
+
+        holder.btnActionLike.setOnClickListener(v -> {
+            if(handleListeningItemLikedClicked != null ) {
+                handleListeningItemLikedClicked.onLike(song);
             }
         });
     }
@@ -79,8 +92,16 @@ public class SongLikedAdapter extends RecyclerView.Adapter<SongLikedAdapter.Item
         return arrayList.size();
     }
 
-    public void setOnItemClickListener(OnListeningItemClicked onItemClickListener) {
-        this.onListeningItemClicked =  onItemClickListener;
+    public void setOnItemClickListener(HandleListeningItemClicked<Song> onItemClickListener) {
+        this.handleListeningItemClicked = onItemClickListener;
+    }
+
+    public void setOnItemLongClickListener(HandleListeningItemLongClicked<Song> onItemLongClickListener) {
+        this.handleListeningItemLongClicked = onItemLongClickListener;
+    }
+
+    public void setOnItemLikeClickListener(HandleListeningItemLikedClicked<Song> onItemLikeClickListener) {
+        this.handleListeningItemLikedClicked = onItemLikeClickListener;
     }
 
     public static class ItemRecentMusicHolder extends RecyclerView.ViewHolder{

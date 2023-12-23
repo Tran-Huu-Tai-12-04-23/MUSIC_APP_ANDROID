@@ -26,11 +26,15 @@ public class Song {
     private double duration;
     private Date uploadDate;
     private String genre;
+    private Boolean isPrivate;
 
     @PrePersist
     public void prePersist() {
         if (uploadDate == null) {
             uploadDate = new Date();
+        }
+        if( isPrivate == null ) {
+            isPrivate = false;
         }
     }
 

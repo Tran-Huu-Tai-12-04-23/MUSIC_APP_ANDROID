@@ -13,6 +13,8 @@ public interface IPlaylistService {
     void removeById(Long playlistId);
 
     List<Playlist> getAllPlaylistByUserId(int page, int size, int userId);
+    List<Playlist> getAllPlaylistPrivateByUserId(int page, int size, int userId);
+    List<Playlist> getAllPlaylistPublicByUserId(int page, int size, int userId);
     List<Playlist> getAllPlaylistByUserIdNotHaveSong( int userId, long songId);
 
     List<DetailPlaylist> getDetailPlaylistById(Long playListId);

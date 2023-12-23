@@ -531,6 +531,16 @@ public class HomeActivity extends AppCompatActivity {
 
     }
 
+    public void openDetailArtist( Bundle bundle) {
+        if( navController == null )return;
+        YoYo.with(Techniques.SlideInRight)
+                .duration(200)
+                .playOn(findViewById(R.id.fragmentContainer));
+        navController.navigate(R.id.nav_detail_artist, bundle);
+        currentFragment = R.id.nav_detail_artist;
+
+    }
+
     private void initUser(Long userId) {
         ApiService.ApiService.getUserById(userId).enqueue(new Callback<User>() {
             @Override

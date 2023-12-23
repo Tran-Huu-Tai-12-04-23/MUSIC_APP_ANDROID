@@ -21,4 +21,8 @@ public interface LikeRepository extends JpaRepository<Liked, Long> {
     @Transactional
     @Query("DELETE FROM Liked l WHERE l.id = :likeId")
     Integer deleteLiked(@Param("likeId") Long likeId);
+
+    Liked findByUserIdAndSongId(int userId, Long songId);
+
+
 }

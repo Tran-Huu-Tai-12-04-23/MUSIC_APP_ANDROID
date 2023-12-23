@@ -50,4 +50,11 @@
         android:label="playlist detail"
         />
 
+    <fragment
+        android:id="@+id/nav_detail_artist"
+        android:name="Fragment.Library.DetailArtistScreen"
+        android:label="artist detail"
+        />
+
+
 </navigation>

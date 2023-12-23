@@ -20,7 +20,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
 import DTO.ResponseData;
-import Interface.BottomSheetAddArtistInteractionListener;
+import Interface.BottomSheetActionArtistInteractionListener;
 import Model.Follow;
 import Model.Playlist;
 import Model.User;
@@ -31,7 +31,7 @@ import retrofit2.Response;
 import utils.Util;
 
 public class BottomSheetActionArtist extends BottomSheetDialogFragment {
-    private BottomSheetAddArtistInteractionListener bottomSheetAddArtistInteractionListener;
+    private BottomSheetActionArtistInteractionListener bottomSheetActionArtistInteractionListener;
     private BottomSheetArtistBinding binding;
     private BottomSheetBehavior<View> bBehavior;
     private User user;
@@ -41,8 +41,8 @@ public class BottomSheetActionArtist extends BottomSheetDialogFragment {
 
     @Override
     public void onAttach(@NonNull Context context) {
-        if (getParentFragment() instanceof BottomSheetAddArtistInteractionListener) {
-            bottomSheetAddArtistInteractionListener = (BottomSheetAddArtistInteractionListener) getParentFragment();
+        if (getParentFragment() instanceof BottomSheetActionArtistInteractionListener) {
+            bottomSheetActionArtistInteractionListener = (BottomSheetActionArtistInteractionListener) getParentFragment();
         }
         super.onAttach(context);
     }
@@ -112,8 +112,8 @@ public class BottomSheetActionArtist extends BottomSheetDialogFragment {
             @Override
             public void onResponse(Call<Boolean> call, Response<Boolean> response) {
                 if(response.isSuccessful()) {
-                    if(bottomSheetAddArtistInteractionListener != null ) {
-                        bottomSheetAddArtistInteractionListener.onChangeUnFollow(userTarget);
+                    if(bottomSheetActionArtistInteractionListener != null ) {
+                        bottomSheetActionArtistInteractionListener.onChangeUnFollow(userTarget);
                     }
                     dismiss();
                 }
@@ -139,8 +139,8 @@ public class BottomSheetActionArtist extends BottomSheetDialogFragment {
             @Override
             public void onResponse(Call<ResponseData<Playlist>> call, Response<ResponseData<Playlist>> response) {
                 if( response.isSuccessful()) {
-                    if(bottomSheetAddArtistInteractionListener != null ) {
-                        bottomSheetAddArtistInteractionListener.onChangeFollow(userTarget);
+                    if(bottomSheetActionArtistInteractionListener != null ) {
+                        bottomSheetActionArtistInteractionListener.onChangeFollow(userTarget);
                     }
                     dismiss();
                 }

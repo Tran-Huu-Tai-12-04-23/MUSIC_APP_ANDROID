@@ -52,6 +52,18 @@ public class PlaylistService implements IPlaylistService {
     }
 
     @Override
+    public List<Playlist> getAllPlaylistPrivateByUserId(int page, int size, int userId) {
+        Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "createAt"));
+        return playlistRepository.findAllByUserIdAndIsPrivateTrue(userId, pageable);
+    }
+
+    @Override
+    public List<Playlist> getAllPlaylistPublicByUserId(int page, int size, int userId) {
+        Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "createAt"));
+        return playlistRepository.findAllByUserIdAndIsPrivateFalse(userId, pageable);
+    }
+
+    @Override
     public List<Playlist> getAllPlaylistByUserIdNotHaveSong( int userId, long songId) {
         return playlistRepository.findAllWithoutSongByUserIdAndSongId((long) userId, songId);
     }

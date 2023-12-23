@@ -22,7 +22,7 @@ import java.util.List;
 import Adapter.FollowingAdapter;
 import BottomSheet.BottomSheetActionArtist;
 import DTO.ResponseData;
-import Interface.BottomSheetAddArtistInteractionListener;
+import Interface.BottomSheetActionArtistInteractionListener;
 import Model.Follow;
 import Model.Playlist;
 import Model.User;
@@ -37,7 +37,7 @@ import utils.LoadingDialog;
  * Use the {@link FollowingScreen#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class FollowingScreen extends Fragment implements BottomSheetAddArtistInteractionListener {
+public class FollowingScreen extends Fragment implements BottomSheetActionArtistInteractionListener {
     private FollowingAdapter followingAdapter;
     private ArrayList<User> users;
     private LoadingDialog loadingDialog;

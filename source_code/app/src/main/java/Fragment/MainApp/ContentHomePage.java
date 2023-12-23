@@ -34,6 +34,7 @@ import BottomSheet.BottomSheetActionArtist;
 import BottomSheet.BottomSheetActionPlaylist;
 import BottomSheet.BottomSheetActionSong;
 import DTO.HomeResponse;
+import Interface.BottomSheetActionArtistInteractionListener;
 import Interface.HandleListeningItemClicked;
 import Interface.HandleListeningItemLongClicked;
 import LocalData.Entity.StatePlayMusic;
@@ -51,9 +52,11 @@ import utils.LoadingDialog;
  * Use the {@link ContentHomePage#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class ContentHomePage extends Fragment  {
+public class ContentHomePage extends Fragment implements BottomSheetActionArtistInteractionListener {
     private FragmentContentHomePageBinding binding;
     private User user;
+    private ArrayList<User> artists;
+    private ArtistAdapter artistAdapter;
     private Long userId;
     LoadingDialog loadingDialog;
     // TODO: Rename parameter arguments, choose names that match
@@ -105,7 +108,7 @@ public class ContentHomePage extends Fragment  {
         View view = binding.getRoot();
         // Inflate the layout for this fragment
         loadingDialog = new LoadingDialog(requireActivity());
-
+        artists = new ArrayList<>();
 //        viewPagerTrending = view.findViewById(R.id.paper_trending);
 
         binding.searchBtn.setOnClickListener(v -> {
@@ -152,10 +155,10 @@ public class ContentHomePage extends Fragment  {
                     renderRecentMusic(binding.recentMusicHome, homeResponse.getRecentMusic());
                     renderNewMusic(binding.newMusicHome, homeResponse.getNewestSong());
                     renderPlaylistHome(binding.playlistItemHome,homeResponse.getFamousPlaylist());
-                    ArrayList<User> userS = homeResponse.getArtistList().stream()
+                    artists = homeResponse.getArtistList().stream()
                             .filter(user -> !Objects.equals(user.getId(), userId))
                             .collect(Collectors.toCollection(ArrayList::new));
-                    renderArtistFamous(binding.artistFamousHome,userS);
+                    renderArtistFamous(binding.artistFamousHome,artists);
                 }
 
                 loadingDialog.stopLoading();
@@ -213,7 +216,7 @@ public class ContentHomePage extends Fragment  {
 
     public void renderRecentMusic(RecyclerView recentMusic, ArrayList<Song> data) {
         LinearLayoutManager layoutManagerRecentMusic = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
-        MusicItemAdapter itemRecentMusicAdapter = new MusicItemAdapter(getContext(), data);
+        MusicItemAdapter itemRecentMusicAdapter = new MusicItemAdapter(getContext(), data, true);
 
         itemRecentMusicAdapter.setOnItemClickListener(new HandleListeningItemClicked<Song>() {
             @Override
@@ -237,7 +240,7 @@ public class ContentHomePage extends Fragment  {
 
     public void renderArtistFamous(RecyclerView artistFamousSlide, ArrayList<User> artistListData) {
         LinearLayoutManager layoutManagerFamousArtist = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
-        ArtistAdapter artistAdapter = new ArtistAdapter(getContext(), artistListData);
+        artistAdapter = new ArtistAdapter(getContext(), artistListData);
 
         artistAdapter.setOnItemLongClickListener(new HandleListeningItemLongClicked<User>() {
             @Override
@@ -254,7 +257,12 @@ public class ContentHomePage extends Fragment  {
         artistAdapter.setOnItemClickListener(new HandleListeningItemClicked<User>() {
             @Override
             public void onClick(User data) {
-                Toast.makeText(getContext(), "Click artist", Toast.LENGTH_SHORT).show();
+                if( requireActivity() instanceof  HomeActivity ) {
+                    HomeActivity homeActivity = (HomeActivity) requireActivity();
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable("user", data);
+                    homeActivity.openDetailArtist(bundle);
+                }
             }
         });
         artistFamousSlide.setLayoutManager(layoutManagerFamousArtist);
@@ -263,7 +271,7 @@ public class ContentHomePage extends Fragment  {
 
     public void renderNewMusic(RecyclerView newMusicContainer, ArrayList<Song> data) {
         LinearLayoutManager layoutManagerNewMusic = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
-        MusicItemAdapter itemNewMusicAdapter = new MusicItemAdapter(getContext(), data);
+        MusicItemAdapter itemNewMusicAdapter = new MusicItemAdapter(getContext(), data, true);
 
 
         itemNewMusicAdapter.setOnItemLongClickListener(new HandleListeningItemLongClicked<Song>() {
@@ -304,4 +312,35 @@ public class ContentHomePage extends Fragment  {
         }
 
     }
+
+    @SuppressLint("NotifyDataSetChanged")
+    @Override
+    public void onChangeUnFollow(User user) {
+        artists = (ArrayList<User>) artists.stream()
+                .map(us -> {
+                    if (Objects.equals(us.getId(), user.getId())) {
+                        us.setTotalFollow(us.getTotalFollow() - 1);
+                    }
+                    return us;
+                })
+                .collect(Collectors.toList());
+
+        artistAdapter.notifyDataSetChanged();
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    @Override
+    public void onChangeFollow(User user) {
+        artists = (ArrayList<User>) artists.stream()
+                .map(us -> {
+                    if (Objects.equals(us.getId(), user.getId())) {
+                        us.setTotalFollow(us.getTotalFollow() + 1);
+                    }
+                    return us;
+                })
+                .collect(Collectors.toList());
+
+        artistAdapter.notifyDataSetChanged();
+    }
+
 }

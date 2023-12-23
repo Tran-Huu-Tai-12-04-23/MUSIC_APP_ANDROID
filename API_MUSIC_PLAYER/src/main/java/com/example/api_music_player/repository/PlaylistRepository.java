@@ -27,6 +27,8 @@ public interface PlaylistRepository extends JpaRepository<Playlist, Long> {
             "AND NOT EXISTS (SELECT 1 FROM DetailPlaylist dp WHERE dp.playlist.id = p.id AND dp.song.id = :songId)")
     List<Playlist> findAllWithoutSongByUserIdAndSongId(@Param("userId") Long userId, @Param("songId") Long songId);
 
-
+    List<Playlist> findAllByUserIdAndIsPrivateFalse(int userId, Pageable pageable);
+    List<Playlist> findAllByUserIdAndIsPrivateTrue(int userId, Pageable pageable);
+    List<Playlist> findAllByUserId(int userId, Pageable pageable);
 
 }
