@@ -1,9 +1,9 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
     <style name="Theme.MusicPlayer" parent="Theme.Material3.DayNight.NoActionBar">
-        <item name="android:statusBarColor">@color/bg_primary</item>
+        <item name="android:statusBarColor">@color/bg_poster</item>
 
-        <item name="android:fontFamily">@font/gottham</item>
+        <item name="android:fontFamily">@font/poppins</item>
 <!--        <item name="android:background">@color/bg_primary</item>-->
         <item name="android:textColor">@color/white</item>
 
@@ -70,24 +70,24 @@
         <item name="android:paddingLeft">24dp</item>
         <item name="android:textSize">14sp</item>
     </style>
-
-
 <!--    button-->
     <style name="btn_second" parent="Widget.Material3.Button.ElevatedButton">
         <item name="android:textColor">@color/white</item>
         <item name="android:backgroundTint">@color/bg_navigate</item>
     </style>
 
+    <color name="bg_navigate">#2e363f</color>
 
-
-    <color name="bg_navigate">#1a1d3a</color>
-
-    <color name="bg_primary">#0b0c1f</color>
+    <color name="bg_primary">#242b33</color>
 
     <color name="text_primary">#fff</color>
-    <color name="bg_third">#162c46</color>
-    <color name="bg_second">#2A4caf50</color>
-    <color name="input_color">@color/tiny_black</color>
-    <color name="icon_primary">#073D5B</color>
+    <color name="bg_third">#2e363f</color>
+    <color name="bg_second">#2e363f</color>
+    <color name="input_color">#2e363f</color>
+    <color name="icon_primary">#686eff</color>
+
+    <color name="btn_primary">#686eff</color>
+    <color name="rip_btn_primary">#1A686eff</color>
+    <color name="icon_second">#ccc</color>
 
 </resources>

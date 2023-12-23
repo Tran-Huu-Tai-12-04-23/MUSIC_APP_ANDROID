@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "68066889534",
+    "project_id": "authenappotp",
+    "storage_bucket": "authenappotp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:68066889534:android:7d1541d507f92cfe63266f",
+        "android_client_info": {
+          "package_name": "com.example.musicplayer"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD9nmOx89iPDuMJS_eqg2IhSZqxyUDTdwE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

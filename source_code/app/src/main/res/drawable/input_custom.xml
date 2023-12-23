@@ -9,7 +9,7 @@
     <item android:right="2dp" android:top="2dp">
         <shape android:shape="rectangle">
             <corners android:radius="40dp" />
-            <solid android:color="#1f2248" /> <!-- Background color of the shape -->
+            <solid android:color="@color/input_color" /> <!-- Background color of the shape -->
             <padding android:left="2dp" android:right="2dp" android:top="2dp" android:bottom="2dp" />
         </shape>
     </item>

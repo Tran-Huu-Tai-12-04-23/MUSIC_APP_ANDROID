@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="fragment.startApp.IntroFragment"
+    tools:context="Fragment.StartApp.IntroFragment"
     android:id="@+id/intro_fragment"
     style="@style/bg_primary"
     >

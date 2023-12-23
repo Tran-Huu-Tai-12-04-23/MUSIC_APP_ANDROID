@@ -1,0 +1,19 @@
+<vector
+    android:height="24dp"
+    android:tint="#BFBCBC"
+    android:viewportHeight="24"
+    android:viewportWidth="24"
+    android:width="24dp"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Add a stroke with a thickness of 2dp and color white -->
+    <path
+        android:fillColor="@android:color/white"
+        android:pathData="M10,16.5l6,-4.5 -6,-4.5v9zM12,2C6.48,2 2,6.48 2,12s4.48,10 10,10 10,-4.48 10,-10S17.52,2 12,2zM12,20c-4.41,0 -8,-3.59 -8,-8s3.59,-8 8,-8 8,3.59 8,8 -3.59,8 -8,8z">
+
+        <!-- Add a stroke with thickness 2dp and color white -->
+        <stroke
+            android:width="2dp"
+            android:color="@android:color/white"/>
+    </path>
+</vector>

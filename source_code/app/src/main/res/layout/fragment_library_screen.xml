@@ -3,11 +3,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context="fragment.library.LibraryScreen"
-    android:padding="10dp"
+    tools:context="Fragment.Library.LibraryScreen"
+    android:paddingStart="10dp"
+    android:paddingEnd="10dp"
     >
-
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -17,34 +16,26 @@
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:gravity="center"
-            >
-            <LinearLayout
+            android:orientation="horizontal">
+            <TextView
+                android:textStyle="bold"
+                android:textColor="@color/icon_primary"
                 android:layout_width="0dp"
                 android:layout_weight="1"
-                android:layout_height="match_parent">
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/btn_back"
-                    style="@style/Widget.Material3.Button.OutlinedButton.Icon"
-                    android:layout_width="60dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:gravity="center"
-                    app:icon="@drawable/baseline_arrow_back_24"
-                    app:iconSize="30dp"
-                    app:strokeColor="@color/bg_primary"
-                    app:strokeWidth="0dp"
-                    app:iconTint="@color/text_primary"
-                    />
-            </LinearLayout>
+                android:layout_height="wrap_content"
+                android:text="@string/library_title"
+                android:textAlignment="textStart"
+                tools:ignore="RtlSymmetry">
+
+            </TextView>
 
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/avatar"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:scaleType="centerCrop"
-                android:src="@drawable/test_music_play"
+                android:src="@drawable/baseline_person_24"
                 app:shapeAppearance="@style/ShapeAppearance.Material3.Corner.Full"
-                android:layout_marginEnd="20dp"
                 />
         </LinearLayout>
 
@@ -65,108 +56,82 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:padding="20dp"
+
                         android:orientation="vertical"
                         >
-                        <TextView
-                            style="@style/text_header"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="@string/library_title"
-                            android:textAlignment="textStart"
-                            app:iconTint="?attr/colorOnSurface"
-                            android:layout_marginBottom="10dp"
-                            >
 
-                        </TextView>
                         <View
                             android:layout_width="match_parent"
                             android:layout_height="1dp"
                             android:background="@color/bg_third"
                             android:layout_marginBottom="10dp"
                             />
-                        <LinearLayout
-                            android:layout_width="wrap_content"
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/btn_navigate_playlist_liked"
+                            style="@style/Widget.Material3.Button.OutlinedButton.Icon"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            android:gravity="center"
-                            android:id="@+id/btn_navigate_favourite_playlist"
-                            >
-                            <com.google.android.material.imageview.ShapeableImageView
-                                android:layout_width="30dp"
-                                android:layout_height="30dp"
-                                android:scaleType="centerCrop"
-                                android:src="@drawable/baseline_favorite_24"
-                                app:shapeAppearance="@style/ShapeAppearance.Material3.Corner.Full"
-                                android:layout_marginEnd="10dp"
-                                android:tint="@color/icon_primary"
-                                />
-                            <TextView
-                                style="@style/text_primary"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:text="@string/favourite_playlist_title"
-                                android:textAlignment="textStart"
-                                >
-
-                            </TextView>
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            android:gravity="center"
-                            android:layout_marginTop="10dp"
+                            android:layout_gravity="start"
+                            android:text="@string/songliked_title"
+                            app:icon="@drawable/baseline_favorite_24"
+                            app:iconSize="30dp"
+                            app:strokeColor="@color/bg_primary"
+                            app:strokeWidth="0dp"
+                            android:textColor="@color/text_primary"
+                            app:iconTint="@color/bg_second"
+                            app:rippleColor="@color/bg_second"
+                            android:textAlignment="textStart"
+                            />
+                        <com.google.android.material.button.MaterialButton
                             android:id="@+id/btn_navigate_playlist"
-                            >
-                            <com.google.android.material.imageview.ShapeableImageView
-                                android:layout_width="30dp"
-                                android:layout_height="30dp"
-                                android:scaleType="centerCrop"
-                                android:src="@drawable/baseline_music_note_24"
-                                app:shapeAppearance="@style/ShapeAppearance.Material3.Corner.Full"
-                                android:layout_marginEnd="10dp"
-                                android:tint="@color/icon_primary"
-                                />
-                            <TextView
-                                style="@style/text_primary"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:text="@string/playlist_title"
-                                android:textAlignment="textStart"
-                                >
-
-                            </TextView>
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="wrap_content"
+                            style="@style/Widget.Material3.Button.OutlinedButton.Icon"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            android:gravity="center"
-                            android:layout_marginTop="10dp"
+                            android:layout_gravity="start"
+                            android:text="@string/playlist_title"
+                            app:icon="@drawable/baseline_music_note_24"
+                            app:iconSize="30dp"
+                            app:strokeColor="@color/bg_primary"
+                            app:strokeWidth="0dp"
+                            android:textColor="@color/text_primary"
+                            app:iconTint="@color/bg_second"
+                            app:rippleColor="@color/bg_second"
+                            android:textAlignment="textStart"
+                            />
+                        <com.google.android.material.button.MaterialButton
                             android:id="@+id/btn_navigate_following"
-                            >
-                            <com.google.android.material.imageview.ShapeableImageView
-                                android:layout_width="30dp"
-                                android:layout_height="30dp"
-                                android:scaleType="centerCrop"
-                                android:src="@drawable/baseline_person_24"
-                                app:shapeAppearance="@style/ShapeAppearance.Material3.Corner.Full"
-                                android:layout_marginEnd="10dp"
-                                android:tint="@color/icon_primary"
-                                />
-                            <TextView
-                                style="@style/text_primary"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:text="@string/following_title"
-                                android:textAlignment="textStart"
-                                >
+                            style="@style/Widget.Material3.Button.OutlinedButton.Icon"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="start"
+                            android:text="@string/following_title"
+                            android:textAlignment="textStart"
+                            app:icon="@drawable/baseline_person_24"
+                            app:iconSize="30dp"
+                            app:strokeColor="@color/bg_primary"
+                            app:strokeWidth="0dp"
+                            android:textColor="@color/text_primary"
+                            app:iconTint="@color/bg_second"
+                            app:rippleColor="@color/bg_second"
+                            />
 
-                            </TextView>
-                        </LinearLayout>
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/btn_navigate_download"
+                            style="@style/Widget.Material3.Button.OutlinedButton.Icon"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="start"
+                            android:text="@string/t_i_xu_ng"
+                            android:textAlignment="textStart"
+                            app:icon="@drawable/download_svgrepo_com"
+                            app:iconSize="30dp"
+                            app:strokeColor="@color/bg_primary"
+                            app:strokeWidth="0dp"
+                            android:textColor="@color/text_primary"
+                            app:iconTint="@color/bg_second"
+                            app:rippleColor="@color/bg_second"
+                            />
+
 
                         <View
                             android:layout_marginTop="10dp"
@@ -183,14 +148,13 @@
                         android:layout_height="wrap_content"
                         android:text="@string/recent_music_title"
                         android:textAlignment="textStart"
-                        app:iconTint="?attr/colorOnSurface"
+                        tools:ignore="RtlSymmetry"
                         android:paddingStart="20dp"
-                        tools:ignore="RtlSymmetry" />
+                        android:layout_marginTop="20dp"
+                        />
                     <View
                         android:layout_marginTop="10dp"
                         android:layout_width="match_parent"
-                        android:layout_marginEnd="20dp"
-                        android:layout_marginStart="20dp"
                         android:layout_height="1dp"
                         android:background="@color/bg_third"/>
 

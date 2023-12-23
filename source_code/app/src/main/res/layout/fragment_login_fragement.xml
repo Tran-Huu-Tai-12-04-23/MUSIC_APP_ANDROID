@@ -3,202 +3,200 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="fragment.startApp.LoginFragment"
+    tools:context="Fragment.StartApp.LoginFragment"
     android:id="@+id/sign_in_fragment"
     >
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:padding="32dp"
-        tools:context="fragment.startApp.LoginFragment"
+        tools:context="Fragment.StartApp.LoginFragment"
         style="@style/bg_primary"
+        android:orientation="vertical"
+        android:gravity="center_vertical"
         >
 
-        <TextView
-            android:id="@+id/textView3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="92dp"
-            android:text="Sign In"
-            style="@style/text_primary_bold"
-            android:textSize="40sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintVertical_bias="0.3"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/textView4"
-            android:layout_width="302dp"
-            android:layout_height="29dp"
-            android:layout_marginTop="8dp"
-            android:text="Find what you're looking for with Search music"
-            android:textSize="14sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="@+id/textView3"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@+id/textView3"
-            app:layout_constraintTop_toBottomOf="@+id/textView3"
-            tools:ignore="MissingConstraints" />
-
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btnForgotPassword"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:background="#00000000"
-            android:text="Quên mật khẩu?"
-            android:textColor="@color/cardview_dark_background"
-            android:textSize="14sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="@+id/inputPassword"
-            app:layout_constraintTop_toBottomOf="@+id/inputPassword" />
-
-        <TextView
-            android:id="@+id/textView5"
-            style="@style/text_primary"
-            android:layout_width="wrap_content"
-            android:layout_height="32dp"
-            android:layout_marginTop="12dp"
-            android:text="Or connect width"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="@+id/btnActionLogin"
-            app:layout_constraintHorizontal_bias="0.484"
-            app:layout_constraintStart_toStartOf="@+id/btnActionLogin"
-            app:layout_constraintTop_toBottomOf="@+id/btnActionLogin"
-            tools:ignore="MissingConstraints" />
-
-        <EditText
-            android:id="@+id/inputUsername"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:textColor="@color/white"
-            android:layout_marginTop="36dp"
-            android:height="60dp"
-            android:ems="10"
-            style="@style/main_input_style"
-            android:hint="Username"
-            android:inputType="text"
-            android:paddingLeft="24dp"
-            android:text=""
-            android:textSize="14sp"
-            app:layout_constraintEnd_toEndOf="@+id/textView4"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@+id/textView4"
-            app:layout_constraintTop_toBottomOf="@+id/textView4" />
+            android:layout_height="0dp"
+            android:orientation="vertical"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:layout_weight="1"
+            >
 
-        <EditText
-            android:id="@+id/inputPassword"
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center_vertical">
+                <TextView
+                    android:id="@+id/textView3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Sign In"
+                    style="@style/text_primary_bold"
+                    android:textSize="40sp"
+                    android:textStyle="bold"
+                  />
+
+                <TextView
+                    android:id="@+id/textView4"
+                    android:layout_width="302dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="Find what you're looking for with Search music"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                  />
+
+            </LinearLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                app:endIconMode="clear_text"
+                android:layout_marginTop="32dp"
+                >
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/inputUsername"
+                    style="@style/main_input_style"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:ems="10"
+                    android:hint="@string/username"
+                    android:inputType="text"
+                    android:paddingStart="24dp"
+                    android:text="huutaitran"
+                    android:textSize="14sp"
+                    tools:ignore="Deprecated,RtlSymmetry" />
+            </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                app:endIconMode="password_toggle"
+                android:layout_marginTop="32dp"
+                >
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/inputPassword"
+                    style="@style/main_input_style"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:ems="10"
+                    android:hint="@string/password"
+                    android:inputType="text"
+                    android:paddingStart="24dp"
+                    android:password="true"
+                    android:text="tai2k300"
+                    android:textSize="14sp"
+                    tools:ignore="Deprecated,RtlSymmetry" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnForgotPassword"
+                android:layout_width="match_parent"
+                android:textAlignment="textEnd"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:background="#00000000"
+                android:text="@string/qu_n_m_t_kh_u"
+                android:textColor="@color/cardview_dark_background"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="@+id/inputPassword"
+                app:layout_constraintTop_toBottomOf="@+id/inputPassword" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btnActionLogin"
+                style="@style/btn_primary"
+                android:layout_width="200dp"
+                android:layout_height="50dp"
+                android:text="Sign In"
+                app:layout_constraintEnd_toEndOf="@+id/inputPassword"
+                app:layout_constraintHorizontal_bias="0.496"
+                app:layout_constraintStart_toStartOf="@+id/inputPassword"
+                app:layout_constraintTop_toBottomOf="@+id/inputPassword"
+                android:clickable="true"
+                />
+
+
+            <TextView
+                android:id="@+id/textView5"
+                style="@style/text_primary"
+                android:layout_width="wrap_content"
+                android:layout_height="32dp"
+                android:layout_marginTop="12dp"
+                android:text="Or connect width"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="@+id/btnActionLogin"
+                app:layout_constraintHorizontal_bias="0.484"
+                app:layout_constraintStart_toStartOf="@+id/btnActionLogin"
+                app:layout_constraintTop_toBottomOf="@+id/btnActionLogin"
+                tools:ignore="MissingConstraints" />
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_gravity="center"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/imageView2"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/google"
+                    android:text=""
+                    app:layout_constraintStart_toStartOf="@+id/textView5"
+                    app:layout_constraintTop_toBottomOf="@+id/textView5" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/imageView3"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/facebook"
+                    android:text=""
+                    app:layout_constraintEnd_toEndOf="@+id/textView5"
+                    app:layout_constraintTop_toBottomOf="@+id/textView5" />
+                />
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:layout_marginTop="32dp"
-            android:height="60dp"
-            android:hint="Password"
-            style="@style/main_input_style"
-            android:password="true"
-            android:text=""
-            android:textSize="14sp"
-            app:layout_constraintEnd_toEndOf="@+id/inputUsername"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@+id/inputUsername"
-            app:layout_constraintTop_toBottomOf="@+id/inputUsername"
-            tools:ignore="Deprecated" />
-
-
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btnActionLogin"
-            style="@style/btn_primary"
-            android:layout_width="200dp"
-            android:layout_height="50dp"
-            android:layout_marginTop="64dp"
-            android:text="Sign In"
-            app:layout_constraintEnd_toEndOf="@+id/inputPassword"
-            app:layout_constraintHorizontal_bias="0.496"
-            app:layout_constraintStart_toStartOf="@+id/inputPassword"
-            app:layout_constraintTop_toBottomOf="@+id/inputPassword"
-            android:clickable="true"
-            />
-
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/imageView2"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_marginTop="8dp"
-            android:background="@drawable/google"
-            android:text=""
-            app:layout_constraintStart_toStartOf="@+id/textView5"
-            app:layout_constraintTop_toBottomOf="@+id/textView5" />
-
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/imageView3"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_marginTop="8dp"
-            android:background="@drawable/facebook"
-            android:text=""
-            app:layout_constraintEnd_toEndOf="@+id/textView5"
-            app:layout_constraintTop_toBottomOf="@+id/textView5" />
-        />
-
-
-        <TextView
-            android:id="@+id/textView6"
-            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
-            android:text="You don't have an account?"
-            android:textAlignment="center"
-            android:textSize="14dp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/buttonRegister"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageView2"
-            app:layout_constraintVertical_bias="1.0" />
+            android:orientation="horizontal"
+            android:gravity="end"
+            >
+            <TextView
+                android:id="@+id/textView6"
+                android:paddingStart="32dp"
+                android:textAlignment="center"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="@string/you_don_t_have_an_account"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                />
 
-        <Button
-            android:id="@+id/buttonRegister"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="32dp"
-            android:background="#00000000"
-            android:text="Create Now"
-            android:textColor="@color/primary"
-            app:layout_constraintBottom_toBottomOf="@+id/textView6"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/textView6"
-            app:layout_constraintTop_toTopOf="@+id/textView6" />
-
-
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <Button
+                android:id="@+id/buttonRegister"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="#00000000"
+                android:text="@string/create_now"
+                android:textColor="@color/icon_primary"
+                />
+        </LinearLayout>
 
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:background="@color/tiny_black"
-        android:id="@+id/loading_sign_in"
-        android:clickable="true"
-        android:focusable="true"
-        android:focusableInTouchMode="true"
-        >
 
-        <com.google.android.material.progressindicator.CircularProgressIndicator
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:indeterminate="true"
-            app:trackColor="@color/purple_200"
-            app:indicatorColor="@color/text_primary"
-            android:outlineSpotShadowColor="@color/main_bottom_app_bar"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
+
+
 </FrameLayout>

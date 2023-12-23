@@ -1,10 +1,14 @@
 package com.example.api_music_player.controller;
 
 
+import com.example.api_music_player.dto.ChangePasswordRequest;
 import com.example.api_music_player.dto.Response;
+import com.example.api_music_player.exception.PhoneNumberInUseException;
+import com.example.api_music_player.exception.UserAlreadyExistsException;
 import com.example.api_music_player.model.User;
 import com.example.api_music_player.service.IUserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
@@ -40,14 +44,23 @@ public class AuthenticationController {
                 User userRes = userService.register(user);
 
                 if( userRes == null ) {
+                    System.out.println("failed register!");
                     return ResponseEntity.badRequest().body("Register failed!");
                 }
+
+                System.out.println(userRes.getUsername());
                 Response<User> response = new Response<>(userRes, "Register successfully!");
-                return ResponseEntity.badRequest().body(response);
+                return ResponseEntity.ok(response);
             }
 
-        } catch (RuntimeException e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
+        }  catch (UserAlreadyExistsException | PhoneNumberInUseException e) {
+            Response<User> response = new Response<>();
+            response.setMessage(e.getMessage());
+            return ResponseEntity.ok(response);
+        } catch (Exception e) {
+            Response<User> response = new Response<>();
+            response.setMessage("Register failed!");
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
         }
     }
 
@@ -76,13 +89,16 @@ public class AuthenticationController {
             User userRes = userService.login(user);
 
             if( userRes == null ) {
-                return ResponseEntity.badRequest().body("User not found!");
+                Response<User> response = new Response<>();
+                response.setMessage("Không tìm thấy tài khoản!");
+                return ResponseEntity.ok(response);
             }
-            Response<User> response = new Response<>(userRes, "Login successfully!");
+            Response<User> response = new Response<>(userRes, "Đăng nhập thành công!");
             return ResponseEntity.ok(response);
 
-        } catch (ResponseStatusException e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
+        } catch (RuntimeException e) {
+            Response<User> response = new Response<>(null, e.getMessage());
+            return ResponseEntity.ok(response);
         }
     }
 
@@ -92,13 +108,27 @@ public class AuthenticationController {
         return ResponseEntity.badRequest().body(data);
     }
 
-    @GetMapping("/user")
-    public ResponseEntity<?> getUserById(@RequestParam Long id) {
-        User user = userService.getUserById(id);
+    @GetMapping("/user/{userId}")
+    public ResponseEntity<?> getUserById(@PathVariable Long userId) {
+        User user = userService.getUserById(userId);
         if (user != null) {
             return ResponseEntity.ok(user);
         } else {
             return ResponseEntity.notFound().build();
+        }
+    }
+
+    @PostMapping("/reset-password")
+    public ResponseEntity<?> resetPassword(@RequestBody ChangePasswordRequest changePasswordRequest) {
+        try{
+            Response<User> response = new Response<>();
+            User user = userService.changePassword(changePasswordRequest);
+            response.setData(user);
+            return ResponseEntity.ok(response);
+        }catch (RuntimeException e) {
+            Response<User> response = new Response<>();
+            response.setMessage(e.getMessage());
+            return ResponseEntity.badRequest().body(response);
         }
     }
 

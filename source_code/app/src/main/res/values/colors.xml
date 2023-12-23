@@ -31,5 +31,9 @@
     <color name="bg_warn">#6Aff9800</color>
     <color name="bg_success">#6A4caf50</color>
     <color name="transparent">#00ff0000</color>
+    <color name="bg_red">#f44336</color>
+    <color name="bg_poster">#32357a</color>
+    <color name="card_active_user">#4f32357a</color>
+
 
 </resources>

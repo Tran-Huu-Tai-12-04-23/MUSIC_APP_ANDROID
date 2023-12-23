@@ -2,12 +2,16 @@ server:
   port: 8099
 
 spring:
+  jackson:
+    parser:
+      allow-single-quotes: true
+      allow-unquoted-control-chars: true
   datasource:
     url: jdbc:mysql://localhost:3306/API_music_app
     username: root
     password: admin123
     driver-class-name: com.mysql.jdbc.Driver
   jpa:
-#    hibernate:
-#      ddl-auto: create
+    hibernate:
+      ddl-auto: update
     show-sql: true

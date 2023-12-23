@@ -22,6 +22,4 @@ public class Follow {
     @ManyToOne
     @JoinColumn(name = "followeeId")
     private User followee;
-
-
 }

@@ -1,142 +1,300 @@
 package com.example.musicplayer.activity;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBarDrawerToggle;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.core.content.ContextCompat;
-import androidx.core.view.GravityCompat;
-import androidx.drawerlayout.widget.DrawerLayout;
-
 import android.annotation.SuppressLint;
-import android.app.Dialog;
+import android.app.Fragment;
+import android.app.NotificationManager;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Rect;
-import android.graphics.drawable.GradientDrawable;
+import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
-import android.view.Gravity;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.view.Window;
-import android.view.WindowManager;
-import android.view.animation.Animation;
-import android.view.animation.ScaleAnimation;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.Toast;
+import android.widget.TextView;
 
-import androidx.appcompat.widget.Toolbar;
-import androidx.fragment.app.FragmentTransaction;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
+import androidx.navigation.NavController;
+import androidx.navigation.fragment.NavHostFragment;
+import androidx.room.Room;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.daimajia.androidanimations.library.Techniques;
+import com.daimajia.androidanimations.library.YoYo;
 import com.example.musicplayer.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.button.MaterialButton;
-import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.imageview.ShapeableImageView;
 import com.google.android.material.navigation.NavigationBarView;
-import com.google.android.material.navigation.NavigationView;
+import com.google.android.material.progressindicator.LinearProgressIndicator;
 
-import adapter.CommentListAdapter;
-import adapter.HandleListeningItemClicked;
-import data.FakeData;
-import fragment.library.LibraryScreen;
-import fragment.mainApp.*;
-import fragment.mainApp.ContentHomePage;
-//import fragment.mainApp.searchPage.Search;
-//import fragment.mainApp.searchPage.SearchToolbar;
-import fragment.searchPage.Search;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Queue;
+
+import BottomSheet.BottomSheetPlayMusic;
+import Constanst.Constant;
+import Firebase.FirebaseService;
+import LocalData.DTO.StatePlayMusicDao;
+import LocalData.Database.AppDatabase;
+import LocalData.Entity.StatePlayMusic;
+import Model.CurrentPlaylist;
+import Model.Song;
+import Model.User;
+import Service.ApiService;
+import Service.PlayMusicService;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import utils.LoadingDialog;
 import utils.Util;
 
 public class HomeActivity extends AppCompatActivity {
+    private LoadingDialog loadingDialog;
     private DrawerLayout drawerLayout;
-    private NavigationView sidebar;
-    private Toolbar toolbar;
-    private ConstraintLayout loadingHome;
     private BottomNavigationView bottomNavigate;
     private LinearLayout floatingPayer;
+    private LinearProgressIndicator progressDuration;
+    private TextView tvNameSong;
+    private MaterialButton btnFloatingNextSong, btnFloatingPlaySong;
+    private ShapeableImageView thumbnailsCurrentSong;
+    ///
     private boolean isShowDialogPlayMusic = false;
+    private NavController navController;
+    private Handler handler;
+    private boolean isPlaying;
+    private boolean isPause;
+    private boolean isRepeat;
+    private boolean isShuffle;
+    private boolean isCompleteSong;
+    private Song currentSong;
+    private int seekToValue;
+    private int currentFragment;
+    private FirebaseService firebaseService;
+    private StatePlayMusic statePlayMusic;
+    private List<Song> playingListSong;
+    private NavHostFragment navHostFragment;
+    AppDatabase dbLocal ;
+
+    private User user;
+
+    public StatePlayMusic getStatePlayMusic() {
+        return statePlayMusic;
+    }
+
+    public Song getCurrentSong() {
+        return currentSong;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    private Queue<Integer> fragmentQueue;
+
+    private final BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            Bundle bundle = intent.getExtras();
+            if (bundle != null) {
+                int actionType = bundle.getInt(Constant.ACTION_TYPE, 0);
+                Song song = (Song) bundle.getSerializable(Constant.CURRENT_SONG);
+                if( song != null) {
+                    currentSong = song;
+                    initViewFloatingMusic(song);
+                };
+                isPlaying = bundle.getBoolean(Constant.IS_PLAYING, false);
+                seekToValue = bundle.getInt(Constant.SEEK_TO, 0);
+                isPause = bundle.getBoolean(Constant.IS_PAUSE, false);
+                isShuffle = bundle.getBoolean(Constant.IS_SHUFFLE, false);
+                isRepeat = bundle.getBoolean(Constant.IS_REPEAT, false);
+                isCompleteSong = bundle.getBoolean(Constant.IS_COMPLETE_SONG, false);
+//                 Xử lý dữ liệu nhận được từ broadcast
+//                Log.d("MyBroadcastReceiver", "Received Broadcast - ActionType: " + actionType
+//                        + ", Song: " + currentSong + ", IsPlaying: " + isPlaying
+//                        + ", SeekTo: " + seekToValue + ", IsPause: " + isPause
+//                        + ", IsShuffle: " + isShuffle + ", IsRepeat: " + isRepeat);
+                if( isCompleteSong ) {
+                    handleCompleteSong();
+                    return;
+                }
+
+                updateStatePlayMusicGlobal(isPlaying, isPause, isShuffle, isRepeat, seekToValue);
+
+                updateProgress(seekToValue);
+                handleActionReceive(actionType);
+            }else {
+                Log.d("Receiver", "Bundle is null");
+            }
+        }
+    };
+
+    private void updateStatePlayMusicGlobal(boolean isPlaying, boolean isPause, boolean isShuffle, boolean isRepeat, int seekToValue) {
+        if( statePlayMusic != null ) {
+            statePlayMusic.setShuffle(isShuffle);
+            statePlayMusic.setPause(isPause);
+            statePlayMusic.setPlaying(isPlaying);
+            statePlayMusic.setRepeat(isRepeat);
+            statePlayMusic.setSeekToValue(seekToValue);
+        }
+    }
+
+    private void handleActionReceive(int action) {
+        Log.i("Tag", String.valueOf(action));
+        switch (action) {
+            case Constant.ACTION_PLAY: {
+                initViewFloatingMusic(currentSong);
+                handler.postDelayed(sendRequestUpdateSeekBar, 1000);
+                updateBtnPlay();
+                break;
+            }
+            case Constant.ACTION_RESUME: {
+                handler.postDelayed(sendRequestUpdateSeekBar, 1000);
+                updateBtnPlay();
+                break;
+            }
+            case Constant.ACTION_PAUSE:
+            case Constant.ACTION_STOP: {
+                updateBtnPlay();
+                break;
+            }
+            case Constant.ACTION_NEXT:{
+                handleNextSong();
+                break;
+            }
+            case Constant.ACTION_PREVIOUS: {
+                handlePrevSong();
+                break;
+            }
+            case Constant.UPDATE_STATE_PLAY_MUSIC : {
+                if( isPlaying ) {
+//                    handler.postDelayed(sendRequestUpdateSeekBar, 1000);
+                }
+                break;
+            }
+
+        }
+    }
+    private void handlePrevSong() {
+        int indexSong = -1;
+        if( isShuffle ) {
+            indexSong = Util.randomIndexSong(currentSong, playingListSong);
+        }else {
+            indexSong = Util.getPrevSong(currentSong, playingListSong);
+        }
+        if( indexSong != -1 ) {
+            currentSong = playingListSong.get(indexSong);
+        }
+        PlayMusicService.playMusic(getApplicationContext(), currentSong);
+        firebaseService.changeCurrentSong(currentSong, new FirebaseService.OnSaveCompleteListener() {
+            @Override
+            public void onSaveComplete(boolean isSuccess) {
+
+            }
+        });
+    }
+    private  void handleCompleteSong() {
+        if( isCompleteSong && isRepeat  && currentSong != null ) {
+            PlayMusicService.playMusic(getApplicationContext(), currentSong);
+            isCompleteSong = false;
+        }else {
+            PlayMusicService.stopMusic(getApplicationContext());
+            updateBtnPlay();
+        }
+    }
+    private Runnable sendRequestUpdateSeekBar = new Runnable() {
+        @Override
+        public void run() {
+            if (isPlaying) {
+                seekToForward();
+                handler.postDelayed(this, 1000);
+            }
+        }
+
+    };
+
+    private void seekToForward() {
+        Intent intent = new Intent(getApplicationContext(), PlayMusicService.class);
+        intent.putExtra(Constant.ACTION_TYPE, Constant.ACTION_SEEK_TO);
+        // Start the service
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            getApplicationContext().startForegroundService(intent);
+        } else {
+            getApplicationContext().startService(intent);
+        }
+    }
+
+
+    @Override
+    public void onAttachFragment(Fragment fragment) {
+        super.onAttachFragment(fragment);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        fragmentQueue = new LinkedList<>();
+        SharedPreferences preferences = getSharedPreferences("LoginData", MODE_PRIVATE);
+
+        String strUserId = preferences.getString("userId", "");
+        if( !strUserId.equals("")) {
+            initUser(Long.parseLong(strUserId));
+        }
 
         supportRequestWindowFeature(Window.FEATURE_NO_TITLE);
-
         setContentView(R.layout.activity_home);
 
+        dbLocal = Room.databaseBuilder(getApplicationContext(), AppDatabase.class, Constant.APP_DB)
+                .fallbackToDestructiveMigration()
+                .build();
+
+        firebaseService = new FirebaseService(getApplicationContext());
+        handler = new Handler();
+        initStatePlayMusic();
+
         drawerLayout = findViewById(R.id.drawer_page);
-        sidebar = findViewById(R.id.sidebar_home);
 //        toolbar = findViewById(R.id.toolbar);
-        loadingHome = findViewById(R.id.loading_home);
+        loadingDialog = new LoadingDialog(this);
         bottomNavigate = findViewById(R.id.bottom_navigation);
         floatingPayer = findViewById(R.id.floating_player);
+        progressDuration = findViewById(R.id.progress_durationSong);
+        tvNameSong = findViewById(R.id.tv_name_song);
+        btnFloatingNextSong = findViewById(R.id.btn_floating_music_next);
+        btnFloatingPlaySong = findViewById(R.id.btn_floating_play_music);
+        thumbnailsCurrentSong = findViewById(R.id.thumbnails_song);
 
-//        var playmusic dialog
+        navHostFragment = (NavHostFragment) getSupportFragmentManager()
+                .findFragmentById(R.id.fragmentContainer);
 
-//        tool bar handle/*/
-        sidebar.bringToFront();
-
-//      handle click item
-        sidebar.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                int itemId = item.getItemId();
-                if (itemId == R.id.nav_playlist) {
-                    Toast.makeText(HomeActivity.this, "Hello playlist", Toast.LENGTH_SHORT).show();
-                }else if( itemId == R.id.nav_logout) {
-                    logout();
-                }else if(itemId == R.id.switch_theme_custom) {
-                    drawerLayout.closeDrawer(GravityCompat.START);
-                    loadingHome.setVisibility(View.VISIBLE);
-                    new Handler().postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            Util.switchTheme(getApplicationContext());
-                            loadingHome.setVisibility(View.GONE);
-                            reloadApp();
-                        }
-                    }, 1000);
-
-                }
-                // Add more "if" conditions for other menu items here
-                return false;
-            }
-        });
-//        end handle click item
-
-
-//        toggle.syncState();
-
+        assert navHostFragment != null;
+        navController = navHostFragment.getNavController();
 
         bottomNavigate.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 int idItem = item.getItemId();
-                if( idItem == R.id.nav_home) {
-                    FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                    ContentHomePage contentHomePage = new ContentHomePage();
-                    fragmentTransaction.replace(R.id.content_home_page, contentHomePage);
-                    fragmentTransaction.commit();
-                }else if( idItem == R.id.nav_library) {
-                    FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                    LibraryScreen libraryScreen = new LibraryScreen();
-                    fragmentTransaction.replace(R.id.content_home_page, libraryScreen);
-                    fragmentTransaction.commit();
-                }else if( idItem == R.id.nav_search){
-                    FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                    Search mainScreenSearch = new Search();
-                    fragmentTransaction.replace(R.id.content_home_page, mainScreenSearch);
-                    fragmentTransaction.commit();
-                }
+                if( idItem == currentFragment) return false;
+                switchFragment(idItem);
+                YoYo.with(Techniques.SlideInLeft)
+                        .duration(200)
+                        .playOn(findViewById(R.id.fragmentContainer));
                 return true;
             }
         });
 //
+
         View rootView = getWindow().getDecorView().getRootView();
 //
         rootView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
@@ -154,226 +312,261 @@ public class HomeActivity extends AppCompatActivity {
                 }
             }
         });
-
-//        open fragment player when click floating player
+//       open fragment player when click floating player
         floatingPayer.setOnClickListener(new View.OnClickListener() {
             @SuppressLint("ResourceType")
             @Override
             public void onClick(View v) {
-                if(!isShowDialogPlayMusic)
-                {
-                    isShowDialogPlayMusic  = true;
-                    openPlayMusicDialog();
+                openPlayMusicDialog();
+            }
+        });
+
+        btnFloatingPlaySong.setOnClickListener(v -> {
+            Util.applyClickAnimation(v);
+            if( isPlaying ) {
+                PlayMusicService.pauseMusic(getApplicationContext());
+            }else {
+                PlayMusicService.resumeMusic(getApplicationContext());
+            }
+        });
+        btnFloatingNextSong.setOnClickListener(v -> {
+            Util.applyClickAnimation(v);
+            if( playingListSong != null)
+                handleNextSong();
+        });
+
+        initFloatingPlayMusicUI();
+        LocalBroadcastManager.getInstance(getApplicationContext()).registerReceiver(broadcastReceiver, PlayMusicService.getIntentFilter());
+    }
+
+    private void handleNextSong() {
+        int indexSong = -1;
+        if( isShuffle ) {
+            indexSong = Util.randomIndexSong(currentSong, playingListSong);
+        }else {
+            indexSong = Util.getNextSong(currentSong, playingListSong);
+        }
+
+        if( indexSong != -1 ) {
+            currentSong = playingListSong.get(indexSong);
+        }
+        PlayMusicService.playMusic(getApplicationContext(), currentSong);
+        firebaseService.changeCurrentSong(currentSong, new FirebaseService.OnSaveCompleteListener() {
+            @Override
+            public void onSaveComplete(boolean isSuccess) {
+
+            }
+        });
+    }
+
+    @SuppressLint("StaticFieldLeak")
+    private void updateStatePlayMusicLocal() {
+        new AsyncTask<Void, Void, Void>() {
+            @Override
+            protected Void doInBackground(Void... voids) {
+                StatePlayMusicDao statePlayMusicDao = dbLocal.statePlayMusicDao();
+                StatePlayMusic statePlayMusic = new StatePlayMusic();
+                statePlayMusic.setPlaying(isPlaying);
+                statePlayMusic.setPause(isPause);
+                statePlayMusic.setSeekToValue(seekToValue);
+                statePlayMusic.setRepeat(isRepeat);
+                statePlayMusic.setShuffle(isShuffle);
+                statePlayMusic.setId(Constant.ID_STATE_MUSIC);
+                statePlayMusicDao.update(statePlayMusic);
+                return null;
+            }
+        }.execute();
+
+    }
+    @SuppressLint("StaticFieldLeak")
+    private void initStatePlayMusic() {
+        new AsyncTask<Void, Void, Void>() {
+            @Override
+            protected Void doInBackground(Void... voids) {
+                StatePlayMusicDao statePlayMusicDao = dbLocal.statePlayMusicDao();
+                statePlayMusic = statePlayMusicDao.getStatePlayMusicById(Constant.ID_STATE_MUSIC);
+                if( statePlayMusic == null ) {
+                    StatePlayMusic statePlayMusic = new StatePlayMusic();
+                    statePlayMusic.setPlaying(isPlaying);
+                    statePlayMusic.setPause(isPause);
+                    statePlayMusic.setSeekToValue(seekToValue);
+                    statePlayMusic.setRepeat(isRepeat);
+                    statePlayMusic.setShuffle(isShuffle);
+                    statePlayMusicDao.insert(statePlayMusic);
+                }else {
+                    Log.i("State play music" , statePlayMusic.toString());
+                    updateStateForService(statePlayMusic);
+                }
+                return null;
+            }
+        }.execute();
+
+    }
+
+    private void updateStateForService(StatePlayMusic statePlayMusic) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                seekToValue = statePlayMusic.getSeekToValue();
+                updateProgress(statePlayMusic.getSeekToValue());
+            }
+        });
+
+        PlayMusicService.updateStatePlayMusic(getApplicationContext(), statePlayMusic, currentSong);
+    }
+
+    //handle ui
+
+    private void initViewFloatingMusic(Song currentSong) {
+        if( currentSong == null) return;
+        tvNameSong.setText(currentSong.getTitle());
+        progressDuration.setMax((int) currentSong.getDuration());
+        if(seekToValue <  progressDuration.getMax() ) {
+            progressDuration.setProgress(seekToValue);
+        }
+        Glide.with(getApplicationContext())
+                .load(currentSong.getThumbnails())
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .into(thumbnailsCurrentSong);
+    }
+
+    private void updateProgress(int seekTo) {
+        if( progressDuration.getMax() >= seekTo )
+            progressDuration.setProgress(seekTo);
+    }
+    private void updateBtnPlay() {
+        if( isPlaying ) {
+            btnFloatingPlaySong.setIconResource(R.drawable.pause_alt_svgrepo_com);
+        }else {
+            btnFloatingPlaySong.setIconResource(R.drawable.play_svgrepo_com);
+        }
+    }
+    //end handle ui
+
+    private void initFloatingPlayMusicUI() {
+        firebaseService.getCurrentPlaylist(new FirebaseService.OnGetPlaylistCompleteListener() {
+            @Override
+            public void onGetPlaylistComplete(CurrentPlaylist currentPlaylist) {
+                if( currentPlaylist != null){
+                    currentSong = currentPlaylist.getCurrentSong();
+                    initViewFloatingMusic(currentSong);
+                    playingListSong = currentPlaylist.getSongs();
                 }
             }
         });
     }
 
-    private void openPlayMusicDialog() {
-        ShapeableImageView btnPrev, btnPlay, btnPause, btnNext ;
-        MaterialButton btnClosePlayMusic, btnOpenMenuMusic, btnWatchDetailSong, btnOpenMusicComment;
-
-
-        Dialog dialogPlayMusic = new Dialog(HomeActivity.this, android.R.style.Theme_Translucent_NoTitleBar);
-        dialogPlayMusic.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialogPlayMusic.setContentView(R.layout.play_music_dialog);
-
-        Window window = dialogPlayMusic.getWindow();
-        WindowManager.LayoutParams wlp = window.getAttributes();
-
-        wlp.gravity = Gravity.CENTER;
-        wlp.flags &= ~WindowManager.LayoutParams.FLAG_BLUR_BEHIND;
-        window.setAttributes(wlp);
-        dialogPlayMusic.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
-        dialogPlayMusic.setCanceledOnTouchOutside(true);
-        dialogPlayMusic.getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT);
-
-        dialogPlayMusic.setOnDismissListener(dialogInterface -> {
-            isShowDialogPlayMusic = false;
-        });
-//        hadnle button in dialog
-        btnNext = dialogPlayMusic.findViewById(R.id.btn_next_music);
-        btnPlay = dialogPlayMusic.findViewById(R.id.btn_start_music);
-        btnPause = dialogPlayMusic.findViewById(R.id.btn_pause_music);
-        btnPrev = dialogPlayMusic.findViewById(R.id.btn_prev_music);
-        btnClosePlayMusic = dialogPlayMusic.findViewById(R.id.btn_close_play_music);
-        btnOpenMenuMusic = dialogPlayMusic.findViewById(R.id.btn_open_menu_music);
-        btnWatchDetailSong = dialogPlayMusic.findViewById(R.id.btn_detail_song);
-        btnOpenMusicComment = dialogPlayMusic.findViewById(R.id.btn_open_comment_music);
-
-        btnOpenMusicComment.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openCommentDialog();
-            }
-        });
-
-        btnWatchDetailSong.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openModalDetailSong();
-            }
-        });
-
-        btnClosePlayMusic.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialogPlayMusic.dismiss();
-            }
-        });
-        btnPause.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                applyClickAnimation(v);
-            }
-        });
-        btnPlay.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                applyClickAnimation(v);
-            }
-        });
-        btnNext.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                applyClickAnimation(v);
-            }
-        });
-        btnPrev.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                applyClickAnimation(v);
-            }
-        });
-        dialogPlayMusic.show();
-    }
-    private void  openCommentDialog() {
-        MaterialButton btnCloseComment;
-        RecyclerView commentListDataRecycleView ;
-
-        Dialog dialogComment = new Dialog(HomeActivity.this, android.R.style.Theme_Translucent_NoTitleBar);
-        dialogComment.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialogComment.setContentView(R.layout.comment_dialog);
-
-        btnCloseComment = dialogComment.findViewById(R.id.btn_close_comment);
-
-        Window window = dialogComment.getWindow();
-        WindowManager.LayoutParams wlp = window.getAttributes();
-
-        wlp.gravity = Gravity.CENTER;
-        wlp.flags &= ~WindowManager.LayoutParams.FLAG_BLUR_BEHIND;
-        window.setAttributes(wlp);
-        dialogComment.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
-        dialogComment.setCanceledOnTouchOutside(true);
-        dialogComment.getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT);
-
-//        handle onclick btn in dialog
-        btnCloseComment.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialogComment.dismiss();
-            }
-        });
-
-//        render data recycle view
-        commentListDataRecycleView  = dialogComment.findViewById(R.id.container_comment);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false);
-        CommentListAdapter commentListAdapter = new CommentListAdapter(getApplicationContext(), FakeData.getListImg());
-
-        commentListAdapter.setOnItemClickListener(new HandleListeningItemClicked() {
-            @Override
-            public void onClick(ImageView imageView, String url) {
-
-            }
-        });
-
-        commentListDataRecycleView.setLayoutManager(layoutManager);
-        commentListDataRecycleView.setAdapter(commentListAdapter);
-
-        dialogComment.show();
-    }
-
-    private void openModalDetailSong() {
-        MaterialButton btnCloseDialogDetailSong;
-
-        MaterialAlertDialogBuilder dialogBuilderDetailSong = new MaterialAlertDialogBuilder(HomeActivity.this);
-        View customLayout = getLayoutInflater().inflate(R.layout.detail_song, null);
-        dialogBuilderDetailSong.setView(customLayout);
-        GradientDrawable borderDrawable = (GradientDrawable) ContextCompat.getDrawable(HomeActivity.this, R.drawable.view_rounded);
-        int bgColor = ContextCompat.getColor(HomeActivity.this, R.color.bg_navigate);
-        if(borderDrawable != null ) {
-            borderDrawable.setColor(bgColor);
-        }
-        dialogBuilderDetailSong.setBackground(borderDrawable);
-//                set variable
-        btnCloseDialogDetailSong = customLayout.findViewById(R.id.btn_close_dialog_song_detail);
-
-        Dialog dialog = dialogBuilderDetailSong.create();
-        btnCloseDialogDetailSong.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialog.dismiss();
-            }
-        });
-        dialogBuilderDetailSong.setCancelable(true);
-
-        dialog.show();
-    }
 
     @Override
     public void onBackPressed() {
         if( drawerLayout.isDrawerOpen(GravityCompat.START)) {
             drawerLayout.closeDrawer(GravityCompat.START);
-        }else {
-            super.onBackPressed();
+            return;
         }
+        if (navController.popBackStack()) {
+            if (navController.getCurrentDestination() != null && navController.getCurrentDestination().getId() == R.id.nav_library) {
+                bottomNavigate.setSelectedItemId(R.id.nav_library);
+            }else if (navController.getCurrentDestination() != null && navController.getCurrentDestination().getId() == R.id.nav_search) {
+                bottomNavigate.setSelectedItemId(R.id.nav_search);
+            }else if (navController.getCurrentDestination() != null && navController.getCurrentDestination().getId() == R.id.nav_home) {
+                bottomNavigate.setSelectedItemId(R.id.nav_home);
+            }else if( navController.getCurrentDestination() != null && navController.getCurrentDestination().getId() == R.id.nav_profile ) {
+                bottomNavigate.setSelectedItemId(R.id.nav_profile);
+            }
+        }
+
+        super.onBackPressed();
     }
 
-    private void logout() {
+    public void switchFragment(int idFrag) {
+        if( navController == null ) return;
+        YoYo.with(Techniques.SlideInRight)
+                .duration(200)
+                .playOn(findViewById(R.id.fragmentContainer));
+        navController.navigate(idFrag);
+        currentFragment = idFrag;
+    }
+
+    private void openPlayMusicDialog() {
+        BottomSheetPlayMusic bottomSheetPlayMusic = new BottomSheetPlayMusic();
+        bottomSheetPlayMusic.setSong(currentSong);
+        bottomSheetPlayMusic.show(getSupportFragmentManager(), "Bottom sheet play music!");
+    }
+
+    public void logout() {
         // Update SharedPreferences to mark the user as not logged in
         SharedPreferences preferences = getSharedPreferences("LoginData", MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
         editor.putBoolean("loggedIn", false);
         editor.apply();
-
-        // Navigate to the login screen or perform any other necessary logout actions
+//        // Navigate to the login screen or perform any other necessary logout actions
         Intent intent = new Intent(this, IntroActivity.class);
-        startActivity(intent);
-        finish(); // Close the current activity if needed
-    }
-
-
-    private void reloadApp() {
-        Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
         finish();
     }
 
 
-
-    private void applyClickAnimation(View view) {
-        // ScaleAnimation to create a zoom-in effect
-        ScaleAnimation scaleAnimation = new ScaleAnimation(
-                1f, 0.8f,
-                1f, 0.8f,
-                Animation.RELATIVE_TO_SELF, 0.5f,
-                Animation.RELATIVE_TO_SELF, 0.5f
-        );
-        scaleAnimation.setDuration(200); // Set the duration of the animation
-        scaleAnimation.setRepeatMode(Animation.REVERSE); // Optional: make it bounce back
-
-        // Start the animation
-        view.startAnimation(scaleAnimation);
+    public void openPlaylistFragment() {
+        switchFragment(R.id.nav_playlist);
     }
 
-    public void openSidebar() {
-        if( drawerLayout != null) {
-            drawerLayout.open();
-        }
+    public void openSongLikedFragment() {
+        switchFragment(R.id.nav_like_song);
     }
 
+    public void openFollowing() {
+        switchFragment(R.id.nav_following_screen);
+    }
+    public void openSearchScreen() {
+        switchFragment(R.id.nav_search);
+        bottomNavigate.setSelectedItemId(R.id.nav_search);
+    }
+    public void openPlaylistDetail( Bundle bundle) {
+        if( navController == null )return;
+        YoYo.with(Techniques.SlideInRight)
+                .duration(200)
+                .playOn(findViewById(R.id.fragmentContainer));
+        navController.navigate(R.id.nav_playlist_detail, bundle);
+        currentFragment = R.id.nav_playlist_detail;
+
+    }
+
+    private void initUser(Long userId) {
+        ApiService.ApiService.getUserById(userId).enqueue(new Callback<User>() {
+            @Override
+            public void onResponse(Call<User> call, Response<User> response) {
+                if( response.isSuccessful() ) {
+                    user = response.body();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<User> call, Throwable t) {
+                Log.i("HOme activity" , t.getLocalizedMessage());
+            }
+        });
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        loadingDialog.destroyDialog();
+        int notificationId = 1;
+        NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        notificationManager.cancel(notificationId);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        LocalBroadcastManager.getInstance(this).registerReceiver(broadcastReceiver, PlayMusicService.getIntentFilter());
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(broadcastReceiver);
+        this.updateStatePlayMusicLocal();
+    }
 
 }

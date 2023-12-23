@@ -1,0 +1,357 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context="Fragment.User.Profile">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        >
+
+        <!--action top bar profile -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            >
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textAlignment="textStart"
+                android:layout_marginLeft="10dp"
+                android:layout_weight="10"
+                android:text="@string/profile"
+                />
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnNotification"
+                style="@style/Widget.Material3.Button.OutlinedButton.Icon"
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                app:icon="@drawable/notification"
+                app:iconSize="30dp"
+                app:strokeColor="@color/bg_primary"
+                app:strokeWidth="0dp"
+                app:iconTint="@color/icon_second"
+                />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnSetitng"
+                style="@style/Widget.Material3.Button.OutlinedButton.Icon"
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                app:icon="@drawable/setting_svgrepo_com"
+                app:iconSize="30dp"
+                app:strokeColor="@color/bg_primary"
+                app:strokeWidth="0dp"
+                app:iconTint="@color/icon_second"
+                />
+        </LinearLayout>
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="10dp"
+            >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:paddingBottom="20dp"
+                >
+
+                <!--        information user -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:padding="10dp">
+
+                    <com.google.android.material.imageview.ShapeableImageView
+                        android:id="@+id/avatar"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/baseline_person_24"
+                        app:shapeAppearance="@style/ShapeAppearance.Material3.Corner.Full" />
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="10"
+                        android:gravity="center_horizontal"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/tv_username"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Tran Huu Tai" />
+
+                        <TextView
+                            android:id="@+id/tv_joindate"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:text="Tham gia : 3 tháng trước"
+                            android:textColor="@color/textSecond" />
+
+                        <com.google.android.material.button.MaterialButton
+                            style="@style/Widget.Material3.Button.OutlinedButton.Icon"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="  Thành viên mới"
+                            android:textColor="@color/icon_primary"
+                            app:icon="@drawable/check_svgrepo_com"
+                            app:iconSize="30dp"
+                            app:iconTint="@color/icon_primary"
+                            app:strokeColor="@color/bg_primary"
+                            app:strokeWidth="0dp" />
+
+                    </LinearLayout>
+                </LinearLayout>
+
+
+                <!--        active account -->
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:clickable="true"
+                        android:outlineSpotShadowColor="@color/bg_primary"
+                        app:cardBackgroundColor="@color/transparent"
+                        app:cardCornerRadius="10dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:shapeAppearance="@style/ShapeAppearance.Material3.Corner.Small"
+                        app:shapeAppearanceOverlay="@color/bg_primary"
+                        app:strokeColor="@color/bg_primary"
+                        app:strokeWidth="0dp"
+                        tools:ignore="UnusedAttribute">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:orientation="horizontal">
+
+                            <com.google.android.material.button.MaterialButton
+                                android:id="@+id/btnActiveAccount"
+                                style="@style/Widget.Material3.Button.OutlinedButton.Icon"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+                                android:text="@string/n_ng_c_p_t_i_kho_n"
+                                android:textColor="@color/icon_primary"
+                                app:iconTint="@color/icon_primary"
+                                app:strokeColor="@color/bg_primary"
+                                app:strokeWidth="0dp" />
+
+                            <androidx.constraintlayout.utils.widget.ImageFilterView
+                                android:layout_width="24sp"
+                                android:layout_height="24sp"
+                                android:src="@drawable/arrow_next_small_svgrepo_com"
+                                android:tint="@color/icon_primary"
+                                android:translationX="-20sp" />
+                        </LinearLayout>
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:clickable="true"
+                        android:outlineSpotShadowColor="@color/bg_primary"
+                        app:cardBackgroundColor="@color/card_active_user"
+                        app:cardCornerRadius="10dp"
+                        app:shapeAppearance="@style/ShapeAppearance.Material3.Corner.Small"
+                        app:strokeColor="@color/bg_primary"
+                        app:strokeWidth="0dp"
+                        tools:ignore="UnusedAttribute">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="10dp"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/music_dev_premium"
+                                android:textColor="@color/icon_primary"
+                                android:textSize="20sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="20dp"
+                                android:text="Chỉ với 20.000 vnd" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="10dp"
+                                android:lineHeight="20dp"
+                                android:text="@string/nghe_nh_c_offline_m_i_l_c_m_i_n_i_c_ng_v_i_music_dev_premium"
+                                android:textColor="@color/textSecond" />
+                        </LinearLayout>
+                    </com.google.android.material.card.MaterialCardView>
+
+
+                </LinearLayout>
+
+
+                <!--            option for user -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="10dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:text="Cá nhân"
+                        android:textStyle="bold" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnSettingSound"
+                        style="@style/Widget.Material3.Button.OutlinedButton.Icon"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/c_i_t"
+                        android:textAlignment="textStart"
+                        android:textColor="@color/text_primary"
+                        app:icon="@drawable/setting_svgrepo_com"
+                        app:iconSize="24dp"
+                        app:iconTint="@color/icon_second"
+                        app:strokeColor="@color/bg_primary"
+                        app:strokeWidth="0dp" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnEditProfile"
+                        style="@style/Widget.Material3.Button.OutlinedButton.Icon"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/ch_nh_s_a_trang_c_nh_n"
+                        android:textAlignment="textStart"
+                        android:textColor="@color/text_primary"
+                        app:icon="@drawable/profile_svgrepo_com"
+                        app:iconSize="24dp"
+                        app:iconTint="@color/icon_second"
+                        app:strokeColor="@color/bg_primary"
+                        app:strokeWidth="0dp" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnPolicy"
+                        style="@style/Widget.Material3.Button.OutlinedButton.Icon"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/quy_n_ri_ng_t"
+                        android:textAlignment="textStart"
+                        android:textColor="@color/text_primary"
+                        app:icon="@drawable/certificate_check_svgrepo_com"
+                        app:iconSize="24dp"
+                        app:iconTint="@color/icon_second"
+                        app:strokeColor="@color/bg_primary"
+                        app:strokeWidth="0dp" />
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnUploadSong"
+                        style="@style/Widget.Material3.Button.OutlinedButton.Icon"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/t_i_nh_c_l_n"
+                        android:textAlignment="textStart"
+                        android:textColor="@color/text_primary"
+                        app:icon="@drawable/upload_svgrepo_com"
+                        app:iconSize="24dp"
+                        app:iconTint="@color/icon_second"
+                        app:strokeColor="@color/bg_primary"
+                        app:strokeWidth="0dp" />
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnActiveDashboard"
+                        style="@style/Widget.Material3.Button.OutlinedButton.Icon"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/qu_n_l_studio_c_a_b_n"
+                        android:textAlignment="textStart"
+                        android:textColor="@color/text_primary"
+                        app:icon="@drawable/dashboard_svgrepo_com"
+                        app:iconSize="24dp"
+                        app:iconTint="@color/icon_second"
+                        app:strokeColor="@color/bg_primary"
+                        app:strokeWidth="0dp" />
+
+                </LinearLayout>
+                <!--actioon user app-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="10dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:text="@string/ng_d_ng"
+                        android:textStyle="bold" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnSwitchTheme"
+                        style="@style/Widget.Material3.Button.OutlinedButton.Icon"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/thay_i_ch"
+                        android:textAlignment="textStart"
+                        android:textColor="@color/text_primary"
+                        app:icon="@drawable/switch_f_svgrepo_com"
+                        app:iconSize="24dp"
+                        app:iconTint="@color/icon_second"
+                        app:strokeColor="@color/bg_primary"
+                        app:strokeWidth="0dp" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnLogout"
+                        style="@style/Widget.Material3.Button.OutlinedButton.Icon"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/ng_xu_t"
+                        android:textAlignment="textStart"
+                        android:textColor="@color/text_primary"
+                        app:icon="@drawable/logout_2_svgrepo_com"
+                        app:iconSize="24dp"
+                        app:iconTint="@color/icon_second"
+                        app:strokeColor="@color/bg_primary"
+                        app:strokeWidth="0dp" />
+
+                </LinearLayout>
+            </LinearLayout>
+
+        </androidx.core.widget.NestedScrollView>
+
+
+
+
+    </LinearLayout>
+
+
+</FrameLayout>

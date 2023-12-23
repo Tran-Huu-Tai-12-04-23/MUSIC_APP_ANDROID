@@ -3,9 +3,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    >
 
     <com.google.android.material.card.MaterialCardView
+        android:id="@+id/card_main"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:outlineSpotShadowColor="@color/bg_primary"
@@ -41,14 +43,19 @@
                 />
 
             <TextView
+                android:id="@+id/name_song"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:maxWidth="100dp"
+                android:maxLines="1"
+                android:ellipsize="end"
                 android:text="Lời yêu thật..."
                 style="@style/text_primary_bold"
                 android:textAlignment="center"
                 android:textAppearance="?attr/textAppearanceTitleMedium" />
 
             <TextView
+                android:id="@+id/name_artist"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"

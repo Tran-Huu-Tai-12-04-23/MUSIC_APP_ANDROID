@@ -2,14 +2,20 @@
     <!-- Base application theme. -->
     <style name="Theme.MusicPlayer" parent="Theme.Material3.DayNight.NoActionBar">
 
-<!--        <item name="android:statusBarColor">@color/bg_navigate</item>-->
-        <item name="android:fontFamily">@font/gottham</item>
+        <item name="android:statusBarColor">@color/bg_poster</item>
+        <item name="android:fontFamily">@font/poppins</item>
 <!--        <item name="android:background">@color/bg_primary_light</item>-->
-        <item name="android:textColor">@color/black</item>
+<!--        <item name="android:textColor">@color/black</item>-->
 
-        <item name="colorPrimary">@color/black</item>
-        <item name="colorPrimaryDark">@color/black</item>
-        <item name="colorAccent">@color/black</item>
+<!--        <item name="colorPrimary">@color/text_primary</item>-->
+<!--        <item name="colorPrimaryDark">@color/bg_primary</item>-->
+
+        <!-- Customize accent color -->
+<!--        <item name="colorAccent">@color/bg_second</item>-->
+
+<!--        <item name="colorPrimary">@color/black</item>-->
+<!--        <item name="colorPrimaryDark">@color/black</item>-->
+<!--        <item name="colorAccent">@color/black</item>-->
 
     </style>
 
@@ -64,19 +70,27 @@
         <item name="android:textSize">14sp</item>
     </style>
 
+
     <style name="btn_second" parent="Widget.Material3.Button.ElevatedButton">
         <item name="android:textColor">@color/black</item>
     </style>
 
 
-    <color name="bg_navigate">#e5eefa</color>
+    <color name="bg_navigate">#353079</color>
     <color name="bg_primary">#fff</color>
     <color name="bg_third">#eef3fa</color>
 
     <color name="text_primary">#000</color>
     <color name="bg_second">#e5eefa</color>
-    <color name="input_color">@color/bg_second</color>
-    <color name="icon_primary">#073D5B</color>
+    <color name="input_color">@color/bg_third</color>
+    <color name="icon_primary">#353079</color>
+    <color name="icon_second">#ccc</color>
+
+    <color name="btn_primary">#353079</color>
+    <color name="rip_btn_primary">#2A353079</color>
+
+
+
 
 
 </resources>

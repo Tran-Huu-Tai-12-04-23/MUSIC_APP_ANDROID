@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/dialog_bg"
+    android:padding="20dp"
+    android:id="@+id/dialog_add_playlist">
+    <TextView
+        style="@style/text_second"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="@string/create_new_playlist"
+        android:textAppearance="?attr/textAppearanceTitleMedium"
+        android:textStyle="bold"
+        android:id="@+id/name"
+        android:layout_marginBottom="10dp"
+        />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/input_name_playlist"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:hint=""
+        android:outlineSpotShadowColor="@color/transparent"
+        app:boxBackgroundColor="@color/input_color"
+        app:boxStrokeColor="@color/transparent"
+        app:endIconMode="clear_text"
+        app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.ExtraLarge"
+        tools:targetApi="p"
+        app:boxStrokeWidth="0dp"
+        tools:ignore="UnusedAttribute">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.ExtraLarge" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingEnd="10dp"
+            android:text="Riêng tư"/>
+        <com.google.android.material.switchmaterial.SwitchMaterial
+            android:id="@+id/switch_private"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="20dp"
+        android:gravity="end"
+        >
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_cancel"
+            style="@style/Widget.Material3.Button.OutlinedButton.Icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="@string/cancel"
+            android:background="@color/bg_red"
+            app:strokeColor="@color/bg_primary"
+            app:strokeWidth="0dp"
+            app:iconTint="@color/text_primary"
+            android:layout_marginEnd="10dp"
+
+            />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_create"
+            style="@style/Widget.Material3.Button.OutlinedButton.Icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="@string/create"
+            android:backgroundTint="@color/bg_success"
+            app:strokeColor="@color/bg_primary"
+            app:strokeWidth="0dp"
+            android:textStyle="bold"
+            android:layout_marginStart="10dp"
+            app:iconTint="@color/white"
+            android:textColor="@color/white"
+           />
+    </LinearLayout>
+
+
+
+</LinearLayout>

@@ -1,0 +1,178 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context="Fragment.Library.DetailPlaylistScreen"
+    android:paddingStart="10dp"
+    android:paddingEnd="10dp"
+    >
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center"
+        >
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:gravity="center"
+            >
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent">
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_back"
+                    style="@style/Widget.Material3.Button.OutlinedButton.Icon"
+                    android:layout_width="60dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    app:icon="@drawable/baseline_arrow_back_24"
+                    app:iconSize="30dp"
+                    app:strokeColor="@color/bg_primary"
+                    app:strokeWidth="0dp"
+                    app:iconTint="@color/text_primary"
+                    />
+            </LinearLayout>
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/avatar"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/baseline_person_24"
+                app:shapeAppearance="@style/ShapeAppearance.Material3.Corner.Full"
+                />
+        </LinearLayout>
+
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/thumbnails_playlist"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/music_note_3_svgrepo_com"
+            app:shapeAppearance="@style/ShapeAppearance.Material3.Corner.Small"
+            android:outlineSpotShadowColor="@color/text_primary"
+            tools:ignore="UnusedAttribute"
+            />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:orientation="vertical"
+                >
+                <TextView
+                    android:id="@+id/tv_name_playlist"
+                    style="@style/text_primary_bold"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Name playlist"
+                    android:textAlignment="textStart"
+                    app:iconTint="?attr/colorOnSurface"
+                    android:layout_marginBottom="10dp"
+                    android:paddingStart="20dp"
+                    tools:ignore="RtlSymmetry">
+
+                </TextView>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    >
+
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_menu"
+                    style="@style/Widget.Material3.Button.OutlinedButton.Icon"
+                    android:layout_width="48dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    app:icon="@drawable/menu_vertical_menu_dots_more_svgrepo_com"
+                    app:iconSize="24sp"
+                    app:strokeColor="@color/bg_primary"
+                    app:strokeWidth="0dp"
+                    app:iconTint="@color/icon_second"
+                    />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:gravity="end"
+                    android:layout_height="wrap_content">
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btn_play"
+                        style="@style/Widget.Material3.Button.OutlinedButton.Icon"
+                        android:layout_width="48dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        app:icon="@drawable/play_svgrepo_com"
+                        app:iconSize="24dp"
+                        app:strokeColor="@color/bg_primary"
+                        app:strokeWidth="0dp"
+                        app:iconTint="@color/icon_second"
+                        />
+                </LinearLayout>
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <!-- Phần bên trong có khả năng cuộn -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/content_music_in_playlist"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:paddingStart="20dp"
+                        android:paddingEnd="20dp"
+                        android:paddingTop="10dp"
+                        android:paddingBottom="10dp"
+                        >
+
+                    </androidx.recyclerview.widget.RecyclerView>
+                </LinearLayout>
+
+
+            </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
+    </LinearLayout>
+
+
+</FrameLayout>

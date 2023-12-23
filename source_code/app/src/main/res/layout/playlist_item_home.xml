@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+
+    >
+
+    <com.google.android.material.card.MaterialCardView
+        android:padding="10dp"
+        android:id="@+id/card_main_playlist"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:outlineSpotShadowColor="@color/bg_primary"
+        app:cardBackgroundColor="@color/input_color"
+        app:cardCornerRadius="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:strokeColor="@color/bg_primary"
+        app:strokeWidth="0dp"
+        android:layout_marginLeft="10sp"
+        android:translationX="-5sp"
+        app:shapeAppearance="@style/ShapeAppearance.Material3.Corner.Medium"
+        android:clickable="true"
+        tools:ignore="UnusedAttribute">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/transparent"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:padding="10dp"
+            >
+            <!-- Media -->
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/thumbnails_playlist"
+                android:layout_width="0dp"
+                android:layout_height="100dp"
+                android:layout_weight="0.3"
+                android:contentDescription="Test des"
+                android:scaleType="centerCrop"
+                android:src="@drawable/playlist_minimalistic_3_svgrepo_com"
+                app:shapeAppearance="@style/ShapeAppearance.Material3.Corner.Medium"
+                android:outlineSpotShadowColor="@color/text_primary"
+                />
+
+       <LinearLayout
+           android:layout_width="0dp"
+           android:layout_height="wrap_content"
+           android:orientation="horizontal"
+           android:layout_weight="0.7"
+           >
+          <LinearLayout
+              android:layout_width="0dp"
+              android:layout_weight="0.6"
+              android:layout_height="wrap_content"
+              android:orientation="vertical"
+              android:layout_marginStart="10dp"
+              >
+              <TextView
+                  android:id="@+id/tv_name_playlist"
+                  android:layout_width="200dp"
+                  android:layout_height="wrap_content"
+                  android:text="Lời yêu thật..."
+                  style="@style/text_primary_bold"
+                  android:textAlignment="textStart"
+                  android:textAppearance="?attr/textAppearanceTitleMedium" />
+
+              <TextView
+                  android:id="@+id/tv_des_playlist"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:layout_marginTop="8dp"
+                  android:text="Playlist"
+                  style="@style/text_second"
+                  android:textAppearance="?attr/textAppearanceBodyMedium"
+                  android:textColor="?android:attr/textColorSecondary" />
+              <TextView
+                  android:id="@+id/tv_number_song"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:layout_marginTop="8dp"
+                  android:text="8 songs"
+                  style="@style/text_second"
+                  android:textAppearance="?attr/textAppearanceBodyMedium"
+                  android:textColor="?android:attr/textColorSecondary" />
+          </LinearLayout>
+       </LinearLayout>
+
+
+
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
+</androidx.constraintlayout.widget.ConstraintLayout>

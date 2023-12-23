@@ -18,10 +18,6 @@ public class DetailPlaylist {
     private int id;
 
     @ManyToOne
-    @JoinColumn(name = "userId")
-    private User user;
-
-    @ManyToOne
     @JoinColumn(name = "songId")
     private Song song;
 

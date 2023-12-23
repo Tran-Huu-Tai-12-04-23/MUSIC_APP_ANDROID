@@ -1,23 +1,17 @@
 package com.example.musicplayer.activity;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
 import com.example.musicplayer.R;
 import com.google.android.material.search.SearchBar;
 import com.google.android.material.search.SearchView;
-
-import adapter.PlaylistAdapter;
-import data.FakeData;
 
 public class TestActivity extends AppCompatActivity {
 

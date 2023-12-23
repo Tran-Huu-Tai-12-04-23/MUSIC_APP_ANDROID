@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="horizontal"
+    android:layout_marginTop="10dp"
+    android:layout_marginBottom="20dp"
+    android:layout_gravity="center"
+    android:gravity="center">
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/btn_play_now_music"
+        android:layout_width="20sp"
+        android:layout_height="20sp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/play_svgrepo_com"
+        android:layout_marginEnd="10dp"
+        app:shapeAppearance="@style/ShapeAppearance.Material3.Corner.Small"
+        android:tint="@color/icon_primary"
+
+        />
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/song_thumbnails"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/music_note_svgrepo_com"
+        app:shapeAppearance="@style/ShapeAppearance.Material3.Corner.Small"
+        android:outlineSpotShadowColor="@color/text_primary"
+        />
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_weight="0.6"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginStart="10dp"
+        >
+        <TextView
+            android:id="@+id/tv_name_song"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Lời yêu thật..."
+            android:maxLines="1"
+            android:maxWidth="200dp"
+            />
+
+        <TextView
+            android:id="@+id/tv_name_artist"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Son tung MTP"
+            android:textSize="12sp"
+           android:textColor="@color/textSecond"
+            />
+    </LinearLayout>
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/btn_remove_item"
+        android:layout_width="20sp"
+        android:layout_height="20sp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/trash_bin_2_svgrepo_com"
+        app:shapeAppearance="@style/ShapeAppearance.Material3.Corner.Small"
+        android:tint="#e15452"
+
+        />
+
+</LinearLayout>

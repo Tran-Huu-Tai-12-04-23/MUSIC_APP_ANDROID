@@ -8,22 +8,89 @@
 
 
     <!--    define string for detail_song-->
-    <string name="name_song_title">Song name : </string>
-    <string name="launch_date_song_title">Launch date : </string>
-    <string name="artist_song_title">Single : </string>
-    <string name="description_title">Description</string>
+    <string name="name_song_title">Tên bài hát : </string>
+    <string name="launch_date_song_title">Ngày phát hành : </string>
+    <string name="artist_song_title">Ca sĩ : </string>
+    <string name="description_title">Mô tả : </string>
 
     <!--    define string for comment dialog-->
-    <string name="comment_title">Comments</string>
-    <string name="hint_comment_suggest">Enter your comment ...</string>
+    <string name="comment_title">Bình luận</string>
+    <string name="hint_comment_suggest">Bình luận của bạn ...</string>
 
-<!--    define string for library screen-->
-    <string name="library_title">Library</string>
-    <string name="playlist_title">Playlists</string>
-    <string name="favourite_playlist_title">Favourite playlist</string>
-    <string name="following_title">Following</string>
-    <string name="recent_music_title">Recent playing</string>
+    <!--    define string for library screen-->
+    <string name="library_title">Thư viện</string>
+    <string name="playlist_title">Danh sách phát</string>
+    <string name="favourite_playlist_title">Danh sách yêu thích</string>
+    <string name="following_title">Theo dõi</string>
+    <string name="recent_music_title">Nghe gần đây</string>
 
+    <!--    define string for playlist screen-->
+    <string name="songliked_title">Bài hát yêu thích</string>
+    <string name="confirm_remove_title">Bạn có muốn xóa không?</string>
+    <string name="confirm_remove">Xóa</string>
+    <string name="cancel">Hủy</string>
+    <string name="artist_followed">Nghệ sĩ đã theo dõi</string>
+    <string name="unfollow">Hủy theo dõi</string>
+    <string name="create">Tạo</string>
+    <string name="create_new_playlist">Tạo mới danh sách phát</string>
+    <string name="playlist">Danh sách phát</string>
+    <string name="like_music">Bài hát yêu thích</string>
+    <string name="user">Người dùng</string>
+    <string name="profile">Trang cá nhân</string>
+    <string name="action">Hành động</string>
+    <string name="light">Chuyển giao diện</string>
+    <string name="logout">Đăng xuất</string>
+    <string name="home">Trang chủ</string>
+    <string name="library">Thư viện</string>
+    <string name="search">Khám phá</string>
+    <string name="go_back">Quay lại</string>
+    <string name="verify_otp_to_change_password">Xác thực OTP để đỏi mật khẩu của bạn</string>
+    <string name="we_will_change_your_password">Chúng tôi sẽ thay đổi mật khẩu.</string>
+    <string name="verify">Kiểm tra</string>
+    <string name="enter_your_phone">+84</string>
+    <string name="resend">Gửi lại</string>
+    <string name="didn_t_recived_code">Không nhận được mã?</string>
+    <string name="we_will_send_you_a_code_via_sms_to_confirm_your_phone_number">Chúng tôi sẽ gửi cho bạn Code thông qua tin nhắn điện thoại.</string>
+    <string name="get_your_password_by_your_phone_number">Lấy lại mật khẩu bằng số điện thoại</string>
+    <string name="next">Tiếp</string>
+    <string name="enter_your_confim_password">Xác nhận mật khẩu</string>
+    <string name="enter_your_password">Mật khẩu</string>
+    <string name="enter_your_new_password">Mật khẩu mới</string>
+    <string name="password">Mật khẩu</string>
+    <string name="join_musicdev_to_hear_the_latest_from_people_you_follow">Tham gia MusicDev để nghe những bài hát mới nhất</string>
+    <string name="username">Tên đăng nhập</string>
+    <string name="your_phone">Số điện thoại</string>
+    <string name="you_have_already_account">Bạn đã có tài khoản?</string>
+    <string name="login_now">Đăng nhập ngay</string>
+    <string name="create_an_account">Tạo tài khoản mới</string>
+    <string name="qu_n_m_t_kh_u">Quên mật khẩu?</string>
+    <string name="you_don_t_have_an_account">Bạn chưa có tài khoản?</string>
+    <string name="create_now">Tạo ngay</string>
+    <string name="watch_artist">Xem nghệ sĩ</string>
+    <string name="add_song_into_playlist">Thêm bài hát vào playlist</string>
+    <string name="download">Tải xuống</string>
+    <string name="c_nh_n">Cá nhân</string>
+    <string name="n_ng_c_p_t_i_kho_n">Nâng cấp tài khoản</string>
+    <string name="music_dev_premium">Music Dev premium</string>
+    <string name="nghe_nh_c_offline_m_i_l_c_m_i_n_i_c_ng_v_i_music_dev_premium">Nghe nhạc offline mọi lúc mọi nơi cùng với `Music Dev premium`</string>
+    <string name="c_i_t">Cài đặt âm thanh</string>
+    <string name="ch_nh_s_a_trang_c_nh_n">Chỉnh sửa trang cá nhân</string>
+    <string name="quy_n_ri_ng_t">Quyền riêng tư</string>
+    <string name="thay_i_ch">   Thay đổi chủ đề</string>
+    <string name="ng_xu_t">Đăng xuất</string>
+    <string name="ch_n_ch">Chọn chủ đề</string>
+    <string name="ch_s_ng">Chế độ sáng</string>
+    <string name="ch_t_i">Chế độ tối</string>
+    <string name="ang_hi_n_th_k_t_qu_cho">Đang hiển thị kết quả cho :</string>
+    <string name="kh_ng_c_k_t_qu_ph_h_p">Không có kết quả phù hợp!</string>
+    <string name="recent_search">Tìm kiếm gần đây...</string>
+    <string name="t_i_xu_ng">Đã tải xuống</string>
+    <string name="t_i_nh_c_l_n">Tải nhạc lên</string>
+    <string name="qu_n_l_studio_c_a_b_n">Quản lý studio của bạn</string>
+    <string name="ng_d_ng">Ứng dụng</string>
+    <string name="danh_s_ch_ph_t">Danh sách phát</string>
+    <string name="copy_right_by_huutai">Copy Right by @HuuTai</string>
+    <string name="xem_th_m">Xem thêm</string>
 
 
 </resources>

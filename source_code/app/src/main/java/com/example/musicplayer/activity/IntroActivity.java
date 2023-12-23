@@ -13,10 +13,9 @@ import android.view.Window;
 
 import com.example.musicplayer.R;
 
-import constanst.Constanst;
-import fragment.startApp.IntroFragment;
-import fragment.startApp.TransactionStart;
-
+import Constanst.Constant;
+import Fragment.StartApp.IntroFragment;
+import Fragment.StartApp.TransactionStart;
 public class IntroActivity extends AppCompatActivity {
 
     private IntroFragment introFragment;
@@ -43,8 +42,8 @@ public class IntroActivity extends AppCompatActivity {
 
         FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fm.beginTransaction();
-        fragmentTransaction.replace(R.id.mainLayoutStartScreen, transactionFrag, Constanst.TAG_FRAGMENT_TRANSACTION);
-        fragmentTransaction.commit();
+        fragmentTransaction.replace(R.id.mainLayoutStartScreen, transactionFrag, Constant.TAG_FRAGMENT_TRANSACTION);
+        fragmentTransaction.commitAllowingStateLoss();
 
         new Handler().postDelayed(new Runnable() {
             @Override
@@ -57,9 +56,9 @@ public class IntroActivity extends AppCompatActivity {
                     finish();
                 }else {
                     FragmentTransaction fragmentTransaction = fm.beginTransaction();
-                    fragmentTransaction.replace(R.id.mainLayoutStartScreen, introFragment, Constanst.TAG_FRAGMENT_INTRO);
+                    fragmentTransaction.replace(R.id.mainLayoutStartScreen, introFragment, Constant.TAG_FRAGMENT_INTRO);
                     fragmentTransaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
-                    fragmentTransaction.commit();
+                    fragmentTransaction.commitAllowingStateLoss();
                 }
 
             }

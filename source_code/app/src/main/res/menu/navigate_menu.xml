@@ -3,49 +3,44 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <group android:checkableBehavior="single" android:id="@+id/nav_group_app_action">
-            <item
-                android:id="@+id/nav_playlist"
-                android:title="Playlist"
-                android:icon="@drawable/baseline_playlist_play_24"
-                ></item>
-            <item
-                android:id="@+id/nav_playlist_favourite"
-                android:title="Playlist"
-                android:icon="@drawable/baseline_favorite_24"
-                ></item>
+        <item
+            android:id="@+id/nav_playlist"
+            android:title="@string/playlist"
+            android:icon="@drawable/baseline_playlist_play_24" />
+        <item
+            android:id="@+id/nav_song_liked"
+            android:title="@string/like_music"
+            android:icon="@drawable/baseline_favorite_24" />
 
         </group>
     <group android:checkableBehavior="single">
-       <item android:title="User">
+       <item android:title="@string/user">
            <menu>
                <item
                    android:id="@+id/nav_profile"
-                   android:title="Profile"
-                   android:icon="@drawable/baseline_person_24"
-                   ></item>
+                   android:title="@string/profile"
+                   android:icon="@drawable/baseline_person_24" />
                <item
                    android:id="@+id/nav_setting"
-                   android:title="Profile"
-                   android:icon="@drawable/baseline_settings_30"
-                   ></item>
+                   android:title="@string/profile"
+                   android:icon="@drawable/baseline_settings_30" />
 
            </menu>
        </item>
     </group>
 
     <group android:checkableBehavior="single">
-        <item android:title="Action">
+        <item android:title="@string/action">
             <menu>
                 <item
                     android:id="@+id/switch_theme_custom"
                     android:icon="@drawable/icon_moon"
-                    android:title="light"
+                    android:title="@string/light"
                     />
                 <item
                     android:id="@+id/nav_logout"
-                    android:title="Exit"
-                    android:icon="@drawable/baseline_logout_30"
-                    ></item>
+                    android:title="@string/logout"
+                    android:icon="@drawable/baseline_logout_30" />
             </menu>
         </item>
     </group>

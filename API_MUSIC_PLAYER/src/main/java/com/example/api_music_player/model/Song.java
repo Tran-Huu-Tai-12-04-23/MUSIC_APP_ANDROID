@@ -1,16 +1,13 @@
 package com.example.api_music_player.model;
 
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Data;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
-import java.sql.Date;
+import java.util.Date;
 
 
 @RequiredArgsConstructor
@@ -21,7 +18,7 @@ import java.sql.Date;
 public class Song {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private long id;
 
     private String title;
     private String thumbnails;
@@ -29,4 +26,14 @@ public class Song {
     private double duration;
     private Date uploadDate;
     private String genre;
+
+    @PrePersist
+    public void prePersist() {
+        if (uploadDate == null) {
+            uploadDate = new Date();
+        }
+    }
+
+    @ManyToOne
+    private User userUpload;
 }

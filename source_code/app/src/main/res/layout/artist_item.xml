@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:padding="10dp"
+    >
 
     <com.google.android.material.card.MaterialCardView
+        android:id="@+id/card_main_artist"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:outlineSpotShadowColor="@color/bg_primary"
-        android:translationX="10dp"
         app:cardBackgroundColor="@color/bg_primary"
-        app:cardCornerRadius="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -19,20 +20,23 @@
         app:shapeAppearanceOverlay="@color/bg_primary"
         app:strokeColor="@color/bg_primary"
         app:strokeWidth="0dp"
-        android:layout_marginEnd="20dp"
         android:clickable="true"
-        >
+        android:padding="4dp"
+        tools:ignore="UnusedAttribute">
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:padding="4dp"
+            android:gravity="center"
+            >
 
 
             <com.google.android.material.imageview.ShapeableImageView
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:background="@drawable/test_artist_avatar"
+                android:layout_width="90dp"
+                android:layout_height="90dp"
+                android:background="@drawable/baseline_person_24"
                 android:scaleType="centerCrop"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -44,17 +48,19 @@
             <TextView
                 style="@style/text_second"
                 android:layout_width="wrap_content"
+                android:maxWidth="100dp"
+                android:maxLines="1"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="10dp"
-                android:text="Quan AP"
+                android:text=""
                 android:textAppearance="?attr/textAppearanceTitleMedium"
                 android:textSize="14sp"
                 android:textStyle="bold"
-                android:id="@+id/name"
+                android:id="@+id/tv_name_artist"
                 />
 
         </LinearLayout>
     </com.google.android.material.card.MaterialCardView>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

@@ -1,22 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout
+<FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".activity.TestActivity"
     android:background="@color/bg_primary"
     android:id="@+id/main_screen_search"
     >
 
-
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
+        android:layout_marginTop="10dp"
         >
         <LinearLayout
             android:orientation="horizontal"
@@ -36,10 +35,12 @@
                 app:boxStrokeColor="@color/transparent"
                 app:endIconMode="clear_text"
                 app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.ExtraLarge"
-                app:startIconDrawable="@drawable/baseline_search_24"
+                app:startIconDrawable="@drawable/search"
+                app:startIconScaleType="center"
                 tools:targetApi="p"
                 app:boxStrokeWidth="0dp"
-
+                android:paddingBottom="0dp"
+                android:paddingTop="0dp"
                 >
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -47,53 +48,29 @@
                     android:layout_height="wrap_content"
                     android:paddingLeft="20dp"
                     android:paddingRight="20dp"
-                    app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.ExtraLarge" />
+                    android:paddingBottom="0dp"
+                    android:paddingTop="0dp"
+                    android:singleLine="true"
+                    android:textSize="@dimen/default_text_size"
+                    android:imeOptions="actionSearch"/>
             </com.google.android.material.textfield.TextInputLayout>
-
-            <ImageView
-                android:id="@+id/imageView8"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_marginEnd="16dp"
-                android:background="@drawable/avatar_rounded"
-                android:src="@drawable/app_icon"
-                android:importantForAccessibility="no" />
         </LinearLayout>
-        <androidx.core.widget.NestedScrollView
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:translationY="20dp"
-            >
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/content_search"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:paddingLeft="20dp"
-                android:paddingRight="20dp"
-                >
-
-            </androidx.recyclerview.widget.RecyclerView>
-        </androidx.core.widget.NestedScrollView>
-
-
+<!--        search history -->
         <LinearLayout
             android:id="@+id/content_history_search"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_margin="10dp"
-            android:layout_marginTop="50dp"
             android:orientation="vertical"
             android:padding="10dp"
             >
 
             <TextView
                 android:id="@+id/title_search_history"
-                style="@style/text_primary_bold"
+                android:textStyle="bold"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Recent search...">
+                android:text="@string/recent_search">
 
             </TextView>
 
@@ -101,8 +78,10 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/list_item_search_history"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:layout_constraintStart_toStartOf="@+id/content_history_search" />
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                app:layout_constraintStart_toStartOf="@+id/content_history_search"
+                />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_clear_history"
@@ -110,15 +89,119 @@
                 android:layout_height="wrap_content"
                 android:background="@color/transparent"
                 android:clickable="true"
-                android:text="Clear search history..."
-                android:textAlignment="textStart">
+                android:textColor="@color/icon_primary"
+                android:text="Xóa lịch sử tìm kiếm..."
+                android:textAlignment="center">
 
             </com.google.android.material.button.MaterialButton>
+
 
 
         </LinearLayout>
 
 
+        <LinearLayout
+            android:id="@+id/main_search"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:visibility="gone"
+            >
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginTop="10dp"
+                >
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/ang_hi_n_th_k_t_qu_cho"
+                    />
+                <TextView
+                    android:id="@+id/tv_key_search"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="KKKK"
+                    android:textStyle="italic"
+                    android:textColor="@color/icon_primary"
+                    />
+            </LinearLayout>
+            <androidx.core.widget.NestedScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                tools:ignore="NestedWeights">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    >
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/content_search"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:paddingLeft="20dp"
+                        android:paddingRight="20dp"
+                        />
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btn_load_more"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/transparent"
+                        android:clickable="true"
+                        android:textColor="@color/icon_primary"
+                        android:text="@string/xem_th_m"
+                        android:textAlignment="center">
+                    </com.google.android.material.button.MaterialButton>
+                </LinearLayout>
+            </androidx.core.widget.NestedScrollView>
+           <LinearLayout
+               android:id="@+id/song_result_no_notification"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:orientation="vertical"
+               android:visibility="gone"
+               android:gravity="center"
+               android:layout_gravity="center"
+               >
+               <androidx.constraintlayout.utils.widget.ImageFilterView
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:maxHeight="400dp"
+                   android:src="@drawable/music_bro"/>
+               <TextView
+                   android:layout_width="match_parent"
+                   android:textAlignment="center"
+                   android:layout_height="wrap_content"
+                   android:textSize="16sp"
+                   android:textColor="@color/icon_primary"
+                   android:text="@string/kh_ng_c_k_t_qu_ph_h_p"
+                   android:translationY="-40dp"
+                   />
+           </LinearLayout>
+            <com.google.android.material.progressindicator.CircularProgressIndicator
+                android:id="@+id/loading_more"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:indeterminate="true"
+                app:indicatorSize="30sp"
+                style="@style/Widget.Material3.CircularProgressIndicator.ExtraSmall"
+                app:indicatorColor="@color/icon_primary"
+                android:visibility="gone"
+                android:translationY="-100dp"
+                />
+        </LinearLayout>
+
+
+
+
+
     </LinearLayout>
 
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+</FrameLayout>

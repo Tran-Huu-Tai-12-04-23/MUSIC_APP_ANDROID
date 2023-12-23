@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:id="@+id/bottom_sheet_action_song"
+    style="@style/Widget.Material3.BottomSheet"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"
+    android:background="@drawable/dialog_bg"
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingTop="10dp"
+        >
+        <androidx.constraintlayout.utils.widget.ImageFilterButton
+            android:layout_width="match_parent"
+            android:layout_height="10dp"
+            android:backgroundTint="@color/transparent"
+            android:tint="@color/icon_primary"
+            android:src="@drawable/divider_horizontal_svgrepo_com__1_" />
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:outlineSpotShadowColor="@color/bg_primary"
+            app:cardBackgroundColor="@color/transparent"
+            app:cardCornerRadius="10dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:shapeAppearance="@style/ShapeAppearance.Material3.Corner.Small"
+            app:shapeAppearanceOverlay="@color/bg_primary"
+            app:strokeColor="@color/bg_primary"
+            app:strokeWidth="0dp"
+            tools:ignore="UnusedAttribute">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/transparent"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:paddingStart="20dp"
+                android:paddingEnd="20dp"
+                >
+                <!-- Media -->
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/song_thumbnails"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:contentDescription="Test des"
+                    android:outlineSpotShadowColor="@color/text_primary"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/baseline_person_24"
+                    app:shapeAppearance="@style/ShapeAppearance.Material3.Corner.Small" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_weight="0.6"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tv_name_song"
+                        style="@style/text_primary_bold"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:maxWidth="200dp"
+                        android:maxLines="1"
+                        android:text="..."
+                        android:textAlignment="center"
+                        android:textAppearance="?attr/textAppearanceTitleMedium" />
+
+                    <TextView
+                        android:id="@+id/tv_name_artist"
+                        style="@style/text_second"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:text=""
+                        android:textAppearance="?attr/textAppearanceBodyMedium"
+                        android:textColor="?android:attr/textColorSecondary" />
+                </LinearLayout>
+
+
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.divider.MaterialDivider
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="10dp"
+            />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingTop="10dp"
+            android:layout_marginTop="10dp"
+            android:paddingBottom="20dp"
+            >
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_add_song_to_playing_list"
+                style="@style/Widget.Material3.Button.OutlinedButton.Icon"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:text="Thêm bài hát vào danh sách phát"
+                app:icon="@drawable/music_note_3_svgrepo_com"
+                app:iconSize="30dp"
+                app:strokeColor="@color/bg_primary"
+                app:strokeWidth="0dp"
+                android:textColor="@color/text_primary"
+                app:iconTint="@color/icon_primary"
+                app:rippleColor="@color/rip_btn_primary"
+                android:textAlignment="textStart"
+                tools:ignore="HardcodedText" />
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_add_song_to_playlist"
+                style="@style/Widget.Material3.Button.OutlinedButton.Icon"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:text="@string/add_song_into_playlist"
+                app:icon="@drawable/baseline_add_24"
+                app:iconSize="30dp"
+                app:strokeColor="@color/bg_primary"
+                app:strokeWidth="0dp"
+                android:textColor="@color/text_primary"
+                app:iconTint="@color/icon_primary"
+                app:rippleColor="@color/rip_btn_primary"
+                android:textAlignment="textStart"
+                tools:ignore="HardcodedText" />
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_watch_artist"
+                style="@style/Widget.Material3.Button.OutlinedButton.Icon"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:text="@string/watch_artist"
+                app:icon="@drawable/baseline_person_24"
+                app:iconSize="30dp"
+                app:strokeColor="@color/bg_primary"
+                app:strokeWidth="0dp"
+                android:textColor="@color/text_primary"
+                app:iconTint="@color/icon_primary"
+                app:rippleColor="@color/rip_btn_primary"
+                android:textAlignment="textStart"
+                />
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_download"
+                style="@style/Widget.Material3.Button.OutlinedButton.Icon"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:text="@string/download"
+                android:textAlignment="textStart"
+                app:icon="@drawable/baseline_file_download_24"
+                app:iconSize="30dp"
+                app:strokeColor="@color/bg_primary"
+                app:strokeWidth="0dp"
+                android:textColor="@color/text_primary"
+                app:iconTint="@color/icon_primary"
+                app:rippleColor="@color/rip_btn_primary"
+                tools:ignore="HardcodedText" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_watch_playlist_song"
+                style="@style/Widget.Material3.Button.OutlinedButton.Icon"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:text="Move to playlist"
+                android:textAlignment="textStart"
+                app:icon="@drawable/baseline_playlist_play_24"
+                app:iconSize="32dp"
+                app:strokeColor="@color/bg_primary"
+                app:strokeWidth="0dp"
+                android:textColor="@color/text_primary"
+                app:iconTint="@color/icon_primary"
+                app:rippleColor="@color/rip_btn_primary"
+                tools:ignore="HardcodedText" />
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_share"
+                style="@style/Widget.Material3.Button.OutlinedButton.Icon"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:text="Share"
+                android:textAlignment="textStart"
+                app:icon="@drawable/baseline_share_24"
+                app:iconSize="30dp"
+                app:strokeColor="@color/bg_primary"
+                app:strokeWidth="0dp"
+                android:textColor="@color/text_primary"
+                app:iconTint="@color/icon_primary"
+                app:rippleColor="@color/rip_btn_primary"
+                tools:ignore="HardcodedText" />
+
+        </LinearLayout>
+    </LinearLayout>
+
+
+
+</FrameLayout>

@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:padding="20dp"
+    android:gravity="center"
+    android:background="@color/bg_second">
+    <com.google.android.material.divider.MaterialDivider
+        android:layout_width="wrap_content"
+        android:layout_height="1dp"/>
+        <LinearLayout
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/song_thumbnails"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/test_artist_avatar"
+            app:shapeAppearance="@style/ShapeAppearance.Material3.Corner.Small"
+            android:outlineSpotShadowColor="@color/text_primary"
+            />
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="0.6"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginStart="10dp"
+            >
+            <TextView
+                android:id="@+id/tv_name_song"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Lời yêu thật..."
+                android:maxLines="1"
+                android:maxWidth="200dp"
+                />
+
+            <TextView
+                android:id="@+id/tv_name_artist"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Son tung MTP"
+                android:textSize="12sp"
+                android:textColor="@color/textSecond"
+                />
+        </LinearLayout>
+        </LinearLayout>
+    <com.google.android.material.divider.MaterialDivider
+        android:layout_width="wrap_content"
+        android:layout_height="1dp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp">
+
+        <TextView
+            android:id="@+id/tv_duration_start"
+            style="@style/text_second"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="00:30"
+            android:textAppearance="?attr/textAppearanceBodyMedium"
+            android:textColor="?android:attr/textColorSecondary" />
+
+        <com.google.android.material.slider.Slider
+            android:id="@+id/slider_duration_music"
+            android:layout_width="0dp"
+            android:layout_height="2dp"
+            android:layout_weight="1"
+            android:value="20"
+            android:valueFrom="0.0"
+            android:valueTo="1000.0"
+            app:haloColor="@color/icon_primary"
+            app:thumbColor="@color/icon_primary"
+            app:thumbRadius="8dp"
+            app:thumbStrokeWidth="2dp"
+            app:trackColorActive="@color/icon_primary"
+            app:trackColorInactive="@color/bg_second"
+            app:trackHeight="2dp" />
+
+        <TextView
+            android:id="@+id/tv_duration_end"
+            style="@style/text_second"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="05:30"
+            android:textAppearance="?attr/textAppearanceBodyMedium"
+            android:textColor="?android:attr/textColorSecondary" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        >
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/btn_prev_music"
+            android:layout_width="30sp"
+            android:layout_height="30sp"
+            android:outlineSpotShadowColor="@color/text_primary"
+            android:scaleType="centerCrop"
+            android:src="@drawable/next_svgrepo_com"
+            android:rotation="180"
+            android:tint="@color/icon_second"
+            app:shapeAppearance="@style/ShapeAppearance.Material3.Corner.Medium"
+            tools:ignore="UnusedAttribute"
+            android:clickable="true"
+            />
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/btn_start_music"
+            android:layout_width="30sp"
+            android:layout_height="30sp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:outlineSpotShadowColor="@color/text_primary"
+            android:scaleType="centerCrop"
+            android:src="@drawable/play_svgrepo_com"
+            android:tint="@color/icon_primary"
+            app:shapeAppearance="@style/ShapeAppearance.Material3.Corner.Medium" />
+
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/btn_next_music"
+            android:layout_width="30sp"
+            android:layout_height="30sp"
+            android:outlineSpotShadowColor="@color/text_primary"
+            android:scaleType="centerCrop"
+            android:src="@drawable/next_svgrepo_com"
+            android:tint="@color/icon_second"
+            app:shapeAppearance="@style/ShapeAppearance.Material3.Corner.Medium" />
+
+    </LinearLayout>
+
+
+</LinearLayout>

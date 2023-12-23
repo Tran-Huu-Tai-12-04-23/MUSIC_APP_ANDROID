@@ -10,23 +10,6 @@
     tools:openDrawer="start"
     android:id="@+id/drawer_page"
     >
-
-    <com.google.android.material.navigation.NavigationView
-        android:id="@+id/sidebar_home"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        app:headerLayout="@layout/header_navigate"
-        app:menu="@menu/navigate_menu"
-        app:itemRippleColor="@color/white"
-        app:subheaderColor="@color/text_primary"
-        android:layout_gravity="start"
-        app:itemIconSize="30sp"
-        style="@style/bg_second"
-        app:itemIconPadding="10dp"
-        app:itemVerticalPadding="10dp"
-        >
-    </com.google.android.material.navigation.NavigationView>
-
 <!--    main-->
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
@@ -35,7 +18,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/container_home"
-        tools:ignore="RedundantNamespace">
+        tools:ignore="RedundantNamespace"
+        >
         <LinearLayout
             android:id="@+id/linearLayout"
             android:layout_width="match_parent"
@@ -43,110 +27,122 @@
             android:orientation="vertical"
             style="@style/bg_primary"
             >
-        <androidx.fragment.app.FragmentContainerView
-            android:id="@+id/content_home_page"
-            android:name="fragment.mainApp.ContentHomePage"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            >
-        </androidx.fragment.app.FragmentContainerView>
 
-
-            <!--            floating player/-->
+            <androidx.fragment.app.FragmentContainerView
+                android:id="@+id/fragmentContainer"
+                android:name="androidx.navigation.fragment.NavHostFragment"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                app:defaultNavHost="true"
+                app:navGraph="@navigation/nav_graph"
+                />
+            <!--floating player/-->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center"
-                android:padding="10dp"
-                android:background="@color/bg_third"
-                android:id="@+id/floating_player"
-                android:clickable="true"
-                >
-                <com.google.android.material.imageview.ShapeableImageView
-                    android:id="@+id/thumbnails_playlist"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:contentDescription="Test des"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/test_artist_avatar"
-                    app:shapeAppearance="@style/ShapeAppearance.Material3.Corner.Small"
-                    android:outlineSpotShadowColor="@color/text_primary"
+                android:orientation="vertical">
+                <com.google.android.material.progressindicator.LinearProgressIndicator
+                    android:id="@+id/progress_durationSong"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:max="100"
+                    android:progress="0"
+                    style="@style/Widget.Material3.CircularProgressIndicator.ExtraSmall"
+                    app:trackColor="@color/bg_second"
+                    app:indicatorColor="@color/icon_primary"
+                    />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center"
+                    android:padding="5dp"
+                    android:paddingStart="10dp"
+                    android:paddingEnd="10dp"
+                    android:background="@color/bg_third"
+                    android:id="@+id/floating_player"
                     android:clickable="true"
+                    >
 
-                    />
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_marginLeft="10dp"
-                    android:layout_height="wrap_content"
-                    android:text="Lời yêu thật..."
-                    style="@style/text_primary_bold"
-                    android:textAlignment="textStart"
-                    android:textAppearance="?attr/textAppearanceTitleMedium" />
-                <androidx.constraintlayout.utils.widget.ImageFilterButton
-                    android:layout_width="wrap_content"
-                    android:src="@drawable/baseline_play_circle_24"
-                    android:layout_marginStart="20dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:scaleX="1.5"
-                    android:scaleY="1.5"
-                    android:background="@color/transparent"
-                    android:text="Button"
-                    android:paddingRight="20dp"
-                    />
-                <androidx.constraintlayout.utils.widget.ImageFilterButton
-                    android:layout_width="wrap_content"
-                    android:src="@drawable/baseline_skip_next_24"
-                    android:layout_marginStart="20dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:scaleX="1.5"
-                    android:scaleY="1.5"
-                    android:background="@color/transparent"
-                    android:text="Button"
-
-                    />
+                    <com.google.android.material.imageview.ShapeableImageView
+                        android:id="@+id/thumbnails_song"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:contentDescription="Test des"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/music_note_3_svgrepo_com"
+                        app:shapeAppearance="@style/ShapeAppearance.Material3.Corner.Small"
+                        android:outlineSpotShadowColor="@color/text_primary"
+                        android:clickable="true"
+                        tools:ignore="UnusedAttribute" />
+                    <TextView
+                        android:id="@+id/tv_name_song"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_marginStart="10dp"
+                        android:layout_height="wrap_content"
+                        android:text="Lời yêu thật..."
+                        android:textAlignment="textStart"
+                        android:maxLines="1"
+                        />
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btn_floating_play_music"
+                        style="@style/Widget.Material3.Button.OutlinedButton.Icon"
+                        android:layout_width="60dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        app:icon="@drawable/play_svgrepo_com"
+                        app:iconSize="24sp"
+                        app:strokeColor="@color/bg_primary"
+                        app:strokeWidth="0dp"
+                        app:iconTint="@color/icon_second"
+                        />
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btn_floating_music_next"
+                        style="@style/Widget.Material3.Button.OutlinedButton.Icon"
+                        android:layout_width="60dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        app:icon="@drawable/next_svgrepo_com"
+                        app:iconSize="24sp"
+                        app:strokeColor="@color/bg_primary"
+                        app:strokeWidth="0dp"
+                        app:iconTint="@color/icon_second"
+                        />
+                </LinearLayout>
             </LinearLayout>
+            <com.google.android.material.divider.MaterialDivider
+                android:layout_width="wrap_content"
+                android:layout_height="1sp"
+                tools:ignore="SmallSp" />
             <!--            bottom Bar-->
-
-
             <com.google.android.material.bottomnavigation.BottomNavigationView
-            android:id="@+id/bottom_navigation"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:menu="@menu/bottom_menu"
-            app:compatShadowEnabled="true"
-            app:itemBackground="@color/bg_navigate" />
+                android:id="@+id/bottom_navigation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:menu="@menu/bottom_menu"
+                app:compatShadowEnabled="false"
+                app:itemBackground="@color/bg_third"
+                app:itemTextAppearanceActive="@color/bg_second"
+                app:itemRippleColor="@color/transparent"
+                app:itemIconTint="@color/icon_primary"
+                app:itemTextColor="@color/icon_primary"
+                app:labelVisibilityMode="unlabeled"
+                app:itemIconSize="24sp"
+                />
         </LinearLayout>
+
+
+
+
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:background="@color/tiny_black"
-        android:id="@+id/loading_home"
-        android:clickable="true"
-        android:focusable="true"
-        android:focusableInTouchMode="true"
-         android:visibility="gone"
-        >
 
-        <com.google.android.material.progressindicator.CircularProgressIndicator
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:indeterminate="true"
-            app:trackColor="@color/purple_200"
-            app:indicatorColor="@color/text_primary"
-            android:outlineSpotShadowColor="@color/main_bottom_app_bar"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
 
 </androidx.drawerlayout.widget.DrawerLayout>

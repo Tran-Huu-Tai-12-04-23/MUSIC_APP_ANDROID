@@ -3,73 +3,26 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context="fragment.mainApp.ContentHomePage">
+    tools:context="Fragment.MainApp.ContentHomePage"
 
-
+    >
     <LinearLayout
         style="@style/bg_primary"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/drawer_page"
         android:orientation="vertical"
+
        >
-
         <!--            header-->
-
         <androidx.coordinatorlayout.widget.CoordinatorLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" android:orientation="vertical">
-                <LinearLayout
-                    android:orientation="horizontal"
-                    android:layout_width="match_parent"
-                    android:layout_height="60dp"
-                    android:gravity="center_vertical"
-                    >
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/btn_open_sidebar"
-                        style="@style/Widget.Material3.Button.OutlinedButton.Icon"
-                        android:layout_width="60dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:gravity="center"
-                        app:icon="@drawable/menu"
-                        app:iconSize="30dp"
-                        app:strokeColor="@color/bg_primary"
-                        app:strokeWidth="0dp"
-                        app:iconTint="@color/text_primary"
-                        />
-                    <TextView
-                        android:id="@+id/textView10"
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="9dp"
-                        android:layout_marginEnd="16dp"
-                        android:layout_marginBottom="9dp"
-                        android:text="Good morning"
-                        android:textAlignment="center"
-                        android:textColor="@color/text_primary"
-                        android:textSize="18sp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toStartOf="@+id/imageView8"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-                    <ImageView
-                        android:id="@+id/imageView8"
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
-                        android:layout_marginEnd="16dp"
-                        android:background="@drawable/avatar_rounded"
-                        android:src="@drawable/app_icon"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        tools:ignore="ContentDescription" />
-                </LinearLayout>
-                <!--            end topo bar-->
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
 
                 <androidx.core.widget.NestedScrollView
                     android:layout_width="match_parent"
@@ -86,53 +39,286 @@
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:orientation="vertical" >
+                            android:orientation="vertical"
+                            >
 
-                            <androidx.recyclerview.widget.RecyclerView
-                                xmlns:android="http://schemas.android.com/apk/res/android"
-                                xmlns:app="http://schemas.android.com/apk/res-auto"
-                                xmlns:tools="http://schemas.android.com/tools"
-                                android:id="@+id/carousel_music_container"
+                            <LinearLayout
                                 android:layout_width="match_parent"
-                                android:layout_height="180dp"
-                                android:paddingTop="10dp"
-                                android:paddingBottom="10dp"
-                                android:foreground="?attr/selectableItemBackground"
-                                app:shapeAppearance="?attr/shapeAppearanceCornerExtraLarge"
-                                app:layoutManager="com.google.android.material.carousel.CarouselLayoutManager"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical"
+                                android:padding="20dp"
+                                android:background="@color/bg_poster"
                                 >
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="horizontal"
+                                    android:gravity="center"
+                                    >
+                                    <com.google.android.material.imageview.ShapeableImageView
+                                        android:layout_width="30dp"
+                                        android:layout_height="30dp"
+                                        android:background="@drawable/baseline_person_24"
+                                        android:scaleType="centerCrop"
+                                        app:layout_constraintBottom_toBottomOf="parent"
+                                        app:layout_constraintEnd_toEndOf="parent"
+                                        app:layout_constraintTop_toTopOf="parent"
+                                        app:shapeAppearance="@style/ShapeAppearance.Material3.Corner.Full"
+                                        android:id="@+id/avatar"
+                                        android:layout_marginEnd="10dp"
+                                        />
+                                    <TextView
+                                        android:id="@+id/tv_name_user"
+                                        android:layout_width="0dp"
+                                        android:layout_weight="1"
+                                        android:layout_height="wrap_content"
+                                        android:text="Xin chào"
+                                        android:textColor="@color/white"
+                                        android:textStyle="bold"
+                                        />
+                                    <androidx.constraintlayout.utils.widget.ImageFilterView
+                                        android:id="@+id/btn_animation"
+                                        android:layout_width="30dp"
+                                        android:layout_height="30dp"
+                                        android:src="@drawable/notification"
+                                        />
+                                </LinearLayout>
 
-                            </androidx.recyclerview.widget.RecyclerView>
-                            <androidx.fragment.app.FragmentContainerView
-                                android:id="@+id/fragmentContainerView1"
-                                android:name="fragment.mainApp.PlaylistSuggest"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="10dp"
-                                />
-                            <androidx.fragment.app.FragmentContainerView
-                                android:id="@+id/fragmentContainerView2"
-                                android:name="fragment.mainApp.RecentMusic"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="10dp"
-                                />
-                            <androidx.fragment.app.FragmentContainerView
-                                android:id="@+id/fragmentContainerView3"
-                                android:name="fragment.mainApp.NewMusic"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="10dp"
-                                />
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="20dp"
+                                    android:layout_marginBottom="20dp"
+                                    android:lineHeight="40dp"
+                                    android:maxWidth="200sp"
+                                    android:text="Tìm kiếm bài hát yêu thích theo ý của bạn!"
+                                    android:textColor="@color/white"
+                                    android:textSize="30dp"
+                                    android:textStyle="bold" />
 
-                            <androidx.fragment.app.FragmentContainerView
-                                android:id="@+id/fragmentContainerView4"
-                                android:name="fragment.mainApp.ArtistFamous"
+                                <com.google.android.material.card.MaterialCardView
+                                    android:id="@+id/search_btn"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:outlineSpotShadowColor="@color/bg_second"
+                                    app:cardBackgroundColor="@color/bg_second"
+                                    app:cardCornerRadius="50dp"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent"
+                                    app:strokeColor="@color/bg_primary"
+                                    app:strokeWidth="0dp"
+                                    android:clickable="true">
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:orientation="horizontal"
+                                        android:padding="16dp"
+                                        >
+                                        <androidx.constraintlayout.utils.widget.ImageFilterView
+                                            android:layout_width="20dp"
+                                            android:layout_height="20dp"
+                                            android:src="@drawable/search"
+                                            android:tint="@color/text_primary"
+                                            />
+                                        <TextView
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:text="Tìm kiếm nhạc bạn yêu thích..."
+                                            android:textColor="@color/textSecond"
+                                            android:layout_marginLeft="10sp"
+                                            android:textStyle="bold"
+                                            />
+                                    </LinearLayout>
+                                </com.google.android.material.card.MaterialCardView>
+                            </LinearLayout>
+
+                            <androidx.constraintlayout.utils.widget.ImageFilterView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_marginTop="10dp"
-                                android:layout_marginBottom="10dp"
-                                />
+                                android:src="@drawable/arc_2"
+                                android:translationY="-10dp" />
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical"
+                                android:translationY="-100dp"
+                                android:padding="20dp"
+                                >
+                                <LinearLayout
+                                    android:orientation="vertical"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content">
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="Đang thịnh hành"
+                                        android:textColor="@color/text_primary"
+                                        style="@style/text_title"
+                                        android:textStyle="bold"
+                                        />
+
+                                    <androidx.recyclerview.widget.RecyclerView
+                                        android:id="@+id/carousel_music_container"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="180dp"
+                                        android:foreground="?attr/selectableItemBackground"
+                                        android:paddingTop="10dp"
+                                        android:paddingBottom="10dp"
+                                        app:layoutManager="com.google.android.material.carousel.CarouselLayoutManager"
+                                        app:shapeAppearance="?attr/shapeAppearanceCornerExtraLarge">
+
+                                    </androidx.recyclerview.widget.RecyclerView>
+
+                                </LinearLayout>
+                                <!--                            -->
+                                <LinearLayout
+                                    android:orientation="vertical"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent">
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:paddingBottom="10dp"
+                                        android:text="Playlist suggest for you"
+                                        android:textColor="@color/text_primary"
+                                        style="@style/text_title"
+                                        android:textStyle="bold"
+                                        app:layout_constraintEnd_toEndOf="parent"
+                                        app:layout_constraintHorizontal_bias="0.0"
+                                        app:layout_constraintStart_toStartOf="parent"
+                                        app:layout_constraintTop_toTopOf="parent" />
+
+                                    <androidx.recyclerview.widget.RecyclerView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:orientation="horizontal"
+                                        app:layout_constraintBottom_toBottomOf="parent"
+                                        app:layout_constraintEnd_toEndOf="parent"
+                                        app:layout_constraintStart_toStartOf="parent"
+                                        app:layout_constraintTop_toBottomOf="@+id/textView11"
+                                        app:layout_constraintVertical_bias="0.0"
+                                        android:id="@+id/playlist_item_home"
+                                        android:minHeight="100dp"
+                                        >
+
+                                    </androidx.recyclerview.widget.RecyclerView>
+                                </LinearLayout>
+
+                                <LinearLayout android:orientation="vertical"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent">
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:paddingBottom="10dp"
+                                        android:text="Recents Music"
+                                        android:textColor="@color/text_primary"
+                                        style="@style/text_title"
+                                        android:textStyle="bold"
+                                        app:layout_constraintEnd_toEndOf="parent"
+                                        app:layout_constraintHorizontal_bias="0.0"
+                                        app:layout_constraintStart_toStartOf="parent"
+                                        app:layout_constraintTop_toTopOf="parent" />
+
+                                    <androidx.recyclerview.widget.RecyclerView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:orientation="horizontal"
+                                        app:layout_constraintBottom_toBottomOf="parent"
+                                        app:layout_constraintEnd_toEndOf="parent"
+                                        app:layout_constraintStart_toStartOf="parent"
+                                        app:layout_constraintTop_toBottomOf="@+id/textView11"
+                                        app:layout_constraintVertical_bias="0.0"
+                                        android:id="@+id/recent_music_home"
+                                        android:minHeight="100dp"
+                                        android:paddingBottom="10dp"
+                                        >
+
+                                    </androidx.recyclerview.widget.RecyclerView>
+                                </LinearLayout>
+
+                                <LinearLayout android:orientation="vertical"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    >
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="New Music"
+                                        android:textColor="@color/text_primary"
+                                        style="@style/text_title"
+                                        app:layout_constraintEnd_toEndOf="parent"
+                                        app:layout_constraintHorizontal_bias="0.0"
+                                        app:layout_constraintStart_toStartOf="parent"
+                                        app:layout_constraintTop_toTopOf="parent"
+                                        android:textStyle="bold"
+                                        android:paddingBottom="10dp"
+                                        />
+
+                                    <androidx.recyclerview.widget.RecyclerView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:minHeight="100dp"
+                                        app:layout_constraintBottom_toBottomOf="parent"
+                                        app:layout_constraintEnd_toEndOf="parent"
+                                        app:layout_constraintStart_toStartOf="parent"
+                                        app:layout_constraintTop_toBottomOf="@+id/textView11"
+                                        app:layout_constraintVertical_bias="0.0"
+                                        android:id="@+id/new_music_home"
+                                        android:orientation="horizontal"
+                                        android:paddingBottom="10dp"
+                                        >
+
+                                    </androidx.recyclerview.widget.RecyclerView>
+
+
+                                </LinearLayout>
+
+
+                                <LinearLayout android:orientation="vertical"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    >
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="Ca sĩ nỗi tiếng"
+                                        android:textColor="@color/text_primary"
+                                        style="@style/text_title"
+                                        app:layout_constraintEnd_toEndOf="parent"
+                                        app:layout_constraintHorizontal_bias="0.0"
+                                        app:layout_constraintStart_toStartOf="parent"
+                                        app:layout_constraintTop_toTopOf="parent"
+                                        android:textStyle="bold"
+                                        android:paddingBottom="10dp"
+                                        />
+
+                                    <androidx.recyclerview.widget.RecyclerView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:minHeight="150dp"
+                                        app:layout_constraintBottom_toBottomOf="parent"
+                                        app:layout_constraintEnd_toEndOf="parent"
+                                        app:layout_constraintStart_toStartOf="parent"
+                                        app:layout_constraintTop_toBottomOf="@+id/textView11"
+                                        app:layout_constraintVertical_bias="0.0"
+                                        android:id="@+id/artist_famous_home"
+                                        android:orientation="horizontal"
+                                        android:paddingBottom="10dp"
+                                        >
+
+                                    </androidx.recyclerview.widget.RecyclerView>
+
+                                </LinearLayout>
+                            </LinearLayout>
                         </LinearLayout>
                     </ScrollView>
 
