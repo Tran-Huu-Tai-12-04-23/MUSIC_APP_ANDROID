@@ -1,6 +1,8 @@
 package com.example.api_music_player.service;
 
 import com.example.api_music_player.dto.ChangePasswordRequest;
+import com.example.api_music_player.dto.UserChangePasswordRequest;
+import com.example.api_music_player.model.Profile;
 import com.example.api_music_player.model.User;
 
 import java.util.List;
@@ -16,4 +18,8 @@ public interface IUserService {
     boolean active(Long id);
 
     List<User> getFamousArtist( int page,int size);
+    User changePasswordByUser(UserChangePasswordRequest userChangePasswordRequest);
+
+    Profile editProfile(Profile profile);
+    Profile getProfileByUser(int userId);
 }

@@ -21,13 +21,13 @@ import java.util.List;
 
 import Adapter.SearchListAdapter;
 import BottomSheet.BottomSheetActionSong;
-import BottomSheet.BottomSheetPlayMusic;
 import DTO.ResponseData;
 import Interface.HandleListeningItemClicked;
 import Interface.HandleListeningOpenMenuClicked;
 import Model.Song;
 import Model.User;
 import Service.ApiService;
+import Service.PlayMusicService;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -104,15 +104,14 @@ public class LibraryScreen extends Fragment {
             }
         });
 
+
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         searchListAdapter = new SearchListAdapter(getContext(),  songs);
 
         searchListAdapter.setOnItemClickListener(new HandleListeningItemClicked<Song>() {
             @Override
             public void onClick(Song data) {
-                BottomSheetPlayMusic bottomSheetPlayMusic = new BottomSheetPlayMusic();
-                bottomSheetPlayMusic.show(getChildFragmentManager(), "Play music");
-                bottomSheetPlayMusic.onCurrentSongChange(data);
+                PlayMusicService.playMusic(requireContext(), data);
             }
         });
 

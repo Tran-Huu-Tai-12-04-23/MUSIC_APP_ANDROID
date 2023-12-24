@@ -148,9 +148,7 @@ public class DetailArtistScreen extends Fragment {
         binding.contentPlaylist.setAdapter(playlistAdapter);
 
         binding.btnBack.setOnClickListener(v -> {
-            if( requireActivity() instanceof HomeActivity ) {
-                getChildFragmentManager().popBackStack();
-            }
+            requireActivity().onBackPressed();
         });
 
         binding.btnOpenMenu.setOnClickListener(v -> {

@@ -1,17 +1,14 @@
 package LocalData.Entity;
 
 import androidx.room.Entity;
-import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
 
+import Model.User;
 
-@Entity(tableName = "songs",
-        foreignKeys = @ForeignKey(entity = UserEntity.class,
-                parentColumns = "id",
-                childColumns = "userUploadId",
-                onDelete = ForeignKey.CASCADE))
+
+@Entity(tableName = "songs")
 public class SongEntity {
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     private long id;
     private String title;
     private String thumbnails;
@@ -20,7 +17,6 @@ public class SongEntity {
     private String uploadDate;
     private String genre;
 
-    private long userUploadId;
     public long getId() {
         return id;
     }
@@ -76,14 +72,5 @@ public class SongEntity {
     public void setGenre(String genre) {
         this.genre = genre;
     }
-
-    public long getUserUploadId() {
-        return userUploadId;
-    }
-
-    public void setUserUploadId(long userUploadId) {
-        this.userUploadId = userUploadId;
-    }
-
 
 }

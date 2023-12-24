@@ -1,10 +1,7 @@
 package LocalData.Database;
 
 import androidx.room.Database;
-import androidx.room.Room;
 import androidx.room.RoomDatabase;
-import androidx.room.migration.Migration;
-import androidx.sqlite.db.SupportSQLiteDatabase;
 
 import LocalData.DTO.SearchHistoryDAO;
 import LocalData.DTO.SongDAO;
@@ -16,7 +13,7 @@ import LocalData.Entity.StatePlayMusic;
 import LocalData.Entity.UserEntity;
 
 
-@Database(entities = {StatePlayMusic.class, UserEntity.class, SongEntity.class, SearchHistoryEntity.class}, version = 3)
+@Database(entities = {StatePlayMusic.class, UserEntity.class, SongEntity.class, SearchHistoryEntity.class}, version = 4)
 public abstract class AppDatabase extends RoomDatabase {
     public abstract StatePlayMusicDao statePlayMusicDao();
     public abstract UserDAO userDAO();

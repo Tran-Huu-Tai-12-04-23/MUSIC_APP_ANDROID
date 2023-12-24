@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/dialog_bg"
+    android:padding="20dp"
+    android:id="@+id/bottom_sheet_following"
+    >
+    <androidx.constraintlayout.utils.widget.ImageFilterButton
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:backgroundTint="@color/transparent"
+        android:tint="@color/icon_primary"
+        android:src="@drawable/divider_horizontal_svgrepo_com__1_" />
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Hẹn giờ tắt nhạc"
+        android:textColor="@color/icon_primary"
+        android:textStyle="bold"
+        android:textSize="18sp"
+        android:layout_marginBottom="10dp"
+        />
+
+    <com.google.android.material.divider.MaterialDivider
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginBottom="10dp"
+        />
+
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_time_1hour"
+        style="@style/Widget.Material3.Button.OutlinedButton.Icon"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="1 tiếng"
+        android:textAlignment="textStart"
+        android:textColor="@color/text_primary"
+        app:iconSize="24dp"
+        app:iconTint="@color/icon_second"
+        app:strokeColor="@color/bg_primary"
+        app:rippleColor="@color/rip_btn_primary"
+        app:strokeWidth="0dp" />
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_time_45minutes"
+        style="@style/Widget.Material3.Button.OutlinedButton.Icon"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="45 phút"
+        android:textAlignment="textStart"
+        android:textColor="@color/text_primary"
+        app:iconSize="24dp"
+        app:iconTint="@color/icon_second"
+        app:strokeColor="@color/bg_primary"
+        app:rippleColor="@color/rip_btn_primary"
+        app:strokeWidth="0dp" />
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_time_30minutes"
+        style="@style/Widget.Material3.Button.OutlinedButton.Icon"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="30 phút"
+        android:textAlignment="textStart"
+        android:textColor="@color/text_primary"
+        app:iconSize="24dp"
+        app:iconTint="@color/icon_second"
+        app:strokeColor="@color/bg_primary"
+        app:rippleColor="@color/rip_btn_primary"
+        app:strokeWidth="0dp" />
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_time_15minutes"
+        style="@style/Widget.Material3.Button.OutlinedButton.Icon"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="15 phút"
+        android:textAlignment="textStart"
+        android:textColor="@color/text_primary"
+        app:iconSize="24dp"
+        app:iconTint="@color/icon_second"
+        app:strokeColor="@color/bg_primary"
+        app:rippleColor="@color/rip_btn_primary"
+        app:strokeWidth="0dp" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_cancel_timer"
+        style="@style/Widget.Material3.Button.OutlinedButton.Icon"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Tắt phát nhạc"
+        android:textAlignment="textStart"
+        android:textColor="@color/text_primary"
+        app:iconSize="24dp"
+        app:iconTint="@color/icon_second"
+        app:strokeColor="@color/bg_primary"
+        app:rippleColor="@color/rip_btn_primary"
+        app:strokeWidth="0dp" />
+</LinearLayout>

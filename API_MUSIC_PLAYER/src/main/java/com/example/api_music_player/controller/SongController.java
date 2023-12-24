@@ -11,11 +11,15 @@ import com.example.api_music_player.service.ISongService;
 import com.example.api_music_player.service.IUserService;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+import org.jaudiotagger.audio.exceptions.CannotReadException;
+import org.jaudiotagger.audio.exceptions.InvalidAudioFrameException;
+import org.jaudiotagger.tag.TagException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -25,8 +29,23 @@ public class SongController {
     private final ISongService iSongService;
     private final IUserService iUserService;
     @PostMapping
-    public ResponseEntity<?> addSong(@RequestBody Song song) {
-        return ResponseEntity.ok(iSongService.create(song));
+    public ResponseEntity<?> addSong(@RequestBody Song song)  {
+        try {
+            return ResponseEntity.ok(iSongService.create(song));
+        } catch (CannotReadException | TagException | InvalidAudioFrameException | IOException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
+        @DeleteMapping("/{songId}")
+    public ResponseEntity<?> removeSong(@PathVariable Long songId)  {
+        return ResponseEntity.ok(iSongService.remove(songId));
+    }
+
+
+    @PutMapping("/change-scope/{songId}")
+    public ResponseEntity<?> changeScope(@PathVariable Long songId, @RequestParam Boolean isPrivate)  {
+        return ResponseEntity.ok(iSongService.changeScope(songId, isPrivate));
     }
 
     @GetMapping()

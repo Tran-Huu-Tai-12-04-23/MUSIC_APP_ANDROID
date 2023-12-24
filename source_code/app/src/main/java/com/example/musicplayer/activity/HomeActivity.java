@@ -81,6 +81,7 @@ public class HomeActivity extends AppCompatActivity {
     private boolean isCompleteSong;
     private Song currentSong;
     private int seekToValue;
+    private long timerCount = -1;
     private int currentFragment;
     private FirebaseService firebaseService;
     private StatePlayMusic statePlayMusic;
@@ -89,6 +90,10 @@ public class HomeActivity extends AppCompatActivity {
     AppDatabase dbLocal ;
 
     private User user;
+
+    public long getTimerCount() {
+        return timerCount;
+    }
 
     public StatePlayMusic getStatePlayMusic() {
         return statePlayMusic;
@@ -121,11 +126,12 @@ public class HomeActivity extends AppCompatActivity {
                 isShuffle = bundle.getBoolean(Constant.IS_SHUFFLE, false);
                 isRepeat = bundle.getBoolean(Constant.IS_REPEAT, false);
                 isCompleteSong = bundle.getBoolean(Constant.IS_COMPLETE_SONG, false);
+                timerCount = bundle.getLong(Constant.TIMER_COUNT, -1);
 //                 Xử lý dữ liệu nhận được từ broadcast
-//                Log.d("MyBroadcastReceiver", "Received Broadcast - ActionType: " + actionType
-//                        + ", Song: " + currentSong + ", IsPlaying: " + isPlaying
-//                        + ", SeekTo: " + seekToValue + ", IsPause: " + isPause
-//                        + ", IsShuffle: " + isShuffle + ", IsRepeat: " + isRepeat);
+                Log.d("MyBroadcastReceiver", "Received Broadcast - ActionType: " + actionType
+                        + ", Song: " + currentSong + ", IsPlaying: " + isPlaying
+                        + ", SeekTo: " + seekToValue + ", IsPause: " + isPause
+                        + ", IsShuffle: " + isShuffle + ", IsRepeat: " + isRepeat + ", timerCount: " + timerCount);
                 if( isCompleteSong ) {
                     handleCompleteSong();
                     return;
@@ -157,17 +163,14 @@ public class HomeActivity extends AppCompatActivity {
             case Constant.ACTION_PLAY: {
                 initViewFloatingMusic(currentSong);
                 handler.postDelayed(sendRequestUpdateSeekBar, 1000);
-                updateBtnPlay();
                 break;
             }
             case Constant.ACTION_RESUME: {
                 handler.postDelayed(sendRequestUpdateSeekBar, 1000);
-                updateBtnPlay();
                 break;
             }
             case Constant.ACTION_PAUSE:
             case Constant.ACTION_STOP: {
-                updateBtnPlay();
                 break;
             }
             case Constant.ACTION_NEXT:{
@@ -178,14 +181,22 @@ public class HomeActivity extends AppCompatActivity {
                 handlePrevSong();
                 break;
             }
+
+            case Constant.ACTION_OPEN_APP: {
+                Intent appIntent = new Intent(this, HomeActivity.class);
+                appIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(appIntent);
+
+                break;
+            }
             case Constant.UPDATE_STATE_PLAY_MUSIC : {
                 if( isPlaying ) {
 //                    handler.postDelayed(sendRequestUpdateSeekBar, 1000);
                 }
                 break;
             }
-
         }
+        updateBtnPlay();
     }
     private void handlePrevSong() {
         int indexSong = -1;
@@ -212,6 +223,7 @@ public class HomeActivity extends AppCompatActivity {
         }else {
             PlayMusicService.stopMusic(getApplicationContext());
             updateBtnPlay();
+            progressDuration.setProgress(0);
         }
     }
     private Runnable sendRequestUpdateSeekBar = new Runnable() {
@@ -431,8 +443,11 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     private void updateProgress(int seekTo) {
-        if( progressDuration.getMax() >= seekTo )
+        if( progressDuration.getMax() > seekTo )
             progressDuration.setProgress(seekTo);
+        else if( progressDuration.getMax() == seekTo ) {
+            progressDuration.setProgress(0);
+        }
     }
     private void updateBtnPlay() {
         if( isPlaying ) {
@@ -538,6 +553,8 @@ public class HomeActivity extends AppCompatActivity {
                 .playOn(findViewById(R.id.fragmentContainer));
         navController.navigate(R.id.nav_detail_artist, bundle);
         currentFragment = R.id.nav_detail_artist;
+
+
 
     }
 

@@ -1,5 +1,6 @@
 package Fragment.User;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -14,11 +15,16 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.musicplayer.R;
 import com.example.musicplayer.activity.HomeActivity;
+import com.example.musicplayer.activity.User.ChangePassword;
+import com.example.musicplayer.activity.User.EditProfile;
+import com.example.musicplayer.activity.User.StudioUser;
+import com.example.musicplayer.activity.User.UploadNewSong;
 import com.example.musicplayer.databinding.FragmentProfileBinding;
 
 import BottomSheet.BottomSheetSwitchTheme;
 import Model.User;
 import utils.LoadingDialog;
+import utils.Util;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -99,6 +105,40 @@ public class Profile extends Fragment {
             BottomSheetSwitchTheme bottomSheetSwitchTheme = new BottomSheetSwitchTheme();
 
             bottomSheetSwitchTheme.show(getChildFragmentManager(), "Open switch theme");
+        });
+
+        binding.btnActiveDashboard.setOnClickListener(v -> {
+            if( user == null ) return;
+            Intent intent = new Intent(requireContext(), StudioUser.class);
+            Bundle bundle = new Bundle();
+            bundle.putSerializable("user", this.user);
+            intent.putExtra("user", bundle);
+            startActivity(intent);
+        });
+
+        binding.btnUploadSong.setOnClickListener(v -> {
+            Intent intent = new Intent(requireContext(), UploadNewSong.class);
+            Bundle bundle = new Bundle();
+            bundle.putSerializable("user", this.user);
+            intent.putExtra("user", bundle);
+            startActivity(intent);
+        });
+
+        binding.btnChangePassword.setOnClickListener(v -> {
+            Intent intent = new Intent(requireContext(), ChangePassword.class);
+            Bundle bundle = new Bundle();
+            bundle.putSerializable("user", user);
+            intent.putExtra("user", bundle);
+            startActivity(intent);
+        });
+
+        binding.btnEditProfile.setOnClickListener(v -> {
+            Util.applyClickAnimation(v);
+            Intent intent = new Intent(requireContext(), EditProfile.class);
+            Bundle bundle = new Bundle();
+            bundle.putSerializable("user", user);
+            intent.putExtra("user", bundle);
+            startActivity(intent);
         });
 
 

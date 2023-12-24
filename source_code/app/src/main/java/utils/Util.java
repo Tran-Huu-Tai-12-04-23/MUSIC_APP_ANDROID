@@ -165,7 +165,9 @@ public class Util  {
                 break;
             }
         }
-
+        if( indexSong == -1  ) {
+            indexSong = 0;
+        }
         return indexSong;
     }
 
@@ -188,6 +190,10 @@ public class Util  {
                 }
                 break;
             }
+        }
+
+        if( indexSong == -1  ) {
+            indexSong = 0;
         }
 
         return indexSong;

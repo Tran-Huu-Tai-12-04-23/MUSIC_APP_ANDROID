@@ -7,11 +7,13 @@ import java.util.List;
 
 import Constanst.ConstantUrlAPI;
 import DTO.DetailPlaylistRequest;
+import DTO.UserChangePasswordRequest;
 import Model.Comment;
 import Model.DetailPlaylist;
 import Model.Follow;
 import Model.Liked;
 import Model.Playlist;
+import Model.ProfileDT;
 import Model.Song;
 import Model.User;
 import DTO.ChangePasswordRequest;
@@ -123,7 +125,8 @@ public interface ApiService {
     Call<Boolean>  isExistFollow(@Body Follow follow);
 
     // song user
-
+    @POST(ConstantUrlAPI.URL_ADD_SONG )
+    Call<Song>  addSong(@Body Song song);
     @GET(ConstantUrlAPI.URL_GET_SONG_BY_USER + "{userId}")
     Call<ResponseData<List<Song>>>  getAllSongByUser(@Path("userId") Long userId);
     @GET(ConstantUrlAPI.URL_GET_PRIVATE_SONG_BY_USER + "{userId}")
@@ -147,6 +150,22 @@ public interface ApiService {
     Call<Boolean>  unLike(@Body Liked liked);
     @POST(ConstantUrlAPI.URL_IS_CHECK_USERLIKE_SONG)
     Call<Boolean>  isCheckUserLikedSong(@Body Liked liked);
+
+    @DELETE(ConstantUrlAPI.URL_REMOVE_SONG + "{songId}")
+    Call<Boolean>  removeSong(@Path("songId") Long songId);
+    @PUT(ConstantUrlAPI.URL_CHANGE_SCOPE_SONG + "{songId}")
+    Call<Boolean>  changeScope(@Path("songId") Long songId, @Query("isPrivate") Boolean isPrivate);
+
+    // change password
+    @POST(ConstantUrlAPI.URL_CHANGE_PASSWORD_BYUSER)
+    Call<ResponseData<User>>  changePasswordByUSer(@Body UserChangePasswordRequest userChangePasswordRequest);
+
+    // profile
+
+    @GET(ConstantUrlAPI.URL_GET_PROFILE_BY_USER  + "{userId}")
+    Call<ProfileDT>  getProfileByUser(@Path("userId") Long userId);
+    @POST(ConstantUrlAPI.URL_EDIT_PROFILE_BY_USER)
+    Call<ProfileDT>  editProfile(@Body ProfileDT profileDT);
 
 }
 

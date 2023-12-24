@@ -12,6 +12,15 @@ public class Song implements Serializable {
     private Date uploadDate;
     private String genre;
     private User userUpload;
+    private Boolean isPrivate;
+
+    public Boolean getPrivate() {
+        return isPrivate;
+    }
+
+    public void setPrivate(Boolean aPrivate) {
+        isPrivate = aPrivate;
+    }
 
     public Song() {
     }

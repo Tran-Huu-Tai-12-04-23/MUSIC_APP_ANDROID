@@ -7,13 +7,19 @@ import com.example.api_music_player.repository.LikeRepository;
 import com.example.api_music_player.repository.PlaylistRepository;
 import com.example.api_music_player.repository.SongRepository;
 import com.example.api_music_player.service.ISongService;
+import com.example.api_music_player.util.Util;
 import lombok.RequiredArgsConstructor;
+import org.jaudiotagger.audio.exceptions.CannotReadException;
+import org.jaudiotagger.audio.exceptions.InvalidAudioFrameException;
+import org.jaudiotagger.tag.TagException;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -23,7 +29,7 @@ public class SongService implements ISongService {
     private final LikeRepository likeRepository;
 
     @Override
-    public Song create(Song song) {
+    public Song create(Song song) throws CannotReadException, TagException, InvalidAudioFrameException, IOException {
         return songRepository.save(song);
     }
 
@@ -79,6 +85,17 @@ public class SongService implements ISongService {
     }
 
     @Override
+    public Song changeScope(Long songId, Boolean isPrivate) {
+        Optional<Song> songOp = songRepository.findById(songId);
+        if( songOp.isEmpty() ) {
+            throw  new RuntimeException("Song not found!");
+        }
+        Song song = songOp.get();
+        song.setIsPrivate(isPrivate);
+        return songRepository.save(song);
+    }
+
+    @Override
     public List<Song> getAllWithPageSize(int page, int size) {
         Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.ASC, "uploadDate"));
         return songRepository.findAll(pageable).toList();
@@ -87,19 +104,19 @@ public class SongService implements ISongService {
     @Override
     public List<Song> getNewSong(int page, int size) {
         Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "uploadDate"));
-        return songRepository.findAll(pageable).toList();
+        return songRepository.findAllByIsPrivateFalse(pageable).toList();
     }
 
     @Override
     public List<Song> getFamousSong(int page, int size) {
         Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "title"));
-        return songRepository.findAll(pageable).toList();
+        return songRepository.findAllByIsPrivateFalse(pageable).toList();
     }
 
     @Override
     public List<Song> getRecentSong(int page, int size) {
         Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "songLink"));
-        return songRepository.findAll(pageable).toList();
+        return songRepository.findAllByIsPrivateFalse(pageable).toList();
     }
 
     @Override
@@ -122,7 +139,7 @@ public class SongService implements ISongService {
 
     @Override
     public List<Song> getAllSongByUser(int userId, Integer page, Integer size) {
-        Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.ASC, "uploadDate"));
+        Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "uploadDate"));
         return songRepository.findAllByUserUploadId(userId, pageable);
     }
 

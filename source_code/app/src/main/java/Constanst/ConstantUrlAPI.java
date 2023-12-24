@@ -48,6 +48,9 @@ public class ConstantUrlAPI {
     public final static String URL_GET_PUBLIC_SONG_BY_USER = BASE_URL_API + "song/public/";
     public final static String URL_GET_PRIVATE_SONG_BY_USER = BASE_URL_API +  "song/private/";
     public final static String URL_GET_SONG_BY_USER = BASE_URL_API + "song/all/";
+    public final static String URL_ADD_SONG = BASE_URL_API + "song";
+    public final static String URL_REMOVE_SONG = BASE_URL_API + "song/";
+    public final static String URL_CHANGE_SCOPE_SONG = BASE_URL_API + "song/change-scope/";
 
     // playlist user
     public final static String URL_GET_PUBLIC_PLAYLIST_BY_USER = BASE_URL_API + "playlist/all/public/";
@@ -58,5 +61,12 @@ public class ConstantUrlAPI {
     public final static String URL_LIKE = BASE_URL_API + "song/like";
     public final static String URL_UN_LIKE = BASE_URL_API +  "song/un-like";
     public final static String URL_IS_CHECK_USERLIKE_SONG = BASE_URL_API + "song/is-check-user-like";
+
+    // change pasword
+    public final static String URL_CHANGE_PASSWORD_BYUSER = BASE_URL_API + "auth/change-password";
+
+    // profile
+    public final static String URL_GET_PROFILE_BY_USER = BASE_URL_API + "user/profile/";
+    public final static String URL_EDIT_PROFILE_BY_USER = BASE_URL_API + "user/profile/edit";
 
 }

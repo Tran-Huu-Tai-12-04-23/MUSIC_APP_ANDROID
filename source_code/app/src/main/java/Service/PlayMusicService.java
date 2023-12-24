@@ -14,6 +14,7 @@ import android.graphics.BitmapFactory;
 import android.media.MediaPlayer;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.os.Handler;
 import android.os.IBinder;
 import android.util.Log;
@@ -25,8 +26,10 @@ import androidx.core.app.NotificationManagerCompat;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import com.example.musicplayer.R;
+import com.example.musicplayer.activity.HomeActivity;
 
 import Constanst.Constant;
+import Firebase.FirebaseService;
 import LocalData.Entity.StatePlayMusic;
 import Model.Song;
 
@@ -45,7 +48,31 @@ public class PlayMusicService extends Service {
     private Handler handler;
     private NotificationCompat.Builder notificationBuilder;
     private NotificationManagerCompat notificationManagerCompat;
+    private CountDownTimer timer;
+    private long timeCount = -1;
 
+
+    private void startTimerCountDown(long millisInFuture) {
+        if (timer != null) {
+            timer.cancel();
+            timer = null;
+        }
+
+        timer = new CountDownTimer(millisInFuture, 1000) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                timeCount = millisUntilFinished;
+                sendBroadcastToActivity(-1);
+            }
+
+            @Override
+            public void onFinish() {
+                handleChangeStatus(Constant.ACTION_STOP);
+            }
+        };
+
+        timer.start();
+    }
 
     @Override
     public void onCreate() {
@@ -62,6 +89,7 @@ public class PlayMusicService extends Service {
                         isCompeleteSong = true;
                         currentSong = null;
                         seekToValue = 0;
+                        seekTo(0);
                         sendBroadcastToActivity(Constant.ACTION_STOP);
                     }
                 }
@@ -72,9 +100,13 @@ public class PlayMusicService extends Service {
 
     private void createNotification(Song currentSong) {
         if (currentSong == null) return;
+        PendingIntent contentIntent = PendingIntent.getActivity(this, 0,
+                new Intent(this, HomeActivity.class), PendingIntent.FLAG_UPDATE_CURRENT);
+
         Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.app_icon);
         notificationBuilder = new NotificationCompat.Builder(this, CHANNEL_ID_MUSIC)
                 .setSmallIcon(R.drawable.app_icon)
+                .setContentIntent(contentIntent)
                 .setContentTitle(currentSong.getTitle())
                 .setContentText(currentSong.getUserUpload().getUsername())
                 .setSubText(isPlaying ? "Đang chạy" : "Tạm dừng")
@@ -138,10 +170,15 @@ public class PlayMusicService extends Service {
             StatePlayMusic statePlayMusic = (StatePlayMusic) bundle.getSerializable(Constant.STATE_PLAY);
 
             song = (Song) bundle.getSerializable(Constant.CURRENT_SONG);
+            long timer = bundle.getLong(Constant.TIMER_COUNT, -1);
+
+            if( timer != -1  ) {
+                startTimerCountDown(timer);
+            }
+
             if( statePlayMusic != null ) {
                 currentSong = song;
                 updateNotification(currentSong);
-                return START_NOT_STICKY;
             }
             if (song != null) {
                 if( currentSong == null || currentSong.getId() != song.getId()) {
@@ -204,7 +241,8 @@ public class PlayMusicService extends Service {
                 isPlaying = false;
                 isPause = false;
                 isCompeleteSong = false;
-                mediaPlayer.stop();
+                if( mediaPlayer.isPlaying() )
+                    mediaPlayer.stop();
                 break;
             }
             case Constant.ACTION_REPEAT: {
@@ -216,6 +254,10 @@ public class PlayMusicService extends Service {
                 break;
             }
             case Constant.ACTION_SEEK_TO: {
+                break;
+            }
+            case Constant.ACTION_CANCEL_TIMER: {
+                timer.cancel();
                 break;
             }
 //            default: {
@@ -246,6 +288,7 @@ public class PlayMusicService extends Service {
         bundle.putBoolean(Constant.IS_REPEAT, isRepeat);
         bundle.putBoolean(Constant.IS_COMPLETE_SONG, isCompeleteSong);
         bundle.putBoolean(Constant.IS_PAUSE, isPause);
+        bundle.putLong(Constant.TIMER_COUNT, timeCount);
 
         intent.putExtras(bundle);
         LocalBroadcastManager localBroadcastManager = LocalBroadcastManager.getInstance(this);
@@ -261,7 +304,7 @@ public class PlayMusicService extends Service {
 
 
     private void seekTo(int seekToValue) {
-        if (mediaPlayer != null) {
+        if (mediaPlayer != null && mediaPlayer.isPlaying() ) {
             mediaPlayer.seekTo(seekToValue * 1000L, MediaPlayer.SEEK_CLOSEST);
             mediaPlayer.setOnSeekCompleteListener(new MediaPlayer.OnSeekCompleteListener() {
                 @Override
@@ -329,16 +372,26 @@ public class PlayMusicService extends Service {
     }
 
     public static void playMusic(Context context, Song song) {
-        Bundle bundle = new Bundle();
-        bundle.putSerializable(Constant.CURRENT_SONG,song);
-        Intent intent = new Intent(context, PlayMusicService.class);
-        intent.putExtras(bundle);
-        // Start the service
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            context.startForegroundService(intent);
-        } else {
-            context.startService(intent);
-        }
+
+        FirebaseService firebaseService = new FirebaseService(context);
+        firebaseService.changeCurrentSong(song, new FirebaseService.OnSaveCompleteListener() {
+            @Override
+            public void onSaveComplete(boolean isSuccess) {
+                if( isSuccess ) {
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable(Constant.CURRENT_SONG,song);
+                    Intent intent = new Intent(context, PlayMusicService.class);
+                    intent.putExtras(bundle);
+                    // Start the service
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                        context.startForegroundService(intent);
+                    } else {
+                        context.startService(intent);
+                    }
+                }
+            }
+        });
+
     }
 
     public static void stopMusic(Context context) {
@@ -358,6 +411,31 @@ public class PlayMusicService extends Service {
         bundle.putSerializable(Constant.STATE_PLAY,statePlayMusic);
         Intent intent = new Intent(context, PlayMusicService.class);
         intent.putExtras(bundle);
+        // Start the service
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            context.startForegroundService(intent);
+        } else {
+            context.startService(intent);
+        }
+    }
+
+    public static void startTimer(Context context, long time) {
+        Bundle bundle = new Bundle();
+        bundle.putLong(Constant.TIMER_COUNT,time);
+        Intent intent = new Intent(context, PlayMusicService.class);
+        intent.putExtras(bundle);
+        intent.putExtra(Constant.ACTION_TYPE, Constant.ACTION_START_TIMER);
+        // Start the service
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            context.startForegroundService(intent);
+        } else {
+            context.startService(intent);
+        }
+    }
+
+    public static void cancelTimer(Context context) {
+        Intent intent = new Intent(context, PlayMusicService.class);
+        intent.putExtra(Constant.ACTION_TYPE, Constant.ACTION_CANCEL_TIMER);
         // Start the service
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             context.startForegroundService(intent);

@@ -100,7 +100,12 @@ public class FollowingScreen extends Fragment implements BottomSheetActionArtist
         containerArtistFollowing.setAdapter(followingAdapter);
 
         followingAdapter.setOnClickListener(user -> {
-
+            if(requireActivity() instanceof  HomeActivity ) {
+                HomeActivity home = (HomeActivity) requireActivity();
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("user", user);
+                home.openDetailArtist(bundle);
+            }
         });
 
         followingAdapter.setOnLongClickListener(dt -> {

@@ -3,7 +3,6 @@ package com.example.musicplayer.activity.Library;
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -18,6 +17,7 @@ import BottomSheet.BottomSheetAddPlaylist;
 import DTO.DetailPlaylistRequest;
 import DTO.ResponseData;
 import Interface.BottomSheetAddPlaylistInteractionListener;
+import Interface.HandleCheckedItem;
 import Interface.HandleListeningItemClicked;
 import Model.Playlist;
 import Model.User;
@@ -65,7 +65,18 @@ public class AddSongToPlaylistActivity extends AppCompatActivity implements Bott
             @SuppressLint("NotifyDataSetChanged")
             @Override
             public void onClick(Playlist data) {
-                Toast.makeText(AddSongToPlaylistActivity.this, "Check", Toast.LENGTH_SHORT).show();
+                playlists.stream().forEach(pl -> {
+                    if(pl.getId().equals(data.getId())) {
+                        pl.setSelected(!pl.getSelected());
+                    }
+                });
+                playlistAddSongAdapter.notifyDataSetChanged();
+            }
+        });
+        playlistAddSongAdapter.setOnCheckedItem(new HandleCheckedItem<Playlist>() {
+            @SuppressLint("NotifyDataSetChanged")
+            @Override
+            public void onChecked(Playlist data) {
                 playlists.stream().forEach(pl -> {
                     if(pl.getId().equals(data.getId())) {
                         pl.setSelected(!pl.getSelected());
@@ -75,6 +86,9 @@ public class AddSongToPlaylistActivity extends AppCompatActivity implements Bott
             }
         });
 
+        binding.btnBack.setOnClickListener(v -> {
+            finish();
+        });
         binding.btnDone.setOnClickListener(v -> {
             doneAddSongToPlaylist();
         });

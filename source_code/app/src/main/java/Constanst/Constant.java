@@ -26,6 +26,7 @@ public class Constant {
 
     /// action service
     public static final String CURRENT_SONG = "CURRENT_SONG";
+    public static final String TIMER_COUNT = "TIMER_COUNT";
     public static final String STATE_PLAY = "STATE_PLAY";
     public static final String ACTION_TYPE = "AC_TYPE";
 
@@ -41,12 +42,12 @@ public class Constant {
     public static final int ACTION_STOP = 4;
     public static final int ACTION_NEXT = 5;
     public static final int ACTION_PREVIOUS = 6;
-    public static final int ACTION_CLOSE = 7;
+    public static final int ACTION_CANCEL_TIMER = 7;
     public static final int ACTION_PLAY_PLAYLIST = 8;
-    public static final int ACTION_PLAY_BACK = 9;
+    public static final int ACTION_START_TIMER = 9;
     public static final int ACTION_SHUFFLE = 10;
     public static final int ACTION_REPEAT = 11;
-    public static final int ACTION_SONG_LIKED = 12;
+    public static final int ACTION_OPEN_APP = 12;
     public static final int ACTION_SEEK_TO = 13;
     public static final int UPDATE_STATE_PLAY_MUSIC = 14;
     public static final String SEEK_VALUE_TAG = "SEEK_VALUE";

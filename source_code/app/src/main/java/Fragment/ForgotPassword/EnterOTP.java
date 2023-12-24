@@ -1,30 +1,18 @@
 package Fragment.ForgotPassword;
 
-import static android.content.ContentValues.TAG;
-
 import android.content.Intent;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.core.content.res.ResourcesCompat;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
-import androidx.loader.content.Loader;
-
-import android.app.Application;
 import android.os.Handler;
 import android.text.Editable;
-import android.text.TextUtils;
 import android.text.TextWatcher;
-import android.text.method.KeyListener;
-import android.text.method.PasswordTransformationMethod;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
 
 import com.example.musicplayer.R;
 import com.example.musicplayer.activity.ForGotPassword.ChangePassword;
@@ -32,25 +20,18 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
-import com.google.firebase.FirebaseApp;
 import com.google.firebase.FirebaseException;
-import com.google.firebase.FirebaseTooManyRequestsException;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
-import com.google.firebase.auth.FirebaseAuthMissingActivityForRecaptchaException;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthOptions;
 import com.google.firebase.auth.PhoneAuthProvider;
 
 import java.util.Objects;
-import java.util.Timer;
-import java.util.TimerTask;
 import java.util.concurrent.TimeUnit;
 
 import io.github.muddz.styleabletoast.StyleableToast;
 import utils.LoadingDialog;
-import utils.Util;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -297,7 +278,7 @@ public class EnterOTP extends Fragment {
                     Intent intent = new Intent(requireContext(), ChangePassword.class);
                     intent.putExtra("phone", phoneNumber.substring(3));
                     startActivity(intent);
-//                    requireActivity().finish();
+                    requireActivity().finish();
                 }else{
                     StyleableToast.makeText(requireContext(), "OTP không hợp lệ! Thử lại!", Toast.LENGTH_LONG, R.style.toast_error).show();
                 }

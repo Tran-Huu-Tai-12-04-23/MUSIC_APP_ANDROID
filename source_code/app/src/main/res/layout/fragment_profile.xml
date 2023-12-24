@@ -274,6 +274,19 @@
                         app:strokeColor="@color/bg_primary"
                         app:strokeWidth="0dp" />
                     <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btn_change_password"
+                        style="@style/Widget.Material3.Button.OutlinedButton.Icon"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Thay đổi mật khẩu"
+                        android:textAlignment="textStart"
+                        android:textColor="@color/text_primary"
+                        app:icon="@drawable/password_minimalistic_svgrepo_com"
+                        app:iconSize="24dp"
+                        app:iconTint="@color/icon_second"
+                        app:strokeColor="@color/bg_primary"
+                        app:strokeWidth="0dp" />
+                    <com.google.android.material.button.MaterialButton
                         android:id="@+id/btnUploadSong"
                         style="@style/Widget.Material3.Button.OutlinedButton.Icon"
                         android:layout_width="match_parent"

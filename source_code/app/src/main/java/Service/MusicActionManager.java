@@ -9,6 +9,7 @@ import android.os.AsyncTask;
 import android.widget.Toast;
 
 import java.io.IOException;
+import java.util.concurrent.ExecutionException;
 
 import Constanst.Constant;
 import Model.Song;
@@ -44,10 +45,17 @@ public class MusicActionManager {
 
     private static void play(Context context, MediaPlayer mediaPlayer, Song song) {
         if (currentPrepareMusicTask != null) {
-            currentPrepareMusicTask.cancel(true);
+            try {
+                currentPrepareMusicTask.get();
+            } catch (InterruptedException | ExecutionException e) {
+                e.printStackTrace();
+            }
         }
         // Your play logic here
         try {
+            if (mediaPlayer.isPlaying()) {
+                mediaPlayer.stop();
+            }
             mediaPlayer.reset();
             if (!song.getSongLink().isEmpty()) {
                 currentPrepareMusicTask = new PrepareMusicTask(context, mediaPlayer);

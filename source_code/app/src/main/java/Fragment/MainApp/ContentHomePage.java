@@ -300,13 +300,13 @@ public class ContentHomePage extends Fragment implements BottomSheetActionArtist
         StatePlayMusic statePlayMusic = homeActivity.getStatePlayMusic();
 
         if( statePlayMusic != null && currentSong != null) {
-            if(  statePlayMusic.isPause()) {
-                PlayMusicService.resumeMusic(requireContext());
-            }else if( currentSong.getId() != song.getId() ) {
+            if( currentSong.getId() != song.getId() ) {
                 PlayMusicService.playMusic(requireContext(), song);
+            } else  if(  statePlayMusic.isPause()) {
+                PlayMusicService.resumeMusic(requireContext());
             }
-        } else if( currentSong != null ) {
-            if(currentSong.getId() != song.getId()) {
+        } else if( song != null ) {
+            if((currentSong != null ? currentSong.getId() : 0) != song.getId()) {
                 PlayMusicService.playMusic(requireContext(), song);
             }
         }

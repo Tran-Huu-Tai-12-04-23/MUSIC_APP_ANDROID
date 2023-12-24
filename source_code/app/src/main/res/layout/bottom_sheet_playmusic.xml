@@ -526,7 +526,7 @@
                        app:rippleColor="@color/rip_btn_primary"
                        />
                    <com.google.android.material.button.MaterialButton
-                       android:id="@+id/btn_timmer_promise"
+                       android:id="@+id/btn_timer_promise"
                        style="@style/Widget.Material3.Button.OutlinedButton.Icon"
                        android:layout_width="60dp"
                        android:layout_height="wrap_content"

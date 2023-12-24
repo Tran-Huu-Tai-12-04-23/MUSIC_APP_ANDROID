@@ -3,6 +3,7 @@ package com.example.api_music_player.controller;
 
 import com.example.api_music_player.dto.ChangePasswordRequest;
 import com.example.api_music_player.dto.Response;
+import com.example.api_music_player.dto.UserChangePasswordRequest;
 import com.example.api_music_player.exception.PhoneNumberInUseException;
 import com.example.api_music_player.exception.UserAlreadyExistsException;
 import com.example.api_music_player.model.User;
@@ -25,9 +26,7 @@ public class AuthenticationController {
         try {
             String message = "";
             boolean checkErr = false;
-
             if( user == null)  return (ResponseEntity<?>) ResponseEntity.badRequest();;
-
             if( user.getUsername().equals(" ")) {
                 message = "Please enter username";
                 checkErr = true;
@@ -129,6 +128,20 @@ public class AuthenticationController {
             Response<User> response = new Response<>();
             response.setMessage(e.getMessage());
             return ResponseEntity.badRequest().body(response);
+        }
+    }
+
+    @PostMapping("/change-password")
+    public ResponseEntity<?> resetPassword(@RequestBody UserChangePasswordRequest userChangePasswordRequest) {
+        try{
+            Response<User> response = new Response<>();
+            User user = userService.changePasswordByUser(userChangePasswordRequest);
+            response.setData(user);
+            return ResponseEntity.ok(response);
+        }catch (RuntimeException e) {
+            Response<User> response = new Response<>();
+            response.setMessage(e.getMessage());
+            return ResponseEntity.ok(response);
         }
     }
 

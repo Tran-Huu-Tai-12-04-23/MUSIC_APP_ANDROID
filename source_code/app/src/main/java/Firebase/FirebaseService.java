@@ -4,22 +4,28 @@ import static android.content.Context.MODE_PRIVATE;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.widget.Toast;
+import android.net.Uri;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
-import LocalData.Entity.CurrentPlaylistEntity;
-import LocalData.Entity.SongEntity;
+import Interface.OnAudioUploadCompleteListener;
+import Interface.OnImageUploadCompleteListener;
 import Model.CurrentPlaylist;
 import Model.Song;
 
@@ -27,6 +33,7 @@ public class FirebaseService {
     private static final String CURRENT_PLAYLIST_NODE = "current_playlist";
 
     private final DatabaseReference databaseReference;
+    private final FirebaseStorage storage;
     private Long userId;
 
 
@@ -41,6 +48,7 @@ public class FirebaseService {
             userId = Long.parseLong(strUserId);
         }
         this.databaseReference = FirebaseDatabase.getInstance().getReference().child(userId.toString());
+        this.storage = FirebaseStorage.getInstance();
     }
 
     public void saveCurrentSong(CurrentPlaylist CurrentPlaylist, final OnSaveCompleteListener listener) {
@@ -199,6 +207,68 @@ public class FirebaseService {
 
 
     }
+    public void uploadImage(Uri imageUri, final OnImageUploadCompleteListener listener) {
+        // Tạo một tham chiếu đến nơi bạn muốn lưu trữ ảnh trong Firebase Storage
+        StorageReference storageRef = storage.getReference().child("images/" + UUID.randomUUID().toString());
+
+        // Tải lên ảnh lên Firebase Storage
+        UploadTask uploadTask = storageRef.putFile(imageUri);
+        // Đăng ký nghe sự kiện hoàn thành
+        uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                // Lấy URL của ảnh đã tải lên
+                storageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                    @Override
+                    public void onSuccess(Uri downloadUri) {
+                        String imageUrl = downloadUri.toString();
+                        // Gọi phương thức callback để thông báo về việc tải lên ảnh thành công
+                        if (listener != null) {
+                            listener.onImageUploadComplete(imageUrl);
+                        }
+                    }
+                });
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                if (listener != null) {
+                    listener.onImageUploadComplete(null);
+                }
+            }
+        });
+    }
+
+
+    public void uploadAudio(Uri audioUri, final OnAudioUploadCompleteListener listener) {
+        StorageReference storageRef = storage.getReference().child("audios/" + UUID.randomUUID().toString() + ".mp3");
+        UploadTask uploadTask = storageRef.putFile(audioUri);
+        uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                // Lấy URL của file audio đã tải lên
+                storageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                    @Override
+                    public void onSuccess(Uri downloadUri) {
+                        String audioUrl = downloadUri.toString();
+                        // Gọi phương thức callback để thông báo về việc tải lên file audio thành công
+                        if (listener != null) {
+                            listener.onUploadCompleteAudio(audioUrl);
+                        }
+                    }
+                });
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                if (listener != null) {
+                    listener.onUploadCompleteAudio(null);
+                }
+            }
+        });
+    }
+
+
 
 
     private boolean songExistList(Song song, List<Song> songs) {

@@ -39,16 +39,16 @@ import java.util.stream.Collectors;
 import Adapter.SearchListAdapter;
 import Adapter.SearchListHistoryAdapter;
 import BottomSheet.BottomSheetActionSong;
-import BottomSheet.BottomSheetPlayMusic;
+import DTO.ResponseData;
 import Interface.HandleListeningItemClicked;
 import Interface.HandleListeningItemLongClicked;
 import Interface.HandleListeningOpenMenuClicked;
 import Interface.HandleListeningRemove;
 import LocalData.Database.AppDatabase;
 import Model.Song;
-import DTO.ResponseData;
 import Service.ApiService;
 import Service.ModelRequest.HistoryRequest;
+import Service.PlayMusicService;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -290,9 +290,7 @@ public class Search extends Fragment {
     }
 
     private void searchClick(Song data) {
-        BottomSheetPlayMusic bottomSheetPlayMusic = new BottomSheetPlayMusic();
-        bottomSheetPlayMusic.setSong(data);
-        bottomSheetPlayMusic.show(getChildFragmentManager(), "Open playmusic");
+        PlayMusicService.playMusic(requireContext(), data);
     }
 
     private void openMenu(Song data) {

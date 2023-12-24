@@ -3,11 +3,16 @@ package BottomSheet;
 import android.animation.ObjectAnimator;
 import android.annotation.SuppressLint;
 import android.app.Dialog;
+import android.app.DownloadManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.media.MediaPlayer;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.Settings;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -30,9 +35,7 @@ import com.google.android.material.imageview.ShapeableImageView;
 import com.google.android.material.slider.Slider;
 import com.google.android.material.snackbar.Snackbar;
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 import Constanst.Constant;
 import Firebase.FirebaseService;
@@ -64,7 +67,7 @@ public class BottomSheetPlayMusic extends BottomSheetDialogFragment implements B
     private int valueSeekToPress = -1;
 
     ShapeableImageView btnPrev, btnPlay, btnNext, btnShuffle, btnRepeat ;
-    MaterialButton btnClosePlayMusic, btnOpenPlayingList, btnOpenMusicComment, btnOpenMenu, btnLike;
+    MaterialButton btnClosePlayMusic, btnOpenPlayingList, btnOpenMusicComment, btnOpenMenu, btnLike, btnDownloadMusic, btnTimerPromise;
     ImageView thumbnails;
     TextView tvNameSong, tvNameArtist, tvDurationStart, tvDurationEnd;
     Slider sliderDurationMusic;
@@ -149,6 +152,7 @@ public class BottomSheetPlayMusic extends BottomSheetDialogFragment implements B
         }
     }
     private void handleCompleteSong() {
+        sliderDurationMusic.setValue(0f);
 //        if( isCompleteSong && !isRepeat && !isShuffle && currentSong != null ) {
 //            PlayMusicService.stopMusic(requireContext(), currentSong);
 //            isPlaying = false;
@@ -203,6 +207,14 @@ public class BottomSheetPlayMusic extends BottomSheetDialogFragment implements B
         tvNameSongDetailTitle = view.findViewById(R.id.tv_name_song_detail_title);
         tvNameArtistDetailTitle = view.findViewById(R.id.tv_name_artist_detail_title);
         btnLike = view.findViewById(R.id.btn_add_favourite_music);
+        btnDownloadMusic = view.findViewById(R.id.btn_download_music);
+        btnTimerPromise = view.findViewById(R.id.btn_timer_promise);
+
+        btnTimerPromise.setOnClickListener(v -> {
+            Util.applyClickAnimation(v);
+            BottomSheetPromiseTime bottomSheetPromiseTime = new BottomSheetPromiseTime();
+            bottomSheetPromiseTime.show(getChildFragmentManager(), "Timer show");
+        });
 
         btnOpenMusicComment.setOnClickListener(v -> {
             BottomSheetComment bottomSheetComment = new BottomSheetComment();
@@ -274,11 +286,16 @@ public class BottomSheetPlayMusic extends BottomSheetDialogFragment implements B
             }
         });
 
+        btnDownloadMusic.setOnClickListener(v -> {
+            handleDownloadMusic();
+        });
+
+
         initCheckLiked();
 
-        if( currentSong != null ) {
-            handleUpdateUi();
-        }
+//        if( currentSong != null ) {
+//            handleUpdateUi();
+//        }
 
         HomeActivity homeActivity = (HomeActivity) requireActivity();
         StatePlayMusic statePlayMusic = homeActivity.getStatePlayMusic();
@@ -286,6 +303,40 @@ public class BottomSheetPlayMusic extends BottomSheetDialogFragment implements B
 
         return dialog;
     }
+
+    private void handleDownloadMusic() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            if (Environment.isExternalStorageManager()) {
+                startDownload();
+            } else {
+                Intent intent = new Intent(Settings.ACTION_MANAGE_ALL_FILES_ACCESS_PERMISSION);
+                startActivity(intent);
+            }
+        } else {
+            startDownload();
+        }
+
+    }
+
+    private void startDownload() {
+        if( currentSong == null ) return;
+        String url = currentSong.getSongLink() + Constant.authStringApiSongLink;
+
+        DownloadManager.Request request = new DownloadManager.Request(Uri.parse(url));
+        request.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_MOBILE | DownloadManager.Request.NETWORK_WIFI);
+        request.setTitle("Tải về " + currentSong.getTitle());
+        request.setDescription("Tải nhạc");
+
+        request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_ONLY_COMPLETION);
+        request.setDestinationInExternalPublicDir(Environment.DIRECTORY_MUSIC, String.valueOf(System.currentTimeMillis()) + currentSong.getTitle());
+
+        DownloadManager downloadManager = (DownloadManager) requireContext().getSystemService(Context.DOWNLOAD_SERVICE);
+        if( downloadManager != null ) {
+            downloadManager.enqueue(request);
+        }
+    }
+
+
     private void like() {
         if(user == null || currentSong == null ) return;
         Liked liked = new Liked();
@@ -411,10 +462,15 @@ public class BottomSheetPlayMusic extends BottomSheetDialogFragment implements B
     }
     //handle update UI
     private void updateDurationSlide(int value) {
-        if( value <= sliderDurationMusic.getValueTo() ) {
+        if( sliderDurationMusic.getValueTo() > value ){
             sliderDurationMusic.setValue(value);
+            tvDurationStart.setText(Util.convertDurationToString(value));
         }
-        tvDurationStart.setText(Util.convertDurationToString(value));
+        else if( sliderDurationMusic.getValueTo() == value ) {
+            sliderDurationMusic.setValue(0);
+            tvDurationStart.setText(Util.convertDurationToString(0));
+        }
+
     }
 
     private void updateBtnPlay() {
@@ -519,35 +575,25 @@ public class BottomSheetPlayMusic extends BottomSheetDialogFragment implements B
                 if (currentPlaylist == null) {
                     initPlayingSong();
                 } else {
-                    if( currentPlaylist.getSongs() != null && currentSong != null){
-                        boolean isSongExist = songExistList(currentSong, currentPlaylist.getSongs());
-                        if( !isSongExist)
-                            addSongIntoList(currentSong, currentPlaylist);
-                    }
+//                    if( currentPlaylist.getSongs() != null && currentSong != null){
+//                        boolean isSongExist = songExistList(currentSong, currentPlaylist.getSongs());
+//                        if( !isSongExist)
+//                            addSongIntoList(currentSong, currentPlaylist);
+//                    }
                     if( currentSong == null && currentPlaylist.getCurrentSong() != null) {
                         currentSong = currentPlaylist.getCurrentSong();
                     }else {
                         changeCurrentSongPlayingList(currentSong);
                         handleUpdateUi();
                     }
-
-                    if( currentPlaylist.getCurrentSong().getId() != currentSong.getId()) {
-                        PlayMusicService.playMusic(requireContext(), currentSong);
-                    }
+//
+//                    if( currentPlaylist.getCurrentSong().getId() != currentSong.getId()) {
+//                        PlayMusicService.playMusic(requireContext(), currentSong);
+//                    }
 
                 }
             }
         });
-
-    }
-
-    private void addSongIntoList(Song song, CurrentPlaylist currentPlaylist) {
-        firebaseService.addSongToPlaylist( song, new FirebaseService.OnSaveCompleteListener() {
-            @Override
-            public void onSaveComplete(boolean isSuccess) {
-            }
-        });
-
 
     }
 
@@ -560,31 +606,20 @@ public class BottomSheetPlayMusic extends BottomSheetDialogFragment implements B
         });
 
     }
-    private boolean songExistList(Song song, List<Song> songs) {
-        for( Song songEntity : songs ) {
-            if( songEntity.getTitle().equals(song.getTitle())
-                    && songEntity.getSongLink().equals(song.getSongLink())
-                    && songEntity.getThumbnails().equals(song.getThumbnails())) {
-                return true;
-            }
-        }
-        return false;
-    }
-
     private void initPlayingSong() {
-        CurrentPlaylist currentPlaylist = new CurrentPlaylist();
-
-        currentPlaylist.setCurrentSong(currentSong);
-        List<Song> songs = new ArrayList<>();
-        songs.add(currentSong);
-        currentPlaylist.setSongs(songs);
-
-        firebaseService.saveCurrentSong(currentPlaylist, new FirebaseService.OnSaveCompleteListener() {
-            @Override
-            public void onSaveComplete(boolean isSuccess) {
-
-            }
-        });
+//        CurrentPlaylist currentPlaylist = new CurrentPlaylist();
+//
+//        currentPlaylist.setCurrentSong(currentSong);
+//        List<Song> songs = new ArrayList<>();
+//        songs.add(currentSong);
+//        currentPlaylist.setSongs(songs);
+//
+//        firebaseService.saveCurrentSong(currentPlaylist, new FirebaseService.OnSaveCompleteListener() {
+//            @Override
+//            public void onSaveComplete(boolean isSuccess) {
+//
+//            }
+//        });
     }
 
     @Override

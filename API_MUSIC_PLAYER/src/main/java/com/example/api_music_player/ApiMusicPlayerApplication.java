@@ -97,37 +97,7 @@ public class APiMusicPlayerApplication  implements CommandLineRunner {
 
 	}
 
-	public static File downloadFile(String url) throws IOException {
-		File tempFile = File.createTempFile("audio", ".mp3");
 
-		try (CloseableHttpClient client = HttpClients.createDefault();
-			 CloseableHttpResponse response = client.execute(new HttpGet(url));
-			 InputStream in = response.getEntity().getContent();
-			 OutputStream out = new FileOutputStream(tempFile)) {
-
-			byte[] buffer = new byte[1024];
-			int bytesRead;
-			while ((bytesRead = in.read(buffer)) != -1) {
-				out.write(buffer, 0, bytesRead);
-			}
-		}
-
-		return tempFile;
-	}
-
-	public static int getAudioDuration(String url ) throws IOException, CannotReadException, TagException, InvalidAudioFrameException {
-		try {
-			File audioFile = downloadFile(url);
-			AudioFile file = AudioFileIO.read(audioFile);
-			int duration = file.getAudioHeader().getTrackLength();
-			return duration;
-		} catch (IOException | CannotReadException | TagException | InvalidAudioFrameException e) {
-			e.printStackTrace();
-			throw e;
-		} catch (ReadOnlyFileException e) {
-            throw new RuntimeException(e);
-        }
-    }
 
 	public static String crawlData(String link){
 		try {
