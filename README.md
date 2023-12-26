@@ -12,6 +12,6 @@
 -   Thay đổi đưởng dẫn API phù hợp với địa chỉ API của máy để có thể call API
 
 #note
-link video demo : https://drive.google.com/file/d/12fF-pEU06joesLmJM1qKg969rtsza2pK/view?usp=sharing
+link video demo : https://firebasestorage.googleapis.com/v0/b/appmapdemo-b2a39.appspot.com/o/202312261300.mp4?alt=media&token=d9aced46-9422-496f-8ef4-1f07c3e2dc5b
 link git source code : https://github.com/Tran-Huu-Tai-12-04-23/MUSIC_APP_ANDROID
 
